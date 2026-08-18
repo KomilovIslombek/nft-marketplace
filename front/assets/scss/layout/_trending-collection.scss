@@ -1,0 +1,116 @@
+// =====================================================
+// _TRENDING-COLLECTION.SCSS
+// =====================================================
+
+
+.trending-collection {
+  padding-block: $space-3xl;
+
+  &__header {
+    margin-bottom: $space-lg;
+  }
+
+  &__title {
+
+    @include work-sans(600, 2.375rem, 120%);
+    text-transform: capitalize;
+    color: $text-color-white;
+  }
+
+  &__subtitle {
+    @include work-sans(400, 1.375rem, 160%);
+
+    text-transform: capitalize;
+    color: $text-color-white;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-lg;
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+
+      .nft-card:last-child{
+        display: none;
+      }
+    }
+
+    @include mobile {
+    .nft-card:nth-child(2) {
+        display: none;
+      }
+      grid-template-columns: 1fr;
+    }
+  }
+
+
+  /* Articles start */
+  .nft-card {
+    &__image {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+  
+    &__meta-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(1, 100px);
+        justify-content: space-between;
+        gap: 15px;
+        margin-block: 15px;
+
+        img, span {
+            // max-width: 100px;
+            // max-height: 100px;
+            width: 100%;
+            height: 100%;
+            border-radius: $radius-lg;
+            object-fit: cover;
+
+            @include media-max(390px) {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    }
+
+    &__badge {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: $radius-lg;
+        // flex-grow: 1;
+        // width: 100px;
+        // height: 100px;
+        background: $call-to-action;
+
+        // @include
+        @include space-mono(700, 1.375rem, 160%);
+        text-transform: capitalize;
+        text-align: center;
+        color:$text-color-white;
+    }
+
+    // Card body starts
+    &__title {
+        @include work-sans(600, 1.375rem, 140%);
+        // font-size: 22px;
+        text-transform: capitalize;
+        color: $text-color-white;
+    }
+    &__creator {
+        display: flex;
+        gap: 12px;
+        margin-top: 10px;
+
+        @include work-sans(400, 1rem, 140%);
+        // font-size: 16px;
+        color: $text-color-white;
+    }
+  }
+}
+

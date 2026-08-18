@@ -1,0 +1,134 @@
+// =====================================================
+// _AUTH-FORM.SCSS
+// The form itself — inputs with icons, inline field errors,
+// a general server-error banner, submit button, OAuth divider + button.
+// Reused identically by register.html and login.html.
+// =====================================================
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__group {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__icon {
+        position: absolute;
+        left: 20px;
+        top: 25%;
+        // transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        color: $caption-label-text;
+        pointer-events: none; // clicks pass through to the input underneath
+    }
+
+    &__input {
+        width: 100%;
+        height: 56px;
+        border-radius: $radius-lg;
+        border: 1px solid transparent;
+        background: $background-secondary;
+        padding: 0 20px 0 52px; // left padding clears the icon
+        @include work-sans(400, 16px, 140%);
+        color: $text-color-white;
+        outline: none;
+        transition: border-color 0.2s ease;
+
+        &::placeholder {
+            color: $caption-label-text;
+        }
+
+        &:focus {
+            border-color: #a259ff;
+        }
+
+        // Applied via JS when a field fails validation
+        &.is-invalid {
+            border-color: #ff4d4f;
+        }
+    }
+
+    // Inline error message under a specific field — empty and invisible until JS fills it in
+    &__error {
+        @include work-sans(400, 13px, 140%);
+        color: #ff4d4f;
+        margin-top: 6px;
+        min-height: 16px; // reserves space so the layout doesn't jump when an error appears
+    }
+
+    // Server-side / general errors (e.g. "email already exists") — hidden by default via [hidden]
+    &__general-error {
+        @include work-sans(500, 14px, 140%);
+        color: #ff4d4f;
+        background: rgba(255, 77, 79, 0.1);
+        border: 1px solid rgba(255, 77, 79, 0.3);
+        border-radius: $radius-lg;
+        padding: 12px 16px;
+    }
+
+    &__submit {
+        height: 56px;
+        border: none;
+        border-radius: $radius-lg;
+        background: $call-to-action;
+        color: $text-color-white;
+        @include work-sans(600, 16px, 140%);
+        cursor: pointer;
+        transition: opacity 0.25s ease;
+
+        &:hover {
+            opacity: 0.85;
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+
+    &__divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: $caption-label-text;
+        @include work-sans(400, 14px, 140%);
+
+        &::before,
+        &::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: $caption-label-text;
+            opacity: 0.3;
+        }
+    }
+
+    &__oauth-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        height: 56px;
+        border-radius: $radius-lg;
+        border: 1px solid $caption-label-text;
+        background: transparent;
+        color: $text-color-white;
+        @include work-sans(600, 16px, 140%);
+        cursor: pointer;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: $background-secondary;
+        }
+    }
+
+    &__oauth-icon {
+        width: 20px;
+        height: 20px;
+    }
+}

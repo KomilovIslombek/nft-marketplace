@@ -1,0 +1,24 @@
+# ===== Dependencies =====
+node_modules/
+
+# ===== Environment & secrets =====
+.env
+.env.local
+.env.*.local
+back/googleClient-auth-json/
+
+# ===== Logs =====
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# ===== OS files =====
+.DS_Store
+Thumbs.db
+
+# ===== Editor =====
+.idea/
+
+# ===== Misc =====
+*.tmp

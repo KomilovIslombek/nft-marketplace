@@ -1,0 +1,21 @@
+.nav__profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 16px 6px 6px;
+    border-radius: 999px;
+    background: $background-secondary;
+    text-decoration: none;
+}
+
+.nav__profile-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.nav__profile-username {
+    @include work-sans(600, 14px, 140%);
+    color: $text-color-white;
+}

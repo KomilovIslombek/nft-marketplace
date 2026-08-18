@@ -1,0 +1,95 @@
+.how-it-works{
+    width: 100%;
+    // height: 738px;
+    background: $background;
+
+    &__title {
+        @include work-sans(600, 38px, 120%);
+        @include media-max($bp-tablet) {
+            @include work-sans(600, 28px, 140%);
+        }
+        text-transform: capitalize;
+        color: $text-color-white;
+    }
+    &__subtitle {
+        @include work-sans(400, 22px, 160%);
+        @include media-max($bp-tablet) {
+            @include work-sans(400, 16px, 140%);
+        }
+        color: $text-color-white;
+        margin: 10px 0 48px;
+        @include media-max($bp-tablet) {
+            margin-bottom: 40;
+        }
+    }
+
+    // Grid started
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+        @include media-max($bp-tablet) {
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        }
+        gap: 30px;
+    }
+
+    &__card {
+        padding: 10px 30px 30px;
+        @include media-max($bp-tablet) {
+            padding: 10px 20px 30px;
+        }
+        
+        border-radius: $radius-lg;
+        background: $background-secondary;
+
+        @include media-max($bp-mobile) {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }        
+
+        &-icon-wrapper {
+            margin-inline: auto;
+            width: 250px;
+            height: 250px;
+
+            @include media-max($bp-tablet) {
+                width: 160px;
+                height: 160px;
+            }
+            
+            @include media-max($bp-mobile) {
+                width: 100px;
+                min-width: 100px;
+                height: 100px;
+            }
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &-title {
+            margin: 20px 0 10px;
+            @include media-max($bp-mobile) {
+                margin: 0 0 10px;
+            }
+            @include work-sans(600, 22px, 140%);
+            @include media-max($bp-tablet) {
+                @include work-sans(600, 16px, 140%);
+            }
+            text-align: center;
+            color: $text-color-white;
+        }
+        &-desc {
+            @include work-sans(400, 16px, 140%);
+            @include media-max($bp-tablet) {
+                @include work-sans(400, 12px, 140%);
+            }
+            text-align: center;
+            color: $text-color-white;
+        }
+    }
+}

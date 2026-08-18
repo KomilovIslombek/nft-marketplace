@@ -1,0 +1,32 @@
+{
+    "liveSassCompile.settings.formats": [
+      {
+        "format": "expanded",
+        "extensionName": ".css",
+        "savePath": "/assets/css"
+      },
+      // {
+      //   "format": "compressed",
+      //   "extensionName": ".min.css",
+      //   "savePath": "/assets/css"
+      // }
+    ],
+    "liveServer.settings.port": 5501,
+    
+    // "workbench.iconTheme": "material-icon-theme",
+    // "files.autoSave": "afterDelay",
+    // "javascript.updateImportsOnFileMove.enabled": "always",
+    // "window.zoomLevel": 1,
+    // "workbench.colorTheme": "One Monokai",
+    // "editor.bracketPairColorization.enabled": true,
+    // "editor.guides.bracketPairs":"active",
+    // "editor.fontFamily": "JetBrains Mono",
+    // "editor.letterSpacing": 0.5,
+    // "editor.fontSize": 16,
+    // "terminal.integrated.fontSize": 17,
+    // "editor.fontLigatures": true,
+    // "editor.cursorBlinking": "expand",
+    // "editor.cursorStyle": "line-thin",
+    // "editor.cursorWidth": 2,
+    // "editor.cursorSmoothCaretAnimation": "explicit",
+}

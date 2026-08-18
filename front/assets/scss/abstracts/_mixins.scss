@@ -1,0 +1,50 @@
+@mixin space-mono($weight: 400, $fz: 16px, $lh:normal, $style: normal) {
+  font-family: "Space Mono", monospace;
+  font-weight: $weight;
+  font-style: $style;
+
+  font-size: $fz;
+  line-height: $lh;
+}
+
+@mixin work-sans($weight: 400, $fz: 16px, $lh: normal) {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: $weight;
+  font-style: normal;
+
+  font-size: $fz;
+  line-height: $lh;
+}
+
+// Mixins for media queries
+@mixin media-min($breakpoint) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin media-max($breakpoint) {
+  @media screen and (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $bp-tablet) {
+    @content;
+  }
+}
+ 
+@mixin tablet {
+  @media (max-width: $bp-tablet) {
+    @content;
+  }
+}
+ 
+@mixin mobile {
+  @media (max-width: $bp-mobile) {
+    @content;
+  }
+}
+ 

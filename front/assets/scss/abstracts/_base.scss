@@ -1,0 +1,108 @@
+
+
+@use 'mixins' as *;
+
+
+body {
+    font-family: "OKKO Sans Regular",sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(255,255,255,.96);
+    text-align: left;
+    background-color: $background;
+    position: relative
+}
+
+.container{
+    max-width: 1220px;
+    width: 100%;
+    margin-inline: auto;
+    // border: 1px solid red;
+
+    // padding: 0 20px;
+}
+
+.container-section {
+    max-width: 1100px;
+    width: 100%;
+    margin-inline: auto;
+    padding: 80px 0;
+
+    /* Mobile: image moves above the button */
+    @include media-max ($bp-tablet) {
+        padding: 40px 55px !important;
+    }
+
+    @include media-max ($bp-mobile) {
+        padding-inline: 30px !important;
+    }
+}
+
+
+i.none{
+    display: none;
+}
+.none{
+    display: none !important;
+}
+.body-active{
+    overflow: hidden;
+    height: 100%;
+}
+
+[data-animation-top="true"] {
+    transform: translateY(-1000px) !important;
+    
+    transition: transform .5 ease-in-out;
+    animation: bounce .5s ease-in-out;
+}
+
+[data-animation-top="false"] {
+    
+    // transform: translateY(0) !important;
+    
+    animation: bounce .10s linear alternate;
+    transition: transform .5s ease;
+
+}
+
+@keyframes bounce {
+    50% { transform:translateY(300px); }
+    80% { transform:translateY(-300px); }
+    // 90% { transform:translateY(0%); }
+    // 95% { transform:translateY(-7%); }
+    // 97% { transform:translateY(0%); }
+    // 99% { transform:translateY(-3%); }
+    100% { transform:translateY(0); }
+}
+
+[data-animation-top="false"].acter,
+[data-animation-top="false"].film__title-acters {
+    transform: translateY(0) !important;
+    transition: transform .4s ease;
+}
+
+
+
+[data-animation-top="false"].film__title-acters
+{
+    // transition: transform 0.4s ease !important;
+    transition: transform .4s ease !important;
+}
+
+[data-animation-top="false"].film__title:not(.film__title-acters)
+{
+    transition: transform .6s ease !important;
+}
+
+@media (max-width: $bp-tablet) {
+    .container{
+        padding: 0 30px !important;
+    }
+}
+@media (max-width: 480px) {
+    .container{
+        padding: 0 20px !important;
+    }
+}

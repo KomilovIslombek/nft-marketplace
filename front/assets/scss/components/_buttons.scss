@@ -1,0 +1,52 @@
+
+.btn-primary {
+    img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    border: 2px solid $call-to-action;
+    border-radius: 20px;
+    // padding: 0px 50px;
+    width: 247px;
+    height: 60px;
+
+    @include work-sans(600, 16px, 140%);
+    text-align: center;
+    color: $text-color-white;
+        transition: all .3s linear;
+
+        
+    svg {
+        stroke: transparent;
+        transition: all .3s linear;
+    }
+    
+    &:hover {
+        background-color: $call-to-action;
+        border-color: $background;
+        transition: all .3s linear;
+
+        svg {
+            stroke: $text-color-white;
+            transition: all .3s linear;
+
+        }
+    }
+
+    @include media-max($bp-mobile) {
+        display: none;
+    }
+
+
+    &.active-in-end {
+        display: flex;
+        width: 100%;
+        margin-top: 40px;
+
+    }
+}

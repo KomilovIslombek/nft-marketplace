@@ -1,0 +1,69 @@
+// =====================================================
+// _COUNTDOWN.SCSS
+// Generic, reusable countdown widget — drop into any banner/section.
+// Pairs with countdown.js ([data-countdown], [data-unit], is-ended).
+// =====================================================
+
+.countdown {
+    border-radius: $radius-lg;
+    padding: 30px;
+    width: min(295px, 100%);
+    min-height: 147px;
+    backdrop-filter: blur(10px);
+    background: rgba(59, 59, 59, 0.5);
+
+    // Ended state — countdown.js adds this class and swaps in .timer-ended-message
+    &.is-ended {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__title {
+        @include space-mono(400, 12px, 110%);
+        color: $text-color-white;
+        margin-bottom: 10px;
+    }
+
+    &__numbers {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    &__hours,
+    &__minutes,
+    &__seconds {
+        @include space-mono(700, 38px, 120%);
+        text-transform: capitalize;
+        color: $text-color-white;
+
+        @include media-max($bp-mobile) {
+            @include space-mono(700, 28px, 120%);
+        }
+
+        // Label ("Hours" / "Minutes" / "Seconds") generated from data-label,
+        // same trick as the original — no extra markup needed for the label text
+        &::after {
+            content: attr(data-label);
+            display: block;
+            @include space-mono(400, 12px, 110%);
+            color: $text-color-white;
+            margin-top: 5px;
+        }
+    }
+
+    &__separator {
+        margin-inline: 10px;
+        transform: translateY(-3px);
+    }
+}
+
+// Injected by countdown.js when a countdown reaches zero.
+// Not scoped under .countdown so it also works if a different
+// project ever wraps the module in its own block name.
+.timer-ended-message {
+    @include space-mono(700, 20px, 120%);
+    color: $text-color-white;
+    text-align: center;
+}

@@ -1,0 +1,88 @@
+.browse-categories {
+    &__title {
+        @include work-sans(600, 38px, 120%);
+        text-transform: capitalize;
+        color: $text-color-white;
+        margin-bottom: 60px;
+    }
+
+    &__flex {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 316px);
+        justify-content: space-between;
+        gap: 30px;
+
+        @include media-max($bp-tablet) {
+            grid-template-rows: repeat(2, minmax(209px, auto));
+        }
+        @include media-max(700px) {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: auto;
+            gap: 20px;
+        }
+        
+    }
+
+    .category {
+        border-radius: $radius-lg;
+        overflow: hidden;
+        background: $background-secondary;
+
+        &__head {
+            position: relative;
+            height: 240px;
+
+            @include media-max($bp-tablet) {
+                height: 142px;
+            }
+            
+            // transition: all $transition-base;
+            &:hover {
+                img {
+                    filter: blur(4px);
+                }
+            }
+        }
+        &__image {
+            border-radius: 20px 20px 0 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            inset: 0;
+            filter: blur(15px);
+            border-radius: 20px 20px 0 0;
+            object-fit: cover;
+            transition: all $transition-base;
+        }   
+        
+        &__icon {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 50%;
+            z-index: 2;
+
+            transform: translate(-50%, -50%);
+        }
+
+
+        &__body{
+            background: $background-secondary;
+            padding: 20px 30px 25px 30px;
+            @include media-max($bp-tablet) {
+                padding: 20px 20px 25px 20px;
+            }
+        }
+
+        &__title{
+            @include work-sans(600, 22px, 140%);
+            @include media-max($bp-tablet) {
+                @include work-sans(600, 16px, 140%);
+            }
+            text-transform: capitalize;
+            color: $text-color-white;
+        }
+    }
+}

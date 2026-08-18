@@ -1,0 +1,156 @@
+.auction {
+    width: 100%;
+    height: 630px; // was: height — fixed height risked clipping stacked content
+    min-height: 630px; // was: height — fixed height risked clipping stacked content
+    @include media-max($bp-mobile) {
+        min-height: 590px;
+    }
+
+    background: linear-gradient(180deg, rgba(162, 89, 255, 0) 0%, #a259ff 100%);
+    position: relative;
+
+    margin-bottom: 100px;
+
+    &__container {
+        padding-block: 60px;
+        height: 100%;
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        flex-wrap: wrap; // was: wrap-reverse — that flipped stacking order on tablet
+        gap: 40px; // ensures spacing when info + timer wrap or stack
+
+        @include media-max(800px) {
+            flex-direction: column;
+            justify-content: end;
+            align-items: start;
+            gap: 40px;
+        }
+
+        @include media-max($bp-mobile) {
+            gap: 24px;
+        }
+        
+    }
+
+    &__back-image {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        display: block;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 1/2;
+            display: block;
+        }
+    }
+
+    &__creator {
+        border-radius: 20px;
+        padding: 10px 20px;
+        width: 151px;
+        height: 44px;
+
+        background: $background-secondary;
+        display: flex;
+        gap: 12px;
+    }
+
+    &__creator-image {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+    }
+
+    &__creator-name {
+        @include work-sans(400, 16px, 140%);
+        color: $text-color-white;
+    }
+
+    &__title {
+        @include work-sans(600, 51px, 110%);
+        @include media-max($bp-tablet) {
+            @include work-sans(600, 38px, 120%);
+        }
+        text-transform: capitalize;
+        color: $text-color-white;
+        margin-block: 30px;
+    }
+
+    &__btn {
+        background: $text-color-white;
+        padding: 22px 50px;
+        border-color: transparent;
+        color: $background;
+
+        &:hover {
+            border-color: #a259ff;
+            background: transparent;
+            color: $text-color-white;
+        }
+    }
+
+    /* Timer starts from here */
+    &__timer {
+        border-radius: $radius-lg;
+        padding: 30px;
+        min-width: min(295px, 100%);
+        min-height: 147px; // simplified — min(147px, 100%) didn't resolve to anything meaningful here
+        backdrop-filter: blur(10px);
+        background: rgba(59, 59, 59, 0.5);
+
+        // Ended state — reuses the same glass panel, just centers a message
+        &.is-ended {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    &__timer-title {
+        @include space-mono(400, 12px, 110%);
+        color: $text-color-white;
+        margin-bottom: 10px;
+    }
+    &__timer-numbers {
+        display: flex;
+        justify-content: space-between;
+        @include media-max($bp-mobile) {
+            flex-wrap: wrap;
+        }
+    }
+    &__timer-hours, &__timer-minutes, &__timer-seconds {
+        @include space-mono(700, 38px, 120%);
+        @include media-max($bp-mobile) {
+            @include space-mono(700, 28px, 120%);
+        }
+        text-transform: capitalize;
+        color: $text-color-white;
+
+        &::after {
+            content: attr(data-label);
+            display: block;
+
+            @include space-mono(400, 12px, 110%);
+            color: $text-color-white;
+            margin-top: 5px;
+        }
+    }
+
+    &__timer-label {
+        margin-inline: 10px;
+        transform: translateY(-3px);
+    }
+}
+
+// Generic ended-message text, injected by countdown.js — not scoped to
+// .auction specifically, so it works wherever the module is reused
+.timer-ended-message {
+    @include space-mono(700, 20px, 120%);
+    color: $text-color-white;
+    text-align: center;
+}

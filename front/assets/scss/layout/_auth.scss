@@ -1,0 +1,93 @@
+// =====================================================
+// _AUTH.SCSS
+// Shared layout for Create Account (register) and Login pages.
+// Desktop: image left, form right. Tablet/mobile: image on top, stacked.
+// =====================================================
+
+// Hidden by default — only revealed once auth-form.js confirms the
+// visitor is NOT already logged in. Mirrors the same pattern used on
+// the profile page, just inverted (that one requires being logged in,
+// this one requires NOT being logged in).
+.auth {
+    display: none;
+}
+
+body.is-guest .auth {
+    display: flex;
+}
+
+.auth {
+    align-items: stretch;
+    min-height: 100vh;
+
+    @include media-max($bp-tablet) {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    &__image-wrapper {
+        flex: 1;
+        max-width: 50%;
+
+        @include media-max($bp-tablet) {
+            max-width: 100%;
+            height: 280px;
+        }
+
+        @include media-max($bp-mobile) {
+            height: 200px;
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    &__content {
+        flex: 1;
+        max-width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 80px;
+
+        @include media-max($bp-tablet) {
+            max-width: 100%;
+            padding: 48px;
+        }
+
+        @include media-max($bp-mobile) {
+            padding: 24px;
+        }
+    }
+
+    &__title {
+        @include work-sans(700, 40px, 120%);
+        color: $text-color-white;
+        margin-bottom: 16px;
+
+        @include media-max($bp-mobile) {
+            @include work-sans(700, 28px, 120%);
+        }
+    }
+
+    &__subtitle {
+        @include work-sans(400, 16px, 150%);
+        color: $caption-label-text;
+        margin-bottom: 40px;
+    }
+
+    &__switch {
+        @include work-sans(400, 15px, 150%);
+        color: $caption-label-text;
+        margin-top: 24px;
+
+        a {
+            color: #a259ff;
+            font-weight: 600;
+        }
+    }
+}

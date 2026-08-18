@@ -1,0 +1,109 @@
+.footer {
+    min-height: 334px;
+    background: $background-secondary;
+
+    &__row {
+        display: flex;
+        gap: 85px;
+        @include media-min($bp-tablet) {
+            padding-inline: 30px;
+        }
+
+        @include media-max($bp-tablet) {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 30px;
+        }
+    }
+
+    /* <==== First ROW INFORMATION ====> */
+
+    &__media {
+        @include media-min($bp-tablet) {
+            max-width: 327px;
+        }
+        &-heading-1 {
+            @include work-sans(400, 16px, 140%);
+            color: #ccc;    
+            margin: 30px 0 20px;
+        }
+        &-heading-2 {
+            @include work-sans(400, 16px, 140%);
+            color: #ccc;
+        }
+
+        &-icons {
+            display: flex;  
+            gap: 10px;
+            margin-top: 15px;
+            transition: all $transition-base;
+
+            svg:hover {
+                transform: translateY(-5px);
+                opacity: .7;
+                transition: all $transition-base;
+            }
+        }
+    }
+
+    &__pages{
+
+        &-title {
+            @include space-mono(700, 22px, 160%);
+            text-transform: capitalize;
+            color: $text-color-white;
+        }
+        &-list {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 25px;
+            white-space: nowrap;
+
+            a {
+                @include work-sans(400, 16px, 140%);
+                color: #ccc;
+            }
+            li:hover {
+                a {
+                    opacity: .6;
+                    transition: opacity $transition-base;
+                }
+            }
+        }
+    }
+
+    &__subscribe {
+        flex-grow: 1/1;
+        &-title {
+            @include space-mono(700, 22px, 160%);
+            text-transform: capitalize;
+            color: $text-color-white;
+            // margin-bottom: 25px;
+        }
+        &-subtitle {
+            @include work-sans(400, 16px, 140%);
+            color: #ccc;
+            margin: 25px 0 20px;
+        }
+    }
+
+
+    /* <==== Second ROW Line and Reserved text ====> */
+    &__line {
+        width: 100%;
+        height: 1px;
+        border: 1px solid $caption-label-text;
+        margin: 30px 0 20px;
+        margin-bottom: 20px;
+    }
+
+    &__reserved-text {
+        @include work-sans(400, 12px, 110%);
+        color: #ccc;
+    }
+
+    
+}

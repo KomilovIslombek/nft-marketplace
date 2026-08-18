@@ -1,0 +1,210 @@
+// =====================================================
+// _PROFILE.SCSS
+// The logged-in user's own profile page — not in the original
+// mockups, so this reuses the visual language already established
+// (banner + avatar pattern from Artist Page, .nft-card from
+// Trending Collection) rather than inventing new patterns.
+// =====================================================
+
+// Hides all profile content until profile-page.js confirms the visitor
+// is actually logged in — prevents a flash of the real page before a
+// logged-out visitor gets redirected to login.
+.profile-header,
+.profile-tabs,
+.profile-grid {
+    display: none;
+}
+
+body.is-authenticated {
+    .profile-header {
+        display: block;
+    }
+
+    .profile-tabs {
+        display: flex;
+    }
+
+    // :not([hidden]) matters here — profile-page.js uses the hidden attribute
+    // to switch between Created/Owned/Collection tabs. Without this exclusion,
+    // display: grid would override [hidden] and show all three panels at once.
+    .profile-grid:not([hidden]) {
+        display: grid;
+    }
+}
+
+.profile-header {
+    margin-bottom: 40px;
+
+    &__banner {
+        width: 100%;
+        height: 240px;
+        overflow: hidden;
+
+        @include media-max($bp-mobile) {
+            height: 160px;
+        }
+    }
+
+    &__banner-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    &__info {
+        position: relative;
+        padding-top: 0;
+    }
+
+    &__avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 24px;
+        border: 4px solid $background;
+        object-fit: cover;
+        margin-top: -60px; // pulls the avatar up so it overlaps the banner
+        margin-bottom: 16px;
+
+        @include media-max($bp-mobile) {
+            width: 88px;
+            height: 88px;
+            margin-top: -44px;
+        }
+    }
+
+    &__top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    &__name {
+        @include work-sans(700, 32px, 120%);
+        color: $text-color-white;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    &__wallet-btn,
+    &__logout-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 44px;
+        padding: 0 20px;
+        border-radius: $radius-lg;
+        border: 1px solid $caption-label-text;
+        background: transparent;
+        color: $text-color-white;
+        @include work-sans(500, 14px, 140%);
+        cursor: pointer;
+    }
+
+    &__logout-btn:hover {
+        border-color: #ff4d4f;
+        color: #ff4d4f;
+    }
+
+    &__edit-btn {
+        height: 44px;
+        padding: 0 24px;
+        border-radius: $radius-lg;
+        background: $call-to-action;
+        color: $text-color-white;
+        @include work-sans(600, 14px, 140%);
+        display: flex;
+        align-items: center;
+    }
+
+    &__stats {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 24px;
+
+        @include media-max($bp-mobile) {
+            gap: 24px;
+        }
+    }
+
+    &__stat-value {
+        display: block;
+        @include work-sans(700, 22px, 120%);
+        color: $text-color-white;
+    }
+
+    &__stat-label {
+        @include work-sans(400, 13px, 140%);
+        color: $caption-label-text;
+    }
+
+    &__bio-title {
+        @include work-sans(600, 14px, 140%);
+        color: $caption-label-text;
+        margin-bottom: 8px;
+    }
+
+    &__bio-text {
+        @include work-sans(400, 15px, 160%);
+        color: $text-color-white;
+        max-width: 560px;
+    }
+}
+
+.profile-tabs {
+    display: flex;
+    gap: 32px;
+    border-bottom: 1px solid $background-secondary;
+    margin-bottom: 32px;
+
+    &__tab {
+        background: none;
+        border: none;
+        padding: 16px 0;
+        @include work-sans(600, 15px, 140%);
+        color: $caption-label-text;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &.is-active {
+            color: $text-color-white;
+            border-bottom-color: #a259ff;
+        }
+    }
+
+    &__count {
+        @include work-sans(500, 12px, 140%);
+        color: $caption-label-text;
+        background: $background-secondary;
+        padding: 2px 8px;
+        border-radius: 999px;
+    }
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 80px;
+
+    @include media-max($bp-tablet) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-max($bp-mobile) {
+        grid-template-columns: 1fr;
+    }
+}
+
+@import '../layout/nav-profile';

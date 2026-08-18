@@ -1,0 +1,22 @@
+// Abstracts
+@import 'abstracts/resets';
+@import 'abstracts/fonts';
+@import 'abstracts/variables';
+@import 'abstracts/base';
+@import 'abstracts/mixins';
+@import 'abstracts/loader';
+// @import 'abstracts/headerCarousel';
+
+// Components
+@import 'components/buttons';
+@import 'components/subscribe-form';
+@import 'components/page-loader';
+@import 'components/modal';
+
+// Pages
+@import 'pages/home';
+@import 'pages/register';
+@import 'pages/profile';
+
+// Footer
+@import "layout/footer";

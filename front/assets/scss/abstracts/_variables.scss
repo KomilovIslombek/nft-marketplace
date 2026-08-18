@@ -1,0 +1,69 @@
+$background: #2b2b2b;
+$background-secondary: #3b3b3b;
+$caption-label-text: #858584;
+$text-color-white: #fff;
+$call-to-action: #a259ff;
+$blue-accent: #377df7;
+$red-accent: #ff7262;
+$space-lg: 2rem;
+
+
+$bp-mobile: 490px;
+$bp-tablet: 1050px;
+
+
+/* ---------- Colors: Badges / status ---------- */
+$color-badge-bg: #8C52FF;
+$color-badge-text: #FFFFFF;
+
+/* ---------- Colors ---------- */
+$color-bg-card: #1E1E23;  
+$color-bg-card-hover: #26262C;  
+
+
+ /* ---------- Spacing scale ---------- */
+$space-xs: 0.5rem;    /* 8px */
+$space-sm: 1rem;      /* 16px */
+$space-md: 1.5rem;    /* 24px */
+$space-lg: 2rem;      /* 32px */
+$space-xl: 3rem;      /* 48px */
+$space-2xl: 4rem;     /* 64px */
+$space-3xl: 5rem;     /* 80px */
+
+/* ---------- Border radius ---------- */
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 20px;
+$radius-full: 999px;   /* pill buttons / badges */
+
+
+/* ---------- Transitions ---------- */
+$transition-fast: 0.15s ease;
+$transition-base: 0.25s ease;
+
+
+/* ---------- Breakpoints (reference only — CSS vars can't be used in @media) ----------
+   mobile:  up to 480px
+   tablet:  481px – 1024px
+   desktop: 1025px and up
+ 
+   Usage: @media (max-width: 1024px) { ... }   tablet and below
+          @media (max-width: 480px)  { ... }   mobile only
+
+
+/*
+$active-color: #F67E7E;
+$white-color: #fff;
+$hover-color: rgba(255,255,255,.96);
+$default-grey-color: rgba(255,255,255,.56);
+
+// $grid-sides: 72px;
+$grid-spacing: 16px;
+$grid-columns: 20;
+$grid-card-count: 5;
+
+// Fonts
+$font-sans-regular: "OKKO Sans Regular",sans-serif;
+$font-sans-medium: "OKKO Sans Medium",sans-serif;
+$font-sans-demiBold: "OKKO Sans DemiBold",sans-serif;
+*/

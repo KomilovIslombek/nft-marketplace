@@ -1,0 +1,46 @@
+#rocket-btn {
+    width: 65px;
+    height: 65px;
+    border: 1px solid $call-to-action;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+
+    position: fixed;
+    z-index: 8;
+    bottom: 10%;
+    right: 6%;
+    @include media-max($bp-tablet) {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    background-color: rgba($call-to-action, 0.2); 
+  
+    /* Step 2: Apply the backdrop filter effects */
+    backdrop-filter: blur(10px) brightness(95%);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+
+    &.active:hover {
+             box-shadow:
+            0 0 0 4px rgba(162, 89, 255, 0.15),
+            0 8px 24px rgba(162, 89, 255, 0.45);
+
+            transform: translateY(-2px);
+    }
+    svg{
+        // stroke-color: $call-to-action;
+        transform: rotate(-45deg);
+    }
+
+    transform: translateY(1000%); // settles back down on click, feels more tactile
+
+
+    &.active {
+        transform: translateY(0); // settles back down on click, feels more tactile
+        box-shadow: 0 0 0 4px rgba(162, 89, 255, 0.15);
+    }
+
+}

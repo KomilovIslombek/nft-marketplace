@@ -1,0 +1,86 @@
+.join-us__card{
+    border-radius: $radius-lg;
+    padding: 60px;
+    // height: 430px;
+    background: $background-secondary;
+    display: flex;
+    align-items: center;
+    gap: 80px;
+
+    @include media-max(750px) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    @include media-max($bp-tablet) {
+        gap: 30px;
+        padding: 40px;
+    }
+    @include media-max($bp-mobile) {
+        flex-direction: unset;
+        align-items: unset;
+        flex-wrap: wrap;
+        background: transparent;
+        padding: 0;
+    }
+
+    &-image-wrapper {
+        border-radius: $radius-lg;
+        width: min(425px, 100%);
+        height: 310px;
+
+        @include media-max($bp-tablet) {
+            width: 300px;
+            height: 280px;
+        }
+        @include media-max($bp-mobile) {
+            width: 100%;
+            height: 255px;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: $radius-lg;
+        }
+    }
+
+    /* <==== CARD CONTACT START FROM HERE ====> */
+    &-title {
+        @include work-sans(600, 38px, 120%);
+
+        @include media-max($bp-tablet) {
+            @include work-sans(600, 28px, 140%);
+        }
+        text-transform: capitalize;
+        color: $text-color-white;
+    }
+    
+    &-subtitle {
+        @include work-sans(400, 22px, 160%);
+        @include media-max($bp-tablet) {
+            @include work-sans(400, 16px, 140%);
+        }
+        text-transform: capitalize;
+        color: $text-color-white;
+        margin: 10px 0 40px;
+    }
+
+    &-input {
+        @include media-max($bp-tablet) {
+            border: 1px solid $caption-label-text;
+            border-radius: $radius-lg;
+            padding: 16px 20px;
+            width: 100%;
+            height: 46px;
+            margin-bottom: 16px;
+        }
+    }
+    &-btn {
+        @include media-max($bp-tablet) {
+            width: 100%;
+            height: 46px;
+        }
+    }
+    
+}
