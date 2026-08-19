@@ -47,68 +47,7 @@
         }
     }
 
-    .nft-card{
-        background: $background-secondary;
-        border-radius: $radius-lg;
-        overflow: hidden;
-
-        &__image {
-            border-radius: 20px 20px 0 0;
-            width: 100%;
-            height: 296px;
-            object-fit: cover;
-            @include media-max($bp-mobile) {
-                height: 238px;
-            }
-        }
-        &__body {
-            padding: 20px 30px 25px;
-            @include media-max($bp-mobile) {
-                padding: 20px 20px 25px;
-            }
-        }
-
-        &__title {
-            @include work-sans(600, 22px, 140%);
-            text-transform: capitalize;
-            color: $text-color-white;
-        }
-        &__avatar-row {
-            display: flex;
-            gap: 12px;
-            margin: 5px 0 27px;
-
-        }
-        &__avatar-img {
-            width: 24px;
-            height: 24px;
-        }
-        &__avatar-name {
-            @include space-mono(400, 16px, 140%);
-            color: $text-color-white;
-        }
-
-
-        /* NFT card details */
-        &__details {
-            display: flex;
-            // grid-template-columns: repeat(2, 1fr);
-            justify-content: space-between;
-        }
-
-        &__price-title, &__bid-title {
-            @include space-mono(400, 12px, 110%);
-            color: $caption-label-text;
-            margin-bottom: 8px;
-        }
-
-        &__price, &__bid {
-            @include space-mono(400, 16px, 140%);
-            @include media-max($bp-mobile) {
-                @include space-mono(400, 12px, 110%);
-            }
-            color: $text-color-white;
-        }
-        
-    }
+    // .nft-card itself now lives in components/_nft-card.scss — shared
+    // with the Marketplace grid (and any future page that lists NFTs)
+    // instead of being locked to this section.
 }

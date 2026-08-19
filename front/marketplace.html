@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <title>Marketplace</title>
+</head>
+<body>
+
+    <!-- Loader before content loads -->
+    <div class="page-loader" id="pageLoader">
+        <div class="page-loader__spinner"></div>
+        <p class="page-loader__label">NFT Marketplace</p>
+    </div>
+
+
+    <!-- Header start -->
+    <header class="header">
+        <div class="header__row container">
+            <a href="/" class="header__logo"><img src="./assets/images/logo.png" width="243" height="32" alt="Logo"></a>
+
+            <nav class="header__nav">
+                <ul class="header__nav-list">
+                    <li class="header__nav-item"><a href="./marketplace.html" class="header__nav-link">Marketplace</a></li>
+                    <li class="header__nav-item"><a href="/rankings" class="header__nav-link">Rankings</a></li>
+                    <li class="header__nav-item"><a href="/connect-wallet" class="header__nav-link">Connect a wallet</a></li>
+
+                    <li class="header__nav-item nav__auth" id="navAuthGuest">
+                        <a href="./register.html" class="header__nav-button">
+                            <img src="./assets/icons/User.svg" alt="user">
+                            Sign Up
+                        </a>
+                    </li>
+
+                    <li class="header__nav-item nav__auth" id="navAuthUser" hidden>
+                        <a href="./profile.html" class="nav__profile-btn header__nav-link">
+                            <img id="navProfileAvatar" class="nav__profile-avatar" alt="">
+                            <span id="navProfileUsername" class="nav__profile-username"></span>
+                        </a>
+                    </li>
+                </ul>
+
+                <button class="header__nav-hamburger" id="hamburger">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3 12C3 11.5858 3.33579 11.25 3.75 11.25H20.25C20.6642 11.25 21 11.5858 21 12C21 12.4142 20.6642 12.75 20.25 12.75H3.75C3.33579 12.75 3 12.4142 3 12Z" fill="white" />
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3 6C3 5.58579 3.33579 5.25 3.75 5.25H15C15.4142 5.25 15.75 5.58579 15.75 6C15.75 6.41421 15.4142 6.75 15 6.75H3.75C3.33579 6.75 3 6.41421 3 6Z" fill="white" />
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3 18C3 17.5858 3.33579 17.25 3.75 17.25H15C15.4142 17.25 15.75 17.5858 15.75 18C15.75 18.4142 15.4142 18.75 15 18.75H3.75C3.33579 18.75 3 18.4142 3 18Z" fill="white" />
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+    <!-- Header end -->
+
+    <main>
+        <!-- Browse Marketplace hero: headline, subhead, search -->
+        <section class="marketplace-hero">
+            <div class="marketplace-hero__inner container-section">
+                <div>
+                    <h1 class="marketplace-hero__title">Browse Marketplace</h1>
+                    <p class="marketplace-hero__subtitle">Browse through more than 50k NFTs on the NFT Marketplace.</p>
+                </div>
+
+                <form class="marketplace-search" role="search">
+                    <input type="search" class="marketplace-search__input" placeholder="Search your favourite NFTs" name="q">
+                    <button type="submit" class="marketplace-search__icon" aria-label="Search">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" fill="currentColor" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- NFTs / Collections tabs -->
+        <nav class="marketplace-tabs container-section" aria-label="Marketplace listing type">
+            <button type="button" class="marketplace-tabs__tab is-active" data-tab="nfts">
+                NFTs <span class="marketplace-tabs__count">302</span>
+            </button>
+            <button type="button" class="marketplace-tabs__tab" data-tab="collections">
+                Collections <span class="marketplace-tabs__count">67</span>
+            </button>
+        </nav>
+
+        <!-- NFT grid -->
+        <section class="marketplace-section">
+            <div class="container-section">
+                <div class="marketplace-grid" data-tab-panel="nfts">
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/mushroom.png" alt="Magic Mushroom 0325">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">Magic Mushroom 0325</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/avatar-ank.png" alt="">
+                                <h6 class="nft-card__avatar-name">Shroomie</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/robot.png" alt="Happy Robot 032">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">Happy Robot 032</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/creator-1.png" alt="">
+                                <h6 class="nft-card__avatar-name">BeKind2Robots</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/robot.png" alt="Happy Robot 024">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">Happy Robot 024</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/creator-2.png" alt="">
+                                <h6 class="nft-card__avatar-name">BeKind2Robots</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/nft-bear.png" alt="Designer Bear">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">Designer Bear</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/creator-3.png" alt="">
+                                <h6 class="nft-card__avatar-name">Mr Fox</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/nft-dog.png" alt="Colorful Dog 0356">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">Colorful Dog 0356</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/creator-4.png" alt="">
+                                <h6 class="nft-card__avatar-name">Keepitreal</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/music.png" alt="Dancing Robot 0312">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">Dancing Robot 0312</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/creator-5.png" alt="">
+                                <h6 class="nft-card__avatar-name">Robotica</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/astronaut.png" alt="Cherry Blossom Girl 035">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">Cherry Blossom Girl 035</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/creator-6.png" alt="">
+                                <h6 class="nft-card__avatar-name">MoonDancer</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/space-walking.png" alt="Space Travel">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">Space Travel</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/creator-7.png" alt="">
+                                <h6 class="nft-card__avatar-name">NebulaKid</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/astronaut-spaceship.jpg" alt="Sunset Dimension">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">Sunset Dimension</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/creator-8.png" alt="">
+                                <h6 class="nft-card__avatar-name">Animakid</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/astronaut-spaceship-2.jpg" alt="Desert Walk">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">Desert Walk</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/creator-9.png" alt="">
+                                <h6 class="nft-card__avatar-name">Catch 22</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/nft-cat.png" alt="IceCream Ape 0324">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">IceCream Ape 0324</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/creator-10.png" alt="">
+                                <h6 class="nft-card__avatar-name">Ice Ape Club</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a class="nft-card" href="#">
+                        <img class="nft-card__image" src="./assets/images/nft-dog.png" alt="Colorful Dog 0344">
+                        <div class="nft-card__body">
+                            <h4 class="nft-card__title">Colorful Dog 0344</h4>
+                            <div class="nft-card__avatar-row">
+                                <img class="nft-card__avatar-img" src="./assets/images/avatar-ank.png" alt="">
+                                <h6 class="nft-card__avatar-name">PuppyPower</h6>
+                            </div>
+                            <div class="nft-card__details">
+                                <div>
+                                    <h6 class="nft-card__price-title">Price</h6>
+                                    <h5 class="nft-card__price">1.63 ETH</h5>
+                                </div>
+                                <div>
+                                    <h6 class="nft-card__bid-title">Highest Bid</h6>
+                                    <h5 class="nft-card__bid">0.33 wETH</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer start -->
+    <footer class="footer">
+        <div class="container-section">
+            <div class="footer__row">
+                <div class="footer__media">
+                    <a href="/" class="header__logo">
+                        <img src="./assets/images/logo.png" width="243" height="32" alt="Logo">
+                    </a>
+
+                    <p class="footer__media-heading-1">
+                        NFT marketplace UI created with Anima for Figma.
+                    </p>
+                    <p class="footer__media-heading-2">
+                        Join our community
+                    </p>
+
+                    <div class="footer__media-icons">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 19.5C12.8284 19.5 13.5 18.8284 13.5 18C13.5 17.1716 12.8284 16.5 12 16.5C11.1716 16.5 10.5 17.1716 10.5 18C10.5 18.8284 11.1716 19.5 12 19.5Z" fill="#858584" />
+                            <path d="M20 19.5C20.8284 19.5 21.5 18.8284 21.5 18C21.5 17.1716 20.8284 16.5 20 16.5C19.1716 16.5 18.5 17.1716 18.5 18C18.5 18.8284 19.1716 19.5 20 19.5Z" fill="#858584" />
+                        </svg>
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5281 11.1183C13.8533 10.9443 14.2478 10.9634 14.5547 11.168L20.5547 15.168C20.8329 15.3534 21 15.6656 21 16C21 16.3344 20.8329 16.6466 20.5547 16.8321L14.5547 20.8321C14.2478 21.0366 13.8533 21.0557 13.5281 20.8817C13.203 20.7077 13 20.3688 13 20V12C13 11.6312 13.203 11.2923 13.5281 11.1183ZM15 13.8685V18.1315L18.1972 16L15 13.8685Z" fill="#858584" />
+                        </svg>
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.9997 11.0005C15.9997 8.25045 18.3122 5.96295 21.0622 6.00045C22.0253 6.01157 22.9646 6.3006 23.7673 6.8328C24.5701 7.365 25.202 8.11771 25.5872 9.00045H29.9997L25.9622 13.038C25.7016 17.0937 23.9063 20.8979 20.9412 23.6773C17.9761 26.4566 14.0638 28.0025 9.9997 28.0005C5.9997 28.0005 4.9997 26.5005 4.9997 26.5005C4.9997 26.5005 8.9997 25.0005 10.9997 22.0005C10.9997 22.0005 2.9997 18.0005 4.9997 7.00045C4.9997 7.00045 9.9997 12.0005 15.9997 13.0005V11.0005Z" stroke="#858584" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 12C13.7909 12 12 13.7909 12 16C12 18.2091 13.7909 20 16 20C18.2091 20 20 18.2091 20 16C20 13.7909 18.2091 12 16 12ZM10 16C10 12.6863 12.6863 10 16 10C19.3137 10 22 12.6863 22 16C22 19.3137 19.3137 22 16 22C12.6863 22 10 19.3137 10 16Z" fill="#858584" />
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 5.5C7.73858 5.5 5.5 7.73858 5.5 10.5V21.5C5.5 24.2614 7.73858 26.5 10.5 26.5H21.5C24.2614 26.5 26.5 24.2614 26.5 21.5V10.5C26.5 7.73858 24.2614 5.5 21.5 5.5H10.5ZM3.5 10.5C3.5 6.63401 6.63401 3.5 10.5 3.5H21.5C25.366 3.5 28.5 6.63401 28.5 10.5V21.5C28.5 25.366 25.366 28.5 21.5 28.5H10.5C6.63401 28.5 3.5 25.366 3.5 21.5V10.5Z" fill="#858584" />
+                            <path d="M22.5 11C23.3284 11 24 10.3284 24 9.5C24 8.67157 23.3284 8 22.5 8C21.6716 8 21 8.67157 21 9.5C21 10.3284 21.6716 11 22.5 11Z" fill="#858584" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="footer__pages">
+                    <h4 class="footer__pages-title">
+                        Explore
+                    </h4>
+
+                    <ul class="footer__pages-list">
+                        <li><a href="./marketplace.html">Marketplace</a></li>
+                        <li><a href="/rankings">Rankings</a></li>
+                        <li><a href="/connect-wallet">Connect a wallet</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__subscribe">
+                    <h4 class="footer__subscribe-title">Join our weekly digest</h4>
+                    <p class="footer__subscribe-subtitle">Get exclusive promotions & updates straight to your inbox.</p>
+
+                    <form class="subscribe-form">
+                        <input type="email" class="subscribe-form__input join-us__card-input" placeholder="Enter your email here" name="email" required/>
+
+                        <button type="submit" class="subscribe-form__btn join-us__card-btn">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.875 4.375C1.875 4.02982 2.15482 3.75 2.5 3.75H17.5C17.8452 3.75 18.125 4.02982 18.125 4.375V15C18.125 15.3315 17.9933 15.6495 17.7589 15.8839C17.5245 16.1183 17.2065 16.25 16.875 16.25H3.125C2.79348 16.25 2.47554 16.1183 2.24112 15.8839C2.0067 15.6495 1.875 15.3315 1.875 15V4.375ZM3.125 5V15H16.875V5H3.125Z" fill="white" />
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.03928 3.95268C2.27253 3.69823 2.66788 3.68104 2.92233 3.91428L10 10.4021L17.0777 3.91428C17.3321 3.68104 17.7275 3.69823 17.9607 3.95268C18.194 4.20713 18.1768 4.60248 17.9223 4.83573L10.4223 11.7107C10.1834 11.9298 9.81663 11.9298 9.57768 11.7107L2.07768 4.83573C1.82323 4.60248 1.80604 4.20713 2.03928 3.95268Z" fill="white" />
+                            </svg>
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer__line"></div>
+            <h6 class="footer__reserved-text">
+                Ⓒ NFT Market. Use this template freely.
+            </h6>
+        </div>
+    </footer>
+    <!-- Footer end -->
+
+    <script src="assets/js/components/page-loader.js"></script>
+
+    <!-- This helper checks user whether logged in or not -->
+    <script type="module" src="assets/js/layout/auth-state.js"></script>
+
+    <script src="assets/js/abstracts/functions.js"></script>
+    <script src="assets/js/layout/header.js"></script>
+
+    <script>
+        // Simple client-side tab switch for NFTs / Collections.
+        // "Collections" has no data yet — this just toggles the active
+        // tab visually until a real collections endpoint/grid exists.
+        document.querySelectorAll('.marketplace-tabs__tab').forEach((tab) => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.marketplace-tabs__tab').forEach((t) => t.classList.remove('is-active'));
+                tab.classList.add('is-active');
+            });
+        });
+    </script>
+
+</body>
+</html>

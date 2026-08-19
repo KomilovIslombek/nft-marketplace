@@ -12,11 +12,13 @@
 @import 'components/subscribe-form';
 @import 'components/page-loader';
 @import 'components/modal';
+@import 'components/nft-card';
 
 // Pages
 @import 'pages/home';
 @import 'pages/register';
 @import 'pages/profile';
+@import 'pages/marketplace';
 
 // Footer
 @import "layout/footer";
