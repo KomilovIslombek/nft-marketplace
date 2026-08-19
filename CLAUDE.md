@@ -44,6 +44,23 @@ stray `front/assets/scss/main.css` / `main.css.map` files ever reappear,
 that's the symptom — delete them and prefer the CLI `sass --watch` process
 over the editor extension.
 
+## The user's own VS Code Live Server — port 5500, not 5501
+
+The user opens the frontend themselves via VS Code's Live Server status-bar
+button ("Go Live") independently of whatever frontend server I start. Live
+Server's **default port is 5500**, not 5501, and its default root is
+whichever folder was opened (often the repo root, producing URLs like
+`127.0.0.1:5500/front/marketplace.html` rather than rooted at `front/`) —
+`front/.vscode/settings.json`'s port/root config doesn't reliably apply for
+the same "which folder is the actual workspace root" reason as the Live
+Sass trap above. Don't assume it'll use 5501.
+
+Because of this, the backend's CORS in `back/server.js` accepts any
+`127.0.0.1`/`localhost` origin on ports 5500, 5501, 5502, or 3000 in
+development (see `DEV_ORIGIN_PATTERN`), instead of a single hardcoded
+`FRONTEND_URL`. If a future CORS error shows a dev port not in that list,
+add it there rather than trying to force the user's Live Server onto 5501.
+
 ## Stack quick reference
 
 - **Backend**: Node/Express 5, MongoDB via Mongoose, JWT in an httpOnly
