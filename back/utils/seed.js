@@ -52,6 +52,14 @@ const DEMO_NFTS = [
   { title: 'Desert Walk', creator: 'Catch22', category: 'Photography', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/astronaut-spaceship-2.jpg' },
   { title: 'IceCream Ape 0324', creator: 'IceApeClub', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/nft-cat.png' },
   { title: 'Colorful Dog 0344', creator: 'PuppyPower', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/nft-dog.png' },
+  // A few extra so the grid has more than one page to actually exercise
+  // "Load more" and category filtering against real, varied data.
+  { title: 'Magic Mushroom 0402', creator: 'Shroomie', category: 'Art', price: 2.1, highestBid: 0.5, imageUrl: '/assets/images/auction-mushroom.png' },
+  { title: 'Wallet Wanderer', creator: 'MrFox', category: 'Utility', price: 0.9, highestBid: 0.12, imageUrl: '/assets/images/wallet.png' },
+  { title: 'Corner Shop', creator: 'Keepitreal', category: 'Collectibles', price: 1.2, highestBid: 0.21, imageUrl: '/assets/images/shop.png' },
+  { title: 'Night Frequency', creator: 'Robotica', category: 'Music', price: 3.4, highestBid: 0.88, imageUrl: '/assets/images/music.png' },
+  { title: 'Nebula Drift', creator: 'NebulaKid', category: 'Virtual Worlds', price: 2.75, highestBid: 0.6, imageUrl: '/assets/images/astronaut-spaceship.jpg' },
+  { title: 'Robo Companion', creator: 'BeKind2Robots', category: 'Sport', price: 1.05, highestBid: 0.19, imageUrl: '/assets/images/robot.png' },
 ];
 
 async function seed() {

@@ -93,11 +93,15 @@ Wallet, Marketplace, Rankings**.
 - ✅ Profile page (`profile.html`) — shown when authenticated
 - ✅ Backend auth API — register, login, Google OAuth, session check (`/me`), logout, change password
 - ✅ Auth state synced across pages via an `httpOnly` JWT cookie (nav switches between guest/logged-in automatically)
-- ✅ Marketplace page (`marketplace.html`) — search, NFTs/Collections tabs, NFT grid (currently hardcoded HTML; matching backend data now exists, wiring it up is next)
-- ✅ Backend NFT API — list (paginated + category filter), get one, create/update/delete (owner-only), seed script
+- ✅ Marketplace page (`marketplace.html`) — fully wired to the live API: search (debounced + on submit), category filter chips, "Load more" pagination, loading/empty/error states
+- ✅ Backend NFT API — list (search + category filter + pagination), get one, create/update/delete (owner-only), seed script
+- ✅ CORS accepts common local dev ports automatically (5500/5501/5502/3000) — no manual config needed whichever way the frontend is being served
+
+**Known gaps on the Marketplace page (by design, not bugs):**
+- "Collections" tab is a visual-only stub — no collections feature exists yet (see Roadmap)
+- NFT cards don't link anywhere yet — no NFT detail page exists yet
 
 **Planned next (see [Roadmap](#roadmap)):**
-- ⬜ Wire `marketplace.html` up to `GET /api/nfts` instead of hardcoded cards
 - ⬜ Artist Page, NFT detail page, Rankings, Connect Wallet
 - ⬜ Deployment to production
 
@@ -160,7 +164,7 @@ Base URL: `http://localhost:5000/api`
 | GET | `/auth/me` | Yes | Get the current logged-in user |
 | POST | `/auth/logout` | No | Clear the auth cookie |
 | PUT | `/auth/change-password` | Yes | Change password (local accounts only) |
-| GET | `/nfts` | No | List NFTs. Query params: `category`, `creator`, `owner`, `page`, `limit` (default 12) |
+| GET | `/nfts` | No | List NFTs. Query params: `search`, `category`, `creator`, `owner`, `page`, `limit` (default 12) |
 | GET | `/nfts/:id` | No | Get one NFT |
 | POST | `/nfts` | Yes | Create an NFT listing (creator + owner = you) |
 | PUT | `/nfts/:id` | Yes | Update an NFT (current owner only) |

@@ -10,12 +10,21 @@ const Nft = require('../modules/nft');
 // email, etc. into a public listings response).
 const PUBLIC_USER_FIELDS = 'username avatarUrl';
 
+// Escapes regex special characters in user input before it's used to build
+// a $regex filter — without this, a search for e.g. "a.*" would be run as
+// a regex (not a literal string), and something like "(a+)+" from a hostile
+// client could cause catastrophic backtracking (ReDoS) on every request.
+function escapeRegex(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 // GET /api/nfts
 // Public. Supports:
-//   ?category=Art            filter by category
-//   ?creator=<userId>        e.g. Profile page's "Created" tab
-//   ?owner=<userId>          e.g. Profile page's "Owned" tab
-//   ?page=1&limit=12         pagination (defaults match the Marketplace grid)
+//   ?search=mushroom          case-insensitive match against the title
+//   ?category=Art             filter by category
+//   ?creator=<userId>         e.g. Profile page's "Created" tab
+//   ?owner=<userId>           e.g. Profile page's "Owned" tab
+//   ?page=1&limit=12          pagination (defaults match the Marketplace grid)
 async function getNfts(req, res) {
   try {
     const page = Math.max(parseInt(req.query.page, 10) || 1, 1);
@@ -25,6 +34,9 @@ async function getNfts(req, res) {
     if (req.query.category) filter.category = req.query.category;
     if (req.query.creator) filter.creator = req.query.creator;
     if (req.query.owner) filter.owner = req.query.owner;
+    if (req.query.search) {
+      filter.title = { $regex: escapeRegex(req.query.search.trim()), $options: 'i' };
+    }
 
     const [nfts, total] = await Promise.all([
       Nft.find(filter)

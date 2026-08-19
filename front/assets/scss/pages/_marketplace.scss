@@ -124,6 +124,35 @@
     }
 }
 
+.marketplace-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 24px 0;
+
+    &__chip {
+        flex-shrink: 0;
+        height: 40px;
+        padding: 0 20px;
+        border: 1px solid $background-secondary;
+        border-radius: $radius-full;
+        background: transparent;
+        cursor: pointer;
+        @include work-sans(500, 14px, 140%);
+        color: $text-color-white;
+        transition: all $transition-base;
+
+        &:hover {
+            border-color: $call-to-action;
+        }
+
+        &.is-active {
+            background: $call-to-action;
+            border-color: $call-to-action;
+        }
+    }
+}
+
 .marketplace-section {
     width: 100%;
     background: $background-secondary;
@@ -155,5 +184,28 @@
 
     a.nft-card{
         background: $background;
+    }
+}
+
+.marketplace-grid__load-more {
+    display: block;
+    margin: 40px auto 0;
+    height: 60px;
+    padding: 0 40px;
+    border: 1px solid $call-to-action;
+    border-radius: $radius-lg;
+    background: transparent;
+    cursor: pointer;
+    @include work-sans(600, 16px, 140%);
+    color: $text-color-white;
+    transition: all $transition-base;
+
+    &:hover:not(:disabled) {
+        background: $call-to-action;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: default;
     }
 }

@@ -62,8 +62,8 @@
                     <p class="marketplace-hero__subtitle">Browse through more than 50k NFTs on the NFT Marketplace.</p>
                 </div>
 
-                <form class="marketplace-search" role="search">
-                    <input type="search" class="marketplace-search__input" placeholder="Search your favourite NFTs" name="q">
+                <form class="marketplace-search" role="search" id="marketplaceSearchForm">
+                    <input type="search" class="marketplace-search__input" placeholder="Search your favourite NFTs" name="q" id="marketplaceSearchInput">
                     <button type="submit" class="marketplace-search__icon" aria-label="Search">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" fill="currentColor" />
@@ -83,11 +83,28 @@
             </button>
         </nav>
 
+        <!-- Category filter chips — not part of the original Figma frame,
+             added because "Browse Marketplace" needs a way to actually
+             narrow 300+ NFTs down; the categories match the homepage's
+             "Browse Categories" section exactly. -->
+        <div class="marketplace-filters container-section" id="marketplaceFilters" role="group" aria-label="Filter by category">
+            <button type="button" class="marketplace-filters__chip is-active" data-category="">All</button>
+            <button type="button" class="marketplace-filters__chip" data-category="Art">Art</button>
+            <button type="button" class="marketplace-filters__chip" data-category="Collectibles">Collectibles</button>
+            <button type="button" class="marketplace-filters__chip" data-category="Music">Music</button>
+            <button type="button" class="marketplace-filters__chip" data-category="Photography">Photography</button>
+            <button type="button" class="marketplace-filters__chip" data-category="Video">Video</button>
+            <button type="button" class="marketplace-filters__chip" data-category="Utility">Utility</button>
+            <button type="button" class="marketplace-filters__chip" data-category="Sport">Sport</button>
+            <button type="button" class="marketplace-filters__chip" data-category="Virtual Worlds">Virtual Worlds</button>
+        </div>
+
         <!-- NFT grid — populated by assets/js/marketplace.js from GET /api/nfts -->
         <section class="marketplace-section">
             <div class="container-section">
                 <p class="marketplace-grid__status" id="marketplaceStatus">Loading NFTs&hellip;</p>
                 <div class="marketplace-grid" data-tab-panel="nfts" id="marketplaceGrid"></div>
+                <button type="button" class="marketplace-grid__load-more" id="marketplaceLoadMore" hidden>Load more</button>
             </div>
         </section>
     </main>
