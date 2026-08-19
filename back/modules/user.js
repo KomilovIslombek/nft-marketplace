@@ -39,6 +39,18 @@ const userSchema = new mongoose.Schema(
       enum: ['local', 'google', 'github'],
       default: 'local',
     },
+    // Optional profile fields — every user gets sensible fallbacks
+    // client-side (auth-state.js already falls back to a generated
+    // dicebear avatar when this is unset), so these stay optional here.
+    avatarUrl: {
+      type: String,
+      default: '',
+    },
+    bio: {
+      type: String,
+      maxlength: 280,
+      default: '',
+    },
   },
   {
     timestamps: true, // automatically adds createdAt / updatedAt fields

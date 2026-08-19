@@ -142,4 +142,8 @@
     @include media-max($bp-mobile) {
         grid-template-columns: 1fr;
     }
+
+    a.nft-card{
+        background: $background;
+    }
 }

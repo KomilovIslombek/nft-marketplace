@@ -25,6 +25,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/auth', require('./routes/auth.routes'))
+app.use('/api/nfts', require('./routes/nft.routes'))
 
 const PORT = process.env.PORT || 5000;
 

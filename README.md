@@ -53,15 +53,19 @@ nft-marketplace/
 │   ├── config/
 │   │   └── db.js               # MongoDB connection
 │   ├── controllers/
-│   │   └── auth.controller.js  # register / login / Google OAuth / me / logout
+│   │   ├── auth.controller.js  # register / login / Google OAuth / me / logout
+│   │   └── nft.controller.js   # NFT listing CRUD
 │   ├── middleware/
 │   │   └── auth.middleware.js  # verifies the JWT cookie, attaches req.user
 │   ├── modules/
-│   │   └── user.js             # Mongoose User schema (password hashing hook)
+│   │   ├── user.js             # Mongoose User schema (password hashing hook)
+│   │   └── nft.js              # Mongoose Nft schema (creator + owner refs to User)
 │   ├── routes/
-│   │   └── auth.routes.js      # /api/auth/* routes
+│   │   ├── auth.routes.js      # /api/auth/* routes
+│   │   └── nft.routes.js       # /api/nfts/* routes
 │   ├── utils/
-│   │   └── generatetoken.js    # signs JWTs
+│   │   ├── generatetoken.js    # signs JWTs
+│   │   └── seed.js             # populates demo creators + NFTs — `npm run seed`
 │   ├── .env.example            # template for your local .env
 │   └── server.js                # app entrypoint
 │
@@ -90,10 +94,12 @@ Wallet, Marketplace, Rankings**.
 - ✅ Profile page (`profile.html`) — shown when authenticated
 - ✅ Backend auth API — register, login, Google OAuth, session check (`/me`), logout, change password
 - ✅ Auth state synced across pages via an `httpOnly` JWT cookie (nav switches between guest/logged-in automatically)
+- ✅ Marketplace page (`marketplace.html`) — search, NFTs/Collections tabs, NFT grid (currently hardcoded HTML; matching backend data now exists, wiring it up is next)
+- ✅ Backend NFT API — list (paginated + category filter), get one, create/update/delete (owner-only), seed script
 
 **Planned next (see [Roadmap](#roadmap)):**
-- ⬜ Artist Page, NFT detail page, Marketplace listing/browse, Rankings, Connect Wallet
-- ⬜ NFT data model + CRUD API (currently only auth exists on the backend)
+- ⬜ Wire `marketplace.html` up to `GET /api/nfts` instead of hardcoded cards
+- ⬜ Artist Page, NFT detail page, Rankings, Connect Wallet
 - ⬜ Deployment to production
 
 ## Getting started
@@ -155,11 +161,16 @@ Base URL: `http://localhost:5000/api`
 | GET | `/auth/me` | Yes | Get the current logged-in user |
 | POST | `/auth/logout` | No | Clear the auth cookie |
 | PUT | `/auth/change-password` | Yes | Change password (local accounts only) |
+| GET | `/nfts` | No | List NFTs. Query params: `category`, `creator`, `owner`, `page`, `limit` (default 12) |
+| GET | `/nfts/:id` | No | Get one NFT |
+| POST | `/nfts` | Yes | Create an NFT listing (creator + owner = you) |
+| PUT | `/nfts/:id` | Yes | Update an NFT (current owner only) |
+| DELETE | `/nfts/:id` | Yes | Delete an NFT (current owner only) |
 
 ## Roadmap
 
-- [ ] NFT data model (collections, individual NFTs, pricing, ownership)
-- [ ] Marketplace browse/search/filter page
+- [x] NFT data model + CRUD API
+- [ ] Wire the Marketplace page to the real API instead of hardcoded cards
 - [ ] Artist profile pages
 - [ ] NFT detail page
 - [ ] Wallet connect flow

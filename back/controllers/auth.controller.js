@@ -51,6 +51,7 @@ async function register(req, res) {
         id: user._id,
         username: user.username,
         email: user.email,
+        avatarUrl: user.avatarUrl,
       },
     });
   } catch (err) {
@@ -93,6 +94,7 @@ async function login(req, res) {
         id: user._id,
         username: user.username,
         email: user.email,
+        avatarUrl: user.avatarUrl,
       },
     });
   } catch (err) {
@@ -147,6 +149,7 @@ async function googleAuth(req, res) {
         id: user._id,
         username: user.username,
         email: user.email,
+        avatarUrl: user.avatarUrl,
       },
     });
   } catch (err) {
@@ -166,6 +169,7 @@ function getMe(req, res) {
       id: req.user._id,
       username: req.user.username,
       email: req.user.email,
+      avatarUrl: req.user.avatarUrl,
     },
   });
 }
