@@ -49,7 +49,6 @@ The sections below reflect what's actually implemented so far vs. what's planned
 ```
 nft-marketplace/
 ├── back/                       # Express REST API
-│   ├── app/                    # (legacy/scratch — superseded by routes/)
 │   ├── config/
 │   │   └── db.js               # MongoDB connection
 │   ├── controllers/

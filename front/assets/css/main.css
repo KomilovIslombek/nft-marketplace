@@ -358,9 +358,6 @@ i.none {
   color: #2b2b2b;
   outline: none;
 }
-.subscribe-form__input::-moz-placeholder {
-  color: #2b2b2b;
-}
 .subscribe-form__input::placeholder {
   color: #2b2b2b;
 }
@@ -541,8 +538,7 @@ i.none {
   border-radius: 20px 20px 0 0;
   width: 100%;
   height: 296px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   display: block;
 }
 @media screen and (max-width: 490px) {
@@ -578,8 +574,7 @@ i.none {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .nft-card__avatar-name {
   font-family: "Space Mono", monospace;
@@ -750,8 +745,7 @@ i.none {
 
 .hero__grid {
   display: grid;
-  -moz-column-gap: 2rem;
-       column-gap: 2rem;
+  column-gap: 2rem;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "title  image" "desc   image" "cta    image" "stats  image";
 }
@@ -969,8 +963,7 @@ i.none {
 .hero__image-author img {
   width: 24px;
   height: 24px;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
 .hero__image-author {
   font-family: "Work Sans", sans-serif;
@@ -1056,8 +1049,7 @@ i.none {
 .trending-collection .nft-card__image {
   width: 100%;
   aspect-ratio: 1/1;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .trending-collection .nft-card__meta-row {
   display: grid;
@@ -1071,8 +1063,7 @@ i.none {
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 @media screen and (max-width: 390px) {
   .trending-collection .nft-card__meta-row img, .trending-collection .nft-card__meta-row span {
@@ -1285,8 +1276,7 @@ i.none {
   inset: 0;
   filter: blur(15px);
   border-radius: 20px 20px 0 0;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   transition: all 0.25s ease;
 }
 .browse-categories .category__icon {
@@ -1452,8 +1442,7 @@ i.none {
 .auction__back-image img {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   aspect-ratio: 1/2;
   display: block;
 }
@@ -1700,8 +1689,7 @@ i.none {
 .how-it-works__card img {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .how-it-works__card-title {
   margin: 20px 0 10px;
@@ -1805,8 +1793,7 @@ i.none {
 .join-us__card-image-wrapper img {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 20px;
 }
 .join-us__card {
@@ -1951,8 +1938,7 @@ body.is-guest .auth {
 .auth__image {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   display: block;
 }
 .auth__content {
@@ -2054,9 +2040,6 @@ body.is-guest .auth {
   color: #fff;
   outline: none;
   transition: border-color 0.2s ease;
-}
-.auth-form__input::-moz-placeholder {
-  color: #858584;
 }
 .auth-form__input::placeholder {
   color: #858584;
@@ -2191,8 +2174,7 @@ body.is-authenticated .profile-grid:not([hidden]) {
 .profile-header__banner-img {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   display: block;
 }
 .profile-header__info {
@@ -2204,8 +2186,7 @@ body.is-authenticated .profile-grid:not([hidden]) {
   height: 120px;
   border-radius: 24px;
   border: 4px solid #2b2b2b;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   margin-top: -60px;
   margin-bottom: 16px;
 }
@@ -2397,8 +2378,7 @@ body.is-authenticated .profile-grid:not([hidden]) {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .nav__profile-username {
@@ -2495,9 +2475,6 @@ body.is-authenticated .profile-grid:not([hidden]) {
   line-height: 140%;
   color: #fff;
 }
-.marketplace-search__input::-moz-placeholder {
-  color: #858584;
-}
 .marketplace-search__input::placeholder {
   color: #858584;
 }
@@ -2571,6 +2548,20 @@ body.is-authenticated .profile-grid:not([hidden]) {
   width: 100%;
   background: #3b3b3b;
   padding: 60px 0 80px;
+}
+
+.marketplace-grid__status {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 140%;
+  color: #858584;
+  text-align: center;
+}
+.marketplace-grid__status--error {
+  color: #ff7262;
 }
 
 .marketplace-grid {
@@ -2721,4 +2712,4 @@ body.is-authenticated .profile-grid:not([hidden]) {
   font-size: 12px;
   line-height: 110%;
   color: #ccc;
-}/*# sourceMappingURL=main.css.map */
+}

@@ -130,6 +130,16 @@
     padding: 60px 0 80px;
 }
 
+.marketplace-grid__status {
+    @include work-sans(400, 16px, 140%);
+    color: $caption-label-text;
+    text-align: center;
+
+    &--error {
+        color: $red-accent;
+    }
+}
+
 .marketplace-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
