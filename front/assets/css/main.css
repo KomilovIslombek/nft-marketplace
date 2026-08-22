@@ -1394,6 +1394,20 @@ i.none {
   text-transform: capitalize;
   color: #fff;
 }
+.discover-more__status {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 140%;
+  color: #858584;
+  text-align: center;
+  padding: 20px 0;
+}
+.discover-more__status--error {
+  color: #ff7262;
+}
 .discover-more {
   /* NTFs Card start from here */
 }

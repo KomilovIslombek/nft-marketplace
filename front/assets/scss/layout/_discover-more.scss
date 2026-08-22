@@ -23,6 +23,20 @@
         color: $text-color-white;
     }
 
+    // Loading / empty / error line. Deliberately a sibling of __flex,
+    // not a child — the tablet rule below hides .nft-card:nth-child(3),
+    // and an extra element inside the grid would shift which card that is.
+    &__status {
+        @include work-sans(400, 16px, 140%);
+        color: $caption-label-text;
+        text-align: center;
+        padding: 20px 0;
+
+        &--error {
+            color: $red-accent;
+        }
+    }
+
     /* NTFs Card start from here */ 
 
     &__flex {

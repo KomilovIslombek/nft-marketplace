@@ -98,7 +98,7 @@ variants): **Homepage, Create Account, Artist Page, NFT Page, Connect
 Wallet, Marketplace, Rankings**.
 
 **Implemented so far:**
-- ✅ Homepage (`index.html`) — hero, trending collections, categories, "how it works," newsletter, footer. The "Top Creators" section reads the same `GET /api/rankings` endpoint the Rankings page uses, so the homepage summary and the full leaderboard cannot disagree; each card links to that creator's page.
+- ✅ Homepage (`index.html`) — hero, categories, "how it works," newsletter, footer. Two sections run on live data: "Top Creators" reads the same `GET /api/rankings` endpoint the Rankings page uses (so the summary and the full leaderboard cannot disagree), and "Discover More NFTs" reads `GET /api/nfts` through the shared `buildNftCard()`. Both link somewhere real.
 - ✅ Register / Login (`register.html`, `login.html`) — email+password and "Sign in with Google"
 - ✅ Profile page (`profile.html`) — shown when authenticated
 - ✅ Backend auth API — register, login, Google OAuth, session check (`/me`), logout, change password
@@ -116,6 +116,8 @@ Wallet, Marketplace, Rankings**.
 
 **Known gaps (by design, not bugs):**
 - "Collections" tab on Marketplace is a visual-only stub — no collections feature exists yet (see Roadmap)
+- The homepage "Trending Collection" section is still hardcoded, for the same reason: there is no collections model to read from
+- The homepage "Auction" section is still hardcoded, including a countdown timer that isn't counting down to anything — there is no auction model
 - No live bidding — the NFT detail page shows real price/highest-bid but the "Place Bid" button is honestly disabled rather than pretending to work
 - No wallet address, "Follow" button, or social links on the Artist Page — none of that has real data behind it yet, so it's omitted rather than faked
 - No real wallet/Web3 integration — Connect Wallet is UI only, explained above
@@ -201,6 +203,7 @@ Base URL: `http://localhost:5000/api`
 - [x] Sale/transaction model + creator rankings API (`GET /api/rankings`)
 - [x] Rankings page (frontend)
 - [x] Wire the homepage "Top Creators" section to `GET /api/rankings`
+- [ ] Decide the fate of the homepage "Trending Collection" and "Auction" sections — both need a model that doesn't exist, so it's a disable/omit/explain call, not a wiring job
 - [ ] Deploy backend + frontend to production
 - [ ] Tests (backend integration tests at minimum)
 
