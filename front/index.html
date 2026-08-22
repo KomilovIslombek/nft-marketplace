@@ -203,121 +203,12 @@
                     </a>
                 </div>
 
-                <div class="top-creators__flex">
-
-                    <article class="creator">
-                        <div class="creator__number">1</div>
-                        <img class="creator__image" src="./assets/images/creator-1.png"></img>
-
-                        <div class="creator__body">
-                            <h4 class="creator__name">Keepitreal</h4>
-
-                            <div class="creator__sales">Total Sales: <span class="creator__sales-number">34.53 ETH
-                            </span>
-
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="creator">
-                        <div class="creator__number">2</div>
-                        <img class="creator__image" src="./assets/images/creator-2.png"></img>
-
-                        <div class="creator__body">
-                            <h4 class="creator__name">DigiLab</h4>
-
-                            <div class="creator__sales">Total Sales: <span class="creator__sales-number">34.53 ETH
-                            </span>
-
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="creator">
-                        <div class="creator__number">3</div>
-                        <img class="creator__image" src="./assets/images/creator-3.png"></img>
-
-                        <div class="creator__body">
-                            <h4 class="creator__name">GravityOne</h4>
-
-                            <div class="creator__sales">Total Sales: <span class="creator__sales-number">34.53 ETH
-                            </span>
-
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="creator">
-                        <div class="creator__number">4</div>
-                        <img class="creator__image" src="./assets/images/creator-4.png"></img>
-
-                        <div class="creator__body">
-                            <h4 class="creator__name">Juanie</h4>
-
-                            <div class="creator__sales">Total Sales: <span class="creator__sales-number">34.53 ETH
-                            </span>
-
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="creator">
-                        <div class="creator__number">5</div>
-                        <img class="creator__image" src="./assets/images/creator-5.png"></img>
-
-                        <div class="creator__body">
-                            <h4 class="creator__name">BlueWhale</h4>
-
-                            <div class="creator__sales">Total Sales: <span class="creator__sales-number">34.53 ETH
-                            </span>
-
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="creator">
-                        <div class="creator__number">6</div>
-                        <img class="creator__image" src="./assets/images/creator-6.png"></img>
-
-                        <div class="creator__body">
-                            <h4 class="creator__name">mr fox</h4>
-
-                            <div class="creator__sales">Total Sales: <span class="creator__sales-number">34.53 ETH
-                            </span>
-
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="creator">
-                        <div class="creator__number">7</div>
-                        <img class="creator__image" src="./assets/images/creator-7.png"></img>
-
-                        <div class="creator__body">
-                            <h4 class="creator__name">Shroomie</h4>
-
-                            <div class="creator__sales">Total Sales: <span class="creator__sales-number">34.53 ETH
-                            </span>
-
-                            </div>
-                        </div>
-                    </article>
-
-                     <article class="creator">
-                        <div class="creator__number">8</div>
-                        <img class="creator__image" src="./assets/images/creator-8.png"></img>
-
-                        <div class="creator__body">
-                            <h4 class="creator__name">Robotica</h4>
-
-                            <div class="creator__sales">Total Sales: <span class="creator__sales-number">34.53 ETH
-                            </span>
-
-                            </div>
-                        </div>
-                    </article>
-
-                </div>
+                <!-- Populated by assets/js/layout/top-creators.js from
+                     GET /api/rankings?period=all — the same endpoint the
+                     Rankings page reads, so the homepage summary and the
+                     full leaderboard can never disagree with each other. -->
+                <p class="top-creators__status" id="topCreatorsStatus">Loading top creators&hellip;</p>
+                <div class="top-creators__flex" id="topCreatorsGrid"></div>
             </div>
         </section>
 
@@ -829,6 +720,7 @@
     
     <script src="assets/js/layout/header.js"></script>
     <script src="assets/js/layout/nfts.js"></script>
+    <script src="assets/js/layout/top-creators.js"></script>
 
 </body>
 </html>

@@ -18,6 +18,19 @@
         margin-top: 10px;
     }
 
+    // Loading / empty / error line, shown while the creator list is
+    // being fetched and hidden once the cards render.
+    &__status {
+        @include work-sans(400, 16px, 140%);
+        color: $caption-label-text;
+        text-align: center;
+        padding: 20px 0;
+
+        &--error {
+            color: $red-accent;
+        }
+    }
+
 
     /* Creators cards start from here */
     &__flex {
@@ -28,6 +41,9 @@
 
     .creator {
         position: relative;
+        // Each card links to that creator's page — these named an artist
+        // and went nowhere before.
+        text-decoration: none;
         // width: 240px;
         height: 240px;
         flex-grow: 1;
@@ -70,11 +86,16 @@
             }
         }
 
+        // Forced to a circle so a real uploaded avatar and the generated
+        // fallback identicon both land in the same shape.
         &__image {
             margin: 0 auto;
             max-width: 110px;
             width: 100%;
-            // height: 120px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            object-fit: cover;
+            background: $background;
         }
 
         &__name {
@@ -91,6 +112,11 @@
         &__sales-number {
             @include space-mono(400, 16px, 140%);
             color: $text-color-white;
+        }
+
+        &:hover .creator__name {
+            color: $call-to-action;
+            transition: color $transition-base;
         }
     }
 }
