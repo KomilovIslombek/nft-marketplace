@@ -78,7 +78,9 @@ nft-marketplace/
     ├── index.html               # Homepage
     ├── login.html
     ├── register.html
-    └── profile.html
+    ├── profile.html
+    ├── marketplace.html         # Browse/search/filter all NFTs
+    └── nft.html                 # Single NFT detail — reached via #id=<mongoId>
 ```
 
 ## Status: what's built vs. planned
@@ -96,13 +98,15 @@ Wallet, Marketplace, Rankings**.
 - ✅ Marketplace page (`marketplace.html`) — fully wired to the live API: search (debounced + on submit), category filter chips, "Load more" pagination, loading/empty/error states
 - ✅ Backend NFT API — list (search + category filter + pagination), get one, create/update/delete (owner-only), seed script
 - ✅ CORS accepts common local dev ports automatically (5500/5501/5502/3000) — no manual config needed whichever way the frontend is being served
+- ✅ NFT detail page (`nft.html`) — hero image, artist info, description, category, price/highest-bid, and a real "more from this artist" grid. Reached by clicking any Marketplace card.
 
-**Known gaps on the Marketplace page (by design, not bugs):**
-- "Collections" tab is a visual-only stub — no collections feature exists yet (see Roadmap)
-- NFT cards don't link anywhere yet — no NFT detail page exists yet
+**Known gaps (by design, not bugs):**
+- "Collections" tab on Marketplace is a visual-only stub — no collections feature exists yet (see Roadmap)
+- No live bidding — the NFT detail page shows real price/highest-bid but the "Place Bid" button is honestly disabled rather than pretending to work
+- Artist names on the NFT detail page aren't links yet — no Artist Page exists yet
 
 **Planned next (see [Roadmap](#roadmap)):**
-- ⬜ Artist Page, NFT detail page, Rankings, Connect Wallet
+- ⬜ Artist Page, Rankings, Connect Wallet
 - ⬜ Deployment to production
 
 ## Getting started
@@ -173,9 +177,9 @@ Base URL: `http://localhost:5000/api`
 ## Roadmap
 
 - [x] NFT data model + CRUD API
-- [ ] Wire the Marketplace page to the real API instead of hardcoded cards
+- [x] Wire the Marketplace page to the real API instead of hardcoded cards
+- [x] NFT detail page
 - [ ] Artist profile pages
-- [ ] NFT detail page
 - [ ] Wallet connect flow
 - [ ] Rankings page
 - [ ] Deploy backend + frontend to production

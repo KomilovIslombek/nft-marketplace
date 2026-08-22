@@ -87,56 +87,9 @@ async function loadNfts({ reset }) {
   }
 }
 
-// Builds one .nft-card as a real DOM node rather than an interpolated
-// HTML string. NFT titles/creator usernames are user-submitted content
-// (via POST /api/nfts) — assigning them through .textContent instead of
-// innerHTML means they're always rendered as plain text, never parsed
-// as markup, so a listing titled "<img onerror=...>" can't run anything.
-function buildNftCard(nft) {
-  const card = document.createElement('a');
-  card.className = 'nft-card';
-  card.href = '#'; // no NFT detail page yet — see roadmap
-
-  card.innerHTML = `
-    <img class="nft-card__image" alt="">
-    <div class="nft-card__body">
-      <h4 class="nft-card__title"></h4>
-      <div class="nft-card__avatar-row">
-        <img class="nft-card__avatar-img" alt="">
-        <h6 class="nft-card__avatar-name"></h6>
-      </div>
-      <div class="nft-card__details">
-        <div>
-          <h6 class="nft-card__price-title">Price</h6>
-          <h5 class="nft-card__price"></h5>
-        </div>
-        <div>
-          <h6 class="nft-card__bid-title">Highest Bid</h6>
-          <h5 class="nft-card__bid"></h5>
-        </div>
-      </div>
-    </div>
-  `;
-
-  const creatorName = nft.creator?.username || 'Unknown artist';
-  const avatarUrl = nft.creator?.avatarUrl || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(creatorName)}`;
-
-  const image = card.querySelector('.nft-card__image');
-  image.src = nft.imageUrl;
-  image.alt = nft.title;
-
-  card.querySelector('.nft-card__title').textContent = nft.title;
-
-  const avatarImg = card.querySelector('.nft-card__avatar-img');
-  avatarImg.src = avatarUrl;
-  avatarImg.alt = '';
-
-  card.querySelector('.nft-card__avatar-name').textContent = creatorName;
-  card.querySelector('.nft-card__price').textContent = `${nft.price} ETH`;
-  card.querySelector('.nft-card__bid').textContent = `${nft.highestBid} wETH`;
-
-  return card;
-}
+// buildNftCard() now lives in components/nft-card.js, shared with
+// nft-detail.js's "More from this artist" grid — load order in
+// marketplace.html puts that script before this one.
 
 // NFTs / Collections tab toggle. "Collections" has no backend data yet
 // (see README roadmap) — this just switches the active tab visually

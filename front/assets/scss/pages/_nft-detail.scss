@@ -1,0 +1,195 @@
+// =====================================================
+// _NFT-DETAIL.SCSS
+// Single NFT page: hero image, artist info + description,
+// price/bid panel, and a "more from this artist" grid.
+//
+// No auction countdown or Etherscan/"View Original" links here —
+// the Figma mock has both, but neither corresponds to anything real
+// in this app (no live auctions, no blockchain data), and building
+// decorative controls that don't do anything is exactly the mistake
+// the Marketplace page had to be fixed for. Price/highest-bid are
+// shown honestly instead, with a clearly-disabled bid button.
+// =====================================================
+
+.nft-detail {
+    &__status {
+        @include work-sans(400, 16px, 140%);
+        color: $caption-label-text;
+        text-align: center;
+        padding: 80px 0;
+
+        &--error {
+            color: $red-accent;
+        }
+    }
+
+    &__hero {
+        width: 100%;
+        height: 560px;
+        overflow: hidden;
+
+        @include media-max($bp-tablet) {
+            height: 320px;
+        }
+    }
+
+    &__hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    &__body {
+        display: flex;
+        gap: 100px;
+        align-items: flex-start;
+        padding: 40px 0;
+
+        @include media-max($bp-tablet) {
+            flex-direction: column;
+            gap: 40px;
+        }
+    }
+
+    &__main {
+        flex: 1 0 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    &__title {
+        @include work-sans(600, 51px, 110%);
+        text-transform: capitalize;
+        color: $text-color-white;
+        margin-bottom: 10px;
+
+        @include media-max($bp-tablet) {
+            @include work-sans(600, 34px, 120%);
+        }
+    }
+
+    &__minted {
+        @include work-sans(400, 22px, 160%);
+        color: $caption-label-text;
+    }
+
+    &__label {
+        @include space-mono(700, 22px, 160%);
+        text-transform: capitalize;
+        color: $caption-label-text;
+        margin-bottom: 10px;
+    }
+
+    &__creator {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__creator-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &__creator-name {
+        @include work-sans(600, 22px, 140%);
+        text-transform: capitalize;
+        color: $text-color-white;
+    }
+
+    &__description {
+        @include work-sans(400, 18px, 160%);
+        color: $text-color-white;
+        white-space: pre-line;
+    }
+
+    &__tag {
+        display: inline-flex;
+        align-items: center;
+        height: 46px;
+        padding: 0 30px;
+        border-radius: $radius-lg;
+        background: $background-secondary;
+        @include work-sans(600, 16px, 140%);
+        color: $text-color-white;
+    }
+
+    &__side {
+        flex-shrink: 0;
+        width: 295px;
+        padding: 30px;
+        border-radius: $radius-lg;
+        background: $background-secondary;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        @include media-max($bp-tablet) {
+            width: 100%;
+        }
+    }
+
+    &__price-row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__price-title {
+        @include space-mono(400, 12px, 110%);
+        color: $caption-label-text;
+        margin-bottom: 8px;
+    }
+
+    &__price {
+        @include space-mono(400, 22px, 140%);
+        color: $text-color-white;
+    }
+
+    &__bid-btn {
+        height: 60px;
+        padding: 0 30px;
+        border: none;
+        border-radius: $radius-lg;
+        background: $caption-label-text;
+        @include work-sans(600, 16px, 140%);
+        color: $text-color-white;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    &__more {
+        padding: 80px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    &__more-title {
+        @include work-sans(600, 38px, 120%);
+        text-transform: capitalize;
+        color: $text-color-white;
+
+        @include media-max($bp-tablet) {
+            @include work-sans(600, 28px, 140%);
+        }
+    }
+
+    &__more-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+
+        @include media-max($bp-tablet) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media-max($bp-mobile) {
+            grid-template-columns: 1fr;
+        }
+    }
+}

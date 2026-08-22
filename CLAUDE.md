@@ -61,6 +61,31 @@ development (see `DEV_ORIGIN_PATTERN`), instead of a single hardcoded
 `FRONTEND_URL`. If a future CORS error shows a dev port not in that list,
 add it there rather than trying to force the user's Live Server onto 5501.
 
+## Cross-page links carrying data: use a #fragment, not a ?query string
+
+`front/` is served by whatever's running locally — our own `npx serve`, or
+the user's VS Code Live Server. `serve` has a "clean URLs" feature on by
+default that 301-redirects `page.html` → `page`, and **that redirect
+silently drops the query string** (`page.html?id=X` → `page`, not
+`page?id=X`). Any link built with a query string for another static page
+(e.g. `nft.html?id=...` from an NFT card) loses that value the moment it's
+clicked, with no error anywhere — the destination page just looks like it
+got no id. This actually happened building the NFT detail page (Aug 2026).
+
+The fix in use: pass such values as a **URL fragment** instead —
+`nft.html#id=...`, read via `location.hash` (see
+`components/nft-card.js` / `nft-detail.js`). A fragment is never sent to
+the server at all, so the browser preserves it locally across the redirect
+regardless of what `serve` does to the path. Do this for any future
+page-to-page link that needs to carry an id/param — don't reach for a
+`?query` string for that purpose in this project.
+
+Do **not** "fix" this by adding a root `serve.json` with `"cleanUrls":
+false` — that was tried first and broke something worse: it also disables
+`serve`'s default resolution of `/` → `index.html`, so the homepage starts
+showing a raw directory listing instead. If a `front/serve.json` ever
+reappears, that's almost certainly why — delete it.
+
 ## Stack quick reference
 
 - **Backend**: Node/Express 5, MongoDB via Mongoose, JWT in an httpOnly

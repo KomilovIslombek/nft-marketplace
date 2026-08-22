@@ -40,26 +40,26 @@ const DEMO_CREATORS = [
 // imageUrl values are paths as served by the frontend (front/assets/images/…),
 // not backend-hosted files — the backend just stores where the picture lives.
 const DEMO_NFTS = [
-  { title: 'Magic Mushroom 0325', creator: 'Shroomie', category: 'Art', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/mushroom.png' },
-  { title: 'Happy Robot 032', creator: 'BeKind2Robots', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/robot.png' },
-  { title: 'Happy Robot 024', creator: 'BeKind2Robots', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/robot.png' },
-  { title: 'Designer Bear', creator: 'MrFox', category: 'Art', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/nft-bear.png' },
-  { title: 'Colorful Dog 0356', creator: 'Keepitreal', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/nft-dog.png' },
-  { title: 'Dancing Robot 0312', creator: 'Robotica', category: 'Music', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/music.png' },
-  { title: 'Cherry Blossom Girl 035', creator: 'MoonDancer', category: 'Photography', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/astronaut.png' },
-  { title: 'Space Travel', creator: 'NebulaKid', category: 'Virtual Worlds', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/space-walking.png' },
-  { title: 'Sunset Dimension', creator: 'Animakid', category: 'Virtual Worlds', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/astronaut-spaceship.jpg' },
-  { title: 'Desert Walk', creator: 'Catch22', category: 'Photography', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/astronaut-spaceship-2.jpg' },
-  { title: 'IceCream Ape 0324', creator: 'IceApeClub', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/nft-cat.png' },
-  { title: 'Colorful Dog 0344', creator: 'PuppyPower', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/nft-dog.png' },
+  { title: 'Magic Mushroom 0325', creator: 'Shroomie', category: 'Art', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/mushroom.png', description: 'Part of the Magic Mushroom collection — hand-illustrated fungi from a forest that only exists after dark.' },
+  { title: 'Happy Robot 032', creator: 'BeKind2Robots', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/robot.png', description: 'One of 1,000 friendly robots, each built from a different decommissioned appliance and given a new personality.' },
+  { title: 'Happy Robot 024', creator: 'BeKind2Robots', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/robot.png', description: 'One of 1,000 friendly robots, each built from a different decommissioned appliance and given a new personality.' },
+  { title: 'Designer Bear', creator: 'MrFox', category: 'Art', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/nft-bear.png', description: 'A bear with impeccable taste in eyewear. Limited drop from the Designer Animals series.' },
+  { title: 'Colorful Dog 0356', creator: 'Keepitreal', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/nft-dog.png', description: 'Every Colorful Dog is generated from a unique palette seed — no two coats are the same.' },
+  { title: 'Dancing Robot 0312', creator: 'Robotica', category: 'Music', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/music.png', description: 'This one only dances to frequencies humans can\'t hear. Part of the Robotica sound-reactive series.' },
+  { title: 'Cherry Blossom Girl 035', creator: 'MoonDancer', category: 'Photography', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/astronaut.png', description: 'Shot on the last clear night before the dust storms — one of MoonDancer\'s Cherry Blossom series.' },
+  { title: 'Space Travel', creator: 'NebulaKid', category: 'Virtual Worlds', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/space-walking.png', description: 'A wanderer drifting between two dying stars, rendered entirely in-engine — no photo reference used.' },
+  { title: 'Sunset Dimension', creator: 'Animakid', category: 'Virtual Worlds', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/astronaut-spaceship.jpg', description: 'A pocket dimension where the sun never fully sets. Third piece in the Dimension Drift series.' },
+  { title: 'Desert Walk', creator: 'Catch22', category: 'Photography', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/astronaut-spaceship-2.jpg', description: 'A lone figure crossing a dune sea under two moons. Catch 22\'s first fully solo release.' },
+  { title: 'IceCream Ape 0324', creator: 'IceApeClub', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/nft-cat.png', description: 'Melting slower than the rest of the club — considered a rare trait among Ice Ape collectors.' },
+  { title: 'Colorful Dog 0344', creator: 'PuppyPower', category: 'Collectibles', price: 1.63, highestBid: 0.33, imageUrl: '/assets/images/nft-dog.png', description: 'PuppyPower\'s take on the Colorful Dog format — brighter, louder, and a little chaotic.' },
   // A few extra so the grid has more than one page to actually exercise
   // "Load more" and category filtering against real, varied data.
-  { title: 'Magic Mushroom 0402', creator: 'Shroomie', category: 'Art', price: 2.1, highestBid: 0.5, imageUrl: '/assets/images/auction-mushroom.png' },
-  { title: 'Wallet Wanderer', creator: 'MrFox', category: 'Utility', price: 0.9, highestBid: 0.12, imageUrl: '/assets/images/wallet.png' },
-  { title: 'Corner Shop', creator: 'Keepitreal', category: 'Collectibles', price: 1.2, highestBid: 0.21, imageUrl: '/assets/images/shop.png' },
-  { title: 'Night Frequency', creator: 'Robotica', category: 'Music', price: 3.4, highestBid: 0.88, imageUrl: '/assets/images/music.png' },
-  { title: 'Nebula Drift', creator: 'NebulaKid', category: 'Virtual Worlds', price: 2.75, highestBid: 0.6, imageUrl: '/assets/images/astronaut-spaceship.jpg' },
-  { title: 'Robo Companion', creator: 'BeKind2Robots', category: 'Sport', price: 1.05, highestBid: 0.19, imageUrl: '/assets/images/robot.png' },
+  { title: 'Magic Mushroom 0402', creator: 'Shroomie', category: 'Art', price: 2.1, highestBid: 0.5, imageUrl: '/assets/images/auction-mushroom.png', description: 'A rarer variant from the Magic Mushroom collection, auctioned rather than fixed-price.' },
+  { title: 'Wallet Wanderer', creator: 'MrFox', category: 'Utility', price: 0.9, highestBid: 0.12, imageUrl: '/assets/images/wallet.png', description: 'Grants no real utility whatsoever — it is, appropriately, a picture of a wallet.' },
+  { title: 'Corner Shop', creator: 'Keepitreal', category: 'Collectibles', price: 1.2, highestBid: 0.21, imageUrl: '/assets/images/shop.png', description: 'A tiny shopfront from a neighborhood that only exists in Keepitreal\'s sketchbooks.' },
+  { title: 'Night Frequency', creator: 'Robotica', category: 'Music', price: 3.4, highestBid: 0.88, imageUrl: '/assets/images/music.png', description: 'Highest-priced piece in the Robotica sound-reactive series — allegedly tuned to a real frequency.' },
+  { title: 'Nebula Drift', creator: 'NebulaKid', category: 'Virtual Worlds', price: 2.75, highestBid: 0.6, imageUrl: '/assets/images/astronaut-spaceship.jpg', description: 'A companion piece to Space Travel, drifting the opposite direction through the same nebula.' },
+  { title: 'Robo Companion', creator: 'BeKind2Robots', category: 'Sport', price: 1.05, highestBid: 0.19, imageUrl: '/assets/images/robot.png', description: 'BeKind2Robots\' first crossover piece — a robot built for a sport that hasn\'t been invented yet.' },
 ];
 
 async function seed() {
@@ -92,6 +92,7 @@ async function seed() {
     const creator = creatorsByUsername[nft.creator];
     return {
       title: nft.title,
+      description: nft.description,
       category: nft.category,
       price: nft.price,
       highestBid: nft.highestBid,
