@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/main.css">
-    <title>Artist</title>
+    <title>Rankings</title>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
     </div>
 
 
-    <!-- Header start -->
+<!-- Header start -->
     <header class="header">
         <div class="header__row container">
             <a href="/" class="header__logo"><img src="./assets/images/logo.png" width="243" height="32" alt="Logo"></a>
@@ -54,58 +54,49 @@
     <!-- Header end -->
 
     <main>
-        <!-- Shown while fetching, or if #id= is missing/invalid/not found -->
-        <p class="artist-header__status" id="artistStatus">Loading artist&hellip;</p>
-
-        <div id="artistContent" hidden>
-            <div class="artist-header__cover"></div>
-
-            <div class="artist-header__info container-section">
-                <img class="artist-header__avatar" id="artistAvatar" alt="">
-                <h1 class="artist-header__name" id="artistName"></h1>
-
-                <div class="artist-header__stats">
-                    <div class="artist-header__stat">
-                        <span class="artist-header__stat-value" id="artistCreatedCount"></span>
-                        <span class="artist-header__stat-label">NFTs Created</span>
-                    </div>
-                    <div class="artist-header__stat">
-                        <span class="artist-header__stat-value" id="artistOwnedCount"></span>
-                        <span class="artist-header__stat-label">NFTs Owned</span>
-                    </div>
-                    <div class="artist-header__stat">
-                        <span class="artist-header__stat-value" id="artistTotalValue"></span>
-                        <span class="artist-header__stat-label">Listed Value (ETH)</span>
-                    </div>
-                </div>
-
-                <div id="artistBioSection" hidden>
-                    <p class="artist-header__label">Bio</p>
-                    <p class="artist-header__bio" id="artistBio"></p>
-                </div>
+        <section class="rankings-hero container-section">
+            <div class="rankings-hero__inner">
+                <h1 class="rankings-hero__title">Top Creators</h1>
+                <p class="rankings-hero__subtitle">
+                    Creators ranked by the total value of every sale of the NFTs they created.
+                </p>
             </div>
+        </section>
 
-            <!-- Created / Owned tabs — reuses .marketplace-tabs, same widget as the Marketplace page -->
-            <nav class="marketplace-tabs container-section" aria-label="Artist's NFTs">
-                <button type="button" class="marketplace-tabs__tab is-active" data-tab="created">
-                    Created <span class="marketplace-tabs__count" id="artistCreatedTabCount">&hellip;</span>
-                </button>
-                <button type="button" class="marketplace-tabs__tab" data-tab="owned">
-                    Owned <span class="marketplace-tabs__count" id="artistOwnedTabCount">&hellip;</span>
-                </button>
-            </nav>
+        <!-- Period tabs. Each one is a real query against a different
+             soldAt window on GET /api/rankings — not a client-side
+             re-sort of the same numbers. -->
+        <nav class="rankings-tabs container-section" aria-label="Ranking period" id="rankingsPeriods">
+            <button type="button" class="rankings-tabs__tab" data-period="7d">Last 7 days</button>
+            <button type="button" class="rankings-tabs__tab is-active" data-period="30d">Last 30 days</button>
+            <button type="button" class="rankings-tabs__tab" data-period="90d">Last 90 days</button>
+            <button type="button" class="rankings-tabs__tab" data-period="all">All time</button>
+        </nav>
 
-            <!-- Reuses .marketplace-section / .marketplace-grid — same card grid as Marketplace -->
-            <section class="marketplace-section">
-                <div class="container-section">
-                    <p class="marketplace-grid__status" id="artistGridStatus" hidden></p>
-                    <div class="marketplace-grid" id="artistGrid"></div>
-                </div>
-            </section>
-        </div>
+        <!-- Table body is populated by assets/js/rankings.js -->
+        <section class="rankings-section">
+            <div class="container-section">
+                <p class="rankings__status" id="rankingsStatus">Loading rankings&hellip;</p>
+
+                <table class="rankings-table" id="rankingsTable" hidden>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="rankings-table__rank-col">#</th>
+                            <th scope="col">Artist</th>
+                            <th scope="col" class="rankings-table__num-col">Change</th>
+                            <th scope="col" class="rankings-table__num-col">NFTs Sold</th>
+                            <th scope="col" class="rankings-table__num-col">Volume</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rankingsBody"></tbody>
+                </table>
+
+                <p class="rankings__note" id="rankingsNote" hidden></p>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer start -->
+<!-- Footer start -->
     <footer class="footer">
         <div class="container-section">
             <div class="footer__row">
@@ -185,8 +176,7 @@
 
     <script src="assets/js/abstracts/functions.js"></script>
     <script src="assets/js/layout/header.js"></script>
-    <script src="assets/js/components/nft-card.js"></script>
-    <script src="assets/js/artist.js"></script>
+    <script src="assets/js/rankings.js"></script>
 
 </body>
 </html>

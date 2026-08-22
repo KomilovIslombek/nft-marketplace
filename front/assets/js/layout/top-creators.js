@@ -3,7 +3,7 @@ const topCreatorsContainer = document.querySelector(".top-creators .container-se
 const topCreatorsHeader = document.querySelector(".top-creators__header");
 
 function movePrimaryButton() {
-    const btnPrimary = document.querySelector(".btn-primary[href='/rankings']");
+    const btnPrimary = document.querySelector(".btn-primary[href='./rankings.html']");
 
     if (!btnPrimary || !topCreatorsHeader || !topCreatorsContainer) return;
 

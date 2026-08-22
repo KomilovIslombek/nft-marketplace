@@ -37,3 +37,8 @@ assets/scss/
 | Register | `register.html` | Email/password + Google sign-in |
 | Login | `login.html` | Email/password + Google sign-in |
 | Profile | `profile.html` | Requires being logged in |
+| Marketplace | `marketplace.html` | Search, category filter, "Load more" — all against `GET /api/nfts` |
+| NFT detail | `nft.html` | Reached via `#id=<mongoId>` from any NFT card |
+| Artist | `artist.html` | Reached via `#id=<mongoId>`; Created/Owned tabs |
+| Connect Wallet | `connect-wallet.html` | UI only — clicking a provider explains there's no Web3 integration |
+| Rankings | `rankings.html` | Top Creators leaderboard from `GET /api/rankings`; period tabs re-query the server |

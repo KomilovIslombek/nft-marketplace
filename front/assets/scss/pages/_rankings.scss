@@ -1,0 +1,265 @@
+// =====================================================
+// _RANKINGS.SCSS
+// Top Creators leaderboard: headline, period tabs, and the results
+// table fed by GET /api/rankings.
+//
+// The period tabs deliberately reuse .marketplace-tabs' visual
+// language (same height, same underline-on-active) but are their own
+// block — .marketplace-tabs stretches its children to fill the row,
+// which looks wrong with four short labels instead of two long ones.
+// =====================================================
+
+.rankings-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 0 40px;
+
+    @include media-max($bp-tablet) {
+        padding: 50px 0 30px;
+    }
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    &__title {
+        @include work-sans(600, 51px, 110%);
+        text-transform: capitalize;
+        color: $text-color-white;
+
+        @include media-max($bp-tablet) {
+            @include work-sans(600, 34px, 120%);
+        }
+    }
+
+    &__subtitle {
+        @include work-sans(400, 22px, 160%);
+        color: $text-color-white;
+
+        @include media-max($bp-tablet) {
+            @include work-sans(400, 16px, 140%);
+        }
+    }
+}
+
+.rankings-tabs {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-top: 1px solid $background-secondary;
+
+    &__tab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        padding: 0 30px;
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        cursor: pointer;
+        @include work-sans(600, 18px, 140%);
+        color: $caption-label-text;
+        white-space: nowrap;
+        transition: color $transition-base;
+
+        @include media-max($bp-mobile) {
+            @include work-sans(600, 14px, 140%);
+            padding: 0 14px;
+            height: 48px;
+        }
+
+        &:hover {
+            color: $text-color-white;
+        }
+
+        &.is-active {
+            color: $text-color-white;
+            border-bottom-color: $caption-label-text;
+        }
+    }
+}
+
+.rankings-section {
+    width: 100%;
+    background: $background-secondary;
+    padding: 20px 0 80px;
+}
+
+.rankings__status {
+    @include work-sans(400, 16px, 140%);
+    color: $caption-label-text;
+    text-align: center;
+    padding: 40px 0;
+
+    &--error {
+        color: $red-accent;
+    }
+}
+
+// Footnote under the table explaining what "New" and "—" mean. This is
+// load-bearing, not decoration: without it a reader has no way to tell
+// "no comparable previous period" apart from "no change".
+.rankings__note {
+    @include work-sans(400, 14px, 160%);
+    color: $caption-label-text;
+    margin-top: 24px;
+}
+
+.rankings-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead th {
+        @include work-sans(600, 16px, 140%);
+        color: $caption-label-text;
+        text-align: left;
+        padding: 16px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        white-space: nowrap;
+    }
+
+    tbody td {
+        padding: 20px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    &__rank-col {
+        width: 60px;
+    }
+
+    &__num-col {
+        text-align: right !important;
+    }
+
+    &__rank {
+        @include space-mono(400, 18px, 140%);
+        color: $caption-label-text;
+    }
+
+    // The artist cell is a link to that creator's page — same #id=
+    // fragment convention the NFT cards use.
+    &__artist {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        text-decoration: none;
+
+        &:hover .rankings-table__name {
+            color: $call-to-action;
+        }
+    }
+
+    &__avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+        background: $background;
+    }
+
+    &__name {
+        @include work-sans(600, 20px, 140%);
+        color: $text-color-white;
+        transition: color $transition-base;
+    }
+
+    &__num {
+        @include space-mono(400, 16px, 140%);
+        color: $text-color-white;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    &__change {
+        @include space-mono(400, 16px, 140%);
+        text-align: right;
+        white-space: nowrap;
+
+        &--up {
+            color: $green-accent;
+        }
+
+        &--down {
+            color: $red-accent;
+        }
+
+        // Creator had zero volume in the previous window, so a percentage
+        // would be a division by zero — they're new to the board.
+        &--new {
+            color: $call-to-action;
+        }
+
+        // Period is "all time": there is no previous window to compare to.
+        &--none {
+            color: $caption-label-text;
+        }
+    }
+
+    // ---------- Mobile: rows become stacked cards ----------
+    // A five-column table can't survive 490px. Each row turns into a
+    // block, and every stat cell grows a label from its data-label
+    // attribute so the numbers still say what they are.
+    @include media-max($bp-mobile) {
+        display: block;
+
+        thead {
+            display: none;
+        }
+
+        tbody,
+        tbody tr,
+        tbody td {
+            display: block;
+            width: 100%;
+        }
+
+        tbody tr {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        tbody td {
+            padding: 6px 0;
+            border-bottom: none;
+        }
+
+        // Rank sits inline with the artist rather than on its own line.
+        tbody td[data-label='#'] {
+            @include space-mono(400, 14px, 140%);
+            color: $caption-label-text;
+            padding-bottom: 0;
+        }
+
+        tbody td[data-label]:not([data-label='#']):not([data-label='Artist'])::before {
+            content: attr(data-label);
+            @include work-sans(500, 14px, 140%);
+            color: $caption-label-text;
+        }
+
+        tbody td[data-label]:not([data-label='#']):not([data-label='Artist']) {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        &__num,
+        &__change {
+            text-align: right;
+        }
+    }
+}
