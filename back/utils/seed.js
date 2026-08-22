@@ -20,6 +20,55 @@ const mongoose = require('mongoose');
 const connectDB = require('../config/db');
 const User = require('../modules/user');
 const Nft = require('../modules/nft');
+const Sale = require('../modules/sale');
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+// How far back demo listings are spread. Sales are then generated between
+// a listing's own date and today, so no NFT can ever sell before it existed.
+const MIN_LISTING_AGE_DAYS = 25;
+const MAX_LISTING_AGE_DAYS = 150;
+
+// The demo history below is generated rather than hand-written, but it has
+// to be the SAME history on every run — otherwise `npm run seed` reshuffles
+// the leaderboard, and any screenshot or doc referring to it goes stale.
+// mulberry32 seeded with a fixed constant gives repeatable "random" numbers.
+const RANDOM_SEED = 20260822;
+
+// Exponent applied to the sale-date random draw. 1 = evenly spread across
+// the listing's lifetime; higher = more of the history clustered near today.
+const RECENCY_BIAS = 1.8;
+
+function makeRandom(seed) {
+  let a = seed;
+  return function random() {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function randBetween(rand, min, max) {
+  return min + rand() * (max - min);
+}
+
+function daysAgo(days) {
+  return new Date(Date.now() - days * DAY_MS);
+}
+
+// Weighted so a few pieces never sell, most trade once or twice, and a
+// handful change hands repeatedly — that spread is what makes a leaderboard
+// have a shape instead of every creator sitting on the same number.
+function pickSaleCount(rand) {
+  const roll = rand();
+  if (roll < 0.1) return 0;
+  if (roll < 0.3) return 1;
+  if (roll < 0.6) return 2;
+  if (roll < 0.85) return 3;
+  return 4;
+}
 
 const DEMO_PASSWORD = 'DemoPass123!'; // hashed by the User pre-save hook — not meant for real login
 
@@ -88,13 +137,28 @@ async function seed() {
 
   const seedCreatorIds = Object.values(creatorsByUsername).map((u) => u._id);
 
-  console.log('Clearing previously seeded NFTs (owned by demo creators only)...');
+  console.log('Clearing previously seeded sales + NFTs (demo creators only)...');
+  // Sales reference NFTs, so they have to go first — otherwise re-running
+  // the seed leaves Sale documents pointing at NFT ids that no longer
+  // exist, and the rankings aggregation silently drops them at $unwind.
+  const existingDemoNfts = await Nft.find({ creator: { $in: seedCreatorIds } }).select('_id');
+  const existingDemoNftIds = existingDemoNfts.map((n) => n._id);
+
+  const { deletedCount: salesRemoved } = await Sale.deleteMany({ nft: { $in: existingDemoNftIds } });
   const { deletedCount } = await Nft.deleteMany({ creator: { $in: seedCreatorIds } });
-  console.log(`  removed ${deletedCount} existing demo NFT(s)`);
+  console.log(`  removed ${salesRemoved} existing demo sale(s) and ${deletedCount} demo NFT(s)`);
 
   console.log('Seeding NFTs...');
+  // Listings are backdated across the last few months rather than all
+  // stamped with "now". Without this every NFT shares one createdAt to
+  // the millisecond, and any date-windowed query — including the
+  // Rankings period tabs — returns an identical result for every window.
+  const rand = makeRandom(RANDOM_SEED);
+
   const docs = DEMO_NFTS.map((nft) => {
     const creator = creatorsByUsername[nft.creator];
+    const listedAt = daysAgo(randBetween(rand, MIN_LISTING_AGE_DAYS, MAX_LISTING_AGE_DAYS));
+
     return {
       title: nft.title,
       description: nft.description,
@@ -103,11 +167,85 @@ async function seed() {
       highestBid: nft.highestBid,
       imageUrl: nft.imageUrl,
       creator: creator._id,
-      owner: creator._id,
+      owner: creator._id, // may be reassigned below once sales are generated
+      createdAt: listedAt,
+      updatedAt: listedAt,
     };
   });
-  await Nft.insertMany(docs);
-  console.log(`  inserted ${docs.length} NFT(s)`);
+
+  // `timestamps: false` is required here: Mongoose's timestamp plugin would
+  // otherwise overwrite the backdated createdAt above with the current time,
+  // undoing the whole point of it.
+  const insertedNfts = await Nft.insertMany(docs, { timestamps: false });
+  console.log(`  inserted ${insertedNfts.length} NFT(s), listed between ${MIN_LISTING_AGE_DAYS} and ${MAX_LISTING_AGE_DAYS} days ago`);
+
+  console.log('Generating sale history...');
+  // Each NFT gets a chain of 0-3 sales. Ownership walks along that chain,
+  // so `owner` genuinely diverges from `creator` for anything that sold —
+  // which is what makes the Profile/Artist "Created" vs "Owned" tabs show
+  // different things, and what gives Rankings a real volume to sum.
+  const allDemoUsers = Object.values(creatorsByUsername);
+  const saleDocs = [];
+
+  insertedNfts.forEach((nft) => {
+    const listedDaysAgo = (Date.now() - nft.createdAt.getTime()) / DAY_MS;
+    const saleCount = pickSaleCount(rand);
+    if (saleCount === 0) return;
+
+    // Sale dates: random points between the listing date and today, put
+    // back into chronological order so a chain reads oldest -> newest.
+    // Sale dates are weighted toward the recent end rather than spread
+    // evenly. Two reasons: a marketplace that is growing genuinely does
+    // more volume lately than it did five months ago, and a flat spread
+    // leaves the 7-day board with almost nothing on it. Raising a 0-1
+    // random to a power > 1 pulls results toward 0 (= today).
+    const points = Array.from({ length: saleCount }, () => {
+      const maxDays = Math.max(listedDaysAgo - 1, 0.5);
+      return Math.pow(rand(), RECENCY_BIAS) * maxDays;
+    }).sort((a, b) => b - a);
+
+    let seller = nft.creator;
+
+    points.forEach((point) => {
+      // Buyer is any demo user who isn't the current holder.
+      const candidates = allDemoUsers.filter((u) => String(u._id) !== String(seller));
+      const buyer = candidates[Math.floor(rand() * candidates.length)];
+
+      // Sale prices drift around the NFT's listing price rather than
+      // matching it exactly — a piece rarely changes hands at its sticker
+      // price twice in a row.
+      const price = Math.max(0.05, Math.round(nft.price * randBetween(rand, 0.6, 1.6) * 100) / 100);
+
+      saleDocs.push({
+        nft: nft._id,
+        seller,
+        buyer: buyer._id,
+        price,
+        soldAt: daysAgo(point),
+      });
+
+      seller = buyer._id; // whoever just bought it is the next seller
+    });
+
+    // Final buyer in the chain is the NFT's current owner.
+    nft.owner = seller;
+  });
+
+  await Sale.insertMany(saleDocs);
+  console.log(`  inserted ${saleDocs.length} sale(s)`);
+
+  // Push the transferred ownership back onto the NFT documents in one
+  // round trip instead of one save() per NFT.
+  const transferred = insertedNfts.filter((n) => String(n.owner) !== String(n.creator));
+  if (transferred.length > 0) {
+    await Nft.bulkWrite(
+      transferred.map((n) => ({
+        updateOne: { filter: { _id: n._id }, update: { $set: { owner: n.owner } } },
+      })),
+      { timestamps: false }
+    );
+  }
+  console.log(`  ${transferred.length} NFT(s) now owned by someone other than their creator`);
 
   console.log('Done.');
   await mongoose.disconnect();

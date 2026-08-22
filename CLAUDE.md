@@ -24,6 +24,34 @@ started cleanly) — e.g. `curl http://127.0.0.1:5000/api/health` and check
 the sass watcher's output for a compile confirmation — before telling the
 user it's ready.
 
+## Duplicate dev servers silently hold the ports
+
+Before starting anything, check whether it is already running. Both dev
+servers fail in a way that *looks* fine in the logs:
+
+- **Backend / port 5000.** If an earlier `npm run dev` (a previous session,
+  or the user's own terminal) still holds :5000, a second nodemon starts
+  happily and prints "Server is running successfully" — but the process
+  actually answering requests is the **old** one, running the **old** code.
+  The symptom is maddening: you add a route, nodemon logs a restart, and the
+  new endpoint still 404s while everything else works. This happened
+  building the Rankings API (Aug 2026) — `/api/rankings` 404'd for several
+  minutes against a server whose `server.js` on disk clearly mounted it.
+- **Frontend / port 5501.** `npx serve front -l 5501` does *not* fail when
+  5501 is taken — it quietly binds a random high port instead and prints
+  that port. Read the actual line; don't assume you got 5501.
+
+Diagnose with:
+
+```bash
+netstat -ano | grep ":5000" | grep LISTEN
+```
+
+then match the PID against the node process list
+(`Get-CimInstance Win32_Process -Filter "Name='node.exe'"`). Kill the stale
+PIDs — including their parent nodemon, which will otherwise not restart the
+child — and start exactly one.
+
 ## The Live Sass Compile VS Code extension — known trap
 
 `front/.vscode/settings.json` configures the Live Sass Compile extension
