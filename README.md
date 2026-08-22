@@ -83,7 +83,8 @@ nft-marketplace/
     ├── profile.html
     ├── marketplace.html         # Browse/search/filter all NFTs
     ├── nft.html                 # Single NFT detail — reached via #id=<mongoId>
-    └── artist.html               # Creator profile — reached via #id=<mongoId>
+    ├── artist.html               # Creator profile — reached via #id=<mongoId>
+    └── connect-wallet.html       # Wallet provider picker (honestly non-functional)
 ```
 
 ## Status: what's built vs. planned
@@ -104,14 +105,16 @@ Wallet, Marketplace, Rankings**.
 - ✅ NFT detail page (`nft.html`) — hero image, artist info, description, category, price/highest-bid, and a real "more from this artist" grid. Reached by clicking any Marketplace card.
 - ✅ Artist Page (`artist.html`) — profile with real stats (NFTs Created, NFTs Owned, listed value), bio, and Created/Owned tabs backed by the real API. Reached by clicking a creator's name on the NFT detail page.
 - ✅ Backend: `GET /api/users/:id` — public profile lookup (username/avatarUrl/bio only, never email/password)
+- ✅ Connect Wallet page (`connect-wallet.html`) — three provider options (MetaMask, WalletConnect, Coinbase Wallet). Real, clickable UI, but honestly non-functional: clicking one opens a modal that plainly says there's no real Web3/wallet integration, rather than silently doing nothing or faking a connection.
 
 **Known gaps (by design, not bugs):**
 - "Collections" tab on Marketplace is a visual-only stub — no collections feature exists yet (see Roadmap)
 - No live bidding — the NFT detail page shows real price/highest-bid but the "Place Bid" button is honestly disabled rather than pretending to work
 - No wallet address, "Follow" button, or social links on the Artist Page — none of that has real data behind it yet, so it's omitted rather than faked
+- No real wallet/Web3 integration — Connect Wallet is UI only, explained above
 
 **Planned next (see [Roadmap](#roadmap)):**
-- ⬜ Rankings, Connect Wallet
+- ⬜ Rankings
 - ⬜ Deployment to production
 
 ## Getting started
@@ -186,7 +189,7 @@ Base URL: `http://localhost:5000/api`
 - [x] Wire the Marketplace page to the real API instead of hardcoded cards
 - [x] NFT detail page
 - [x] Artist profile pages
-- [ ] Wallet connect flow
+- [x] Wallet connect flow (UI only — no real Web3 integration)
 - [ ] Rankings page
 - [ ] Deploy backend + frontend to production
 - [ ] Tests (backend integration tests at minimum)

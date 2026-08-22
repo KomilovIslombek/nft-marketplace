@@ -1,0 +1,112 @@
+// =====================================================
+// _CONNECT-WALLET.SCSS
+// Connect Wallet page. The three provider buttons are real,
+// clickable UI — but this project has no actual Web3/wallet
+// integration, so clicking one opens an honest modal saying so
+// (reusing the generic .modal component) instead of silently doing
+// nothing or pretending to connect.
+// =====================================================
+
+.connect-wallet {
+    display: flex;
+    align-items: stretch;
+
+    @include media-max($bp-tablet) {
+        flex-direction: column;
+    }
+
+    &__media {
+        flex: 1 0 0;
+        min-height: 400px;
+
+        @include media-max($bp-tablet) {
+            min-height: 240px;
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    &__content {
+        flex: 1 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        justify-content: center;
+        padding: 100px 0;
+
+        @include media-max($bp-tablet) {
+            padding: 50px 30px;
+        }
+    }
+
+    &__headline {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 460px;
+    }
+
+    &__title {
+        @include work-sans(600, 51px, 110%);
+        text-transform: capitalize;
+        color: $text-color-white;
+
+        @include media-max($bp-tablet) {
+            @include work-sans(600, 34px, 120%);
+        }
+    }
+
+    &__subtitle {
+        @include work-sans(400, 22px, 160%);
+        color: $text-color-white;
+
+        @include media-max($bp-tablet) {
+            @include work-sans(400, 16px, 140%);
+        }
+    }
+
+    &__options {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 320px;
+        max-width: 100%;
+    }
+
+    &__option {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        height: 72px;
+        padding: 0 20px 0 40px;
+        border: 1px solid $call-to-action;
+        border-radius: $radius-lg;
+        background: $background-secondary;
+        cursor: pointer;
+        text-align: left;
+        transition: all $transition-base;
+
+        &:hover {
+            background: $call-to-action;
+        }
+
+        span {
+            @include work-sans(600, 22px, 140%);
+            text-transform: capitalize;
+            color: $text-color-white;
+        }
+    }
+
+    &__option-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+}

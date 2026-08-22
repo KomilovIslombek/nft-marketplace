@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/main.css">
-    <title>NFT</title>
+    <title>Connect Wallet</title>
 </head>
 <body>
 
@@ -54,64 +54,49 @@
     <!-- Header end -->
 
     <main>
-        <!-- Shown while fetching, or if ?id= is missing/invalid/not found -->
-        <p class="nft-detail__status" id="nftDetailStatus">Loading NFT&hellip;</p>
-
-        <div class="nft-detail" id="nftDetailContent" hidden>
-            <div class="nft-detail__hero">
-                <img class="nft-detail__hero-img" id="nftHeroImg" alt="">
+        <section class="connect-wallet">
+            <div class="connect-wallet__media">
+                <img class="connect-wallet__image" src="./assets/images/astronaut-spaceship.jpg" alt="">
             </div>
 
-            <div class="nft-detail__body container-section">
-                <div class="nft-detail__main">
-                    <div>
-                        <h1 class="nft-detail__title" id="nftTitle"></h1>
-                        <p class="nft-detail__minted" id="nftMinted"></p>
-                    </div>
-
-                    <div>
-                        <p class="nft-detail__label">Created By</p>
-                        <a class="nft-detail__creator" id="nftCreatorLink" href="#">
-                            <img class="nft-detail__creator-avatar" id="nftCreatorAvatar" alt="">
-                            <span class="nft-detail__creator-name" id="nftCreatorName"></span>
-                        </a>
-                    </div>
-
-                    <div id="nftDescriptionSection" hidden>
-                        <p class="nft-detail__label">Description</p>
-                        <p class="nft-detail__description" id="nftDescription"></p>
-                    </div>
-
-                    <div>
-                        <p class="nft-detail__label">Category</p>
-                        <span class="nft-detail__tag" id="nftCategory"></span>
-                    </div>
+            <div class="connect-wallet__content container-section">
+                <div class="connect-wallet__headline">
+                    <h1 class="connect-wallet__title">Connect Wallet</h1>
+                    <p class="connect-wallet__subtitle">Choose a wallet you want to connect. There are several wallet providers.</p>
                 </div>
 
-                <aside class="nft-detail__side">
-                    <div class="nft-detail__price-row">
-                        <div>
-                            <p class="nft-detail__price-title">Price</p>
-                            <p class="nft-detail__price" id="nftPrice"></p>
-                        </div>
-                        <div>
-                            <p class="nft-detail__price-title">Highest Bid</p>
-                            <p class="nft-detail__price" id="nftBid"></p>
-                        </div>
-                    </div>
-                    <button type="button" class="nft-detail__bid-btn" disabled title="Bidding isn't live yet — this is a portfolio project, not a real exchange.">
-                        Place Bid
+                <div class="connect-wallet__options">
+                    <button type="button" class="connect-wallet__option" data-wallet="MetaMask">
+                        <img class="connect-wallet__option-icon" src="./assets/images/fox-icon.png" alt="">
+                        <span>MetaMask</span>
                     </button>
-                </aside>
+                    <button type="button" class="connect-wallet__option" data-wallet="WalletConnect">
+                        <img class="connect-wallet__option-icon" src="./assets/images/wallet.png" alt="">
+                        <span>WalletConnect</span>
+                    </button>
+                    <button type="button" class="connect-wallet__option" data-wallet="Coinbase Wallet">
+                        <svg class="connect-wallet__option-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="20" fill="#377DF7"/>
+                            <circle cx="20" cy="20" r="8" fill="white"/>
+                        </svg>
+                        <span>Coinbase Wallet</span>
+                    </button>
+                </div>
             </div>
-
-            <section class="nft-detail__more container-section">
-                <h2 class="nft-detail__more-title">More from this artist</h2>
-                <p class="marketplace-grid__status" id="nftMoreStatus" hidden></p>
-                <div class="nft-detail__more-grid" id="nftMoreGrid"></div>
-            </section>
-        </div>
+        </section>
     </main>
+
+    <!-- Honest "not really connected" modal — this project has no real
+         Web3/wallet integration, so clicking an option says so plainly
+         instead of pretending to connect or doing nothing silently. -->
+    <div class="modal" id="walletModal" hidden>
+        <div class="modal__backdrop" data-modal-close></div>
+        <div class="modal__panel">
+            <button class="modal__close" data-modal-close>&times;</button>
+            <h3 class="modal__title">No real wallet connection here</h3>
+            <p id="walletModalText"></p>
+        </div>
+    </div>
 
     <!-- Footer start -->
     <footer class="footer">
@@ -193,8 +178,7 @@
 
     <script src="assets/js/abstracts/functions.js"></script>
     <script src="assets/js/layout/header.js"></script>
-    <script src="assets/js/components/nft-card.js"></script>
-    <script src="assets/js/nft-detail.js"></script>
+    <script src="assets/js/connect-wallet.js"></script>
 
 </body>
 </html>
