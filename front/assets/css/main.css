@@ -3000,6 +3000,7 @@ body.is-authenticated .profile-grid:not([hidden]) {
 .connect-wallet {
   display: flex;
   align-items: stretch;
+  column-gap: 60px;
 }
 @media screen and (max-width: 1050px) {
   .connect-wallet {

@@ -10,6 +10,7 @@
 .connect-wallet {
     display: flex;
     align-items: stretch;
+    column-gap: 60px;
 
     @include media-max($bp-tablet) {
         flex-direction: column;
