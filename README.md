@@ -53,7 +53,8 @@ nft-marketplace/
 │   │   └── db.js               # MongoDB connection
 │   ├── controllers/
 │   │   ├── auth.controller.js  # register / login / Google OAuth / me / logout
-│   │   └── nft.controller.js   # NFT listing CRUD
+│   │   ├── nft.controller.js   # NFT listing CRUD
+│   │   └── user.controller.js  # public profile lookup (GET /api/users/:id)
 │   ├── middleware/
 │   │   └── auth.middleware.js  # verifies the JWT cookie, attaches req.user
 │   ├── modules/
@@ -61,7 +62,8 @@ nft-marketplace/
 │   │   └── nft.js              # Mongoose Nft schema (creator + owner refs to User)
 │   ├── routes/
 │   │   ├── auth.routes.js      # /api/auth/* routes
-│   │   └── nft.routes.js       # /api/nfts/* routes
+│   │   ├── nft.routes.js       # /api/nfts/* routes
+│   │   └── user.routes.js      # /api/users/* routes
 │   ├── utils/
 │   │   ├── generatetoken.js    # signs JWTs
 │   │   └── seed.js             # populates demo creators + NFTs — `npm run seed`
@@ -80,7 +82,8 @@ nft-marketplace/
     ├── register.html
     ├── profile.html
     ├── marketplace.html         # Browse/search/filter all NFTs
-    └── nft.html                 # Single NFT detail — reached via #id=<mongoId>
+    ├── nft.html                 # Single NFT detail — reached via #id=<mongoId>
+    └── artist.html               # Creator profile — reached via #id=<mongoId>
 ```
 
 ## Status: what's built vs. planned
@@ -99,14 +102,16 @@ Wallet, Marketplace, Rankings**.
 - ✅ Backend NFT API — list (search + category filter + pagination), get one, create/update/delete (owner-only), seed script
 - ✅ CORS accepts common local dev ports automatically (5500/5501/5502/3000) — no manual config needed whichever way the frontend is being served
 - ✅ NFT detail page (`nft.html`) — hero image, artist info, description, category, price/highest-bid, and a real "more from this artist" grid. Reached by clicking any Marketplace card.
+- ✅ Artist Page (`artist.html`) — profile with real stats (NFTs Created, NFTs Owned, listed value), bio, and Created/Owned tabs backed by the real API. Reached by clicking a creator's name on the NFT detail page.
+- ✅ Backend: `GET /api/users/:id` — public profile lookup (username/avatarUrl/bio only, never email/password)
 
 **Known gaps (by design, not bugs):**
 - "Collections" tab on Marketplace is a visual-only stub — no collections feature exists yet (see Roadmap)
 - No live bidding — the NFT detail page shows real price/highest-bid but the "Place Bid" button is honestly disabled rather than pretending to work
-- Artist names on the NFT detail page aren't links yet — no Artist Page exists yet
+- No wallet address, "Follow" button, or social links on the Artist Page — none of that has real data behind it yet, so it's omitted rather than faked
 
 **Planned next (see [Roadmap](#roadmap)):**
-- ⬜ Artist Page, Rankings, Connect Wallet
+- ⬜ Rankings, Connect Wallet
 - ⬜ Deployment to production
 
 ## Getting started
@@ -173,13 +178,14 @@ Base URL: `http://localhost:5000/api`
 | POST | `/nfts` | Yes | Create an NFT listing (creator + owner = you) |
 | PUT | `/nfts/:id` | Yes | Update an NFT (current owner only) |
 | DELETE | `/nfts/:id` | Yes | Delete an NFT (current owner only) |
+| GET | `/users/:id` | No | Public profile (username, avatarUrl, bio) — never email or password |
 
 ## Roadmap
 
 - [x] NFT data model + CRUD API
 - [x] Wire the Marketplace page to the real API instead of hardcoded cards
 - [x] NFT detail page
-- [ ] Artist profile pages
+- [x] Artist profile pages
 - [ ] Wallet connect flow
 - [ ] Rankings page
 - [ ] Deploy backend + frontend to production

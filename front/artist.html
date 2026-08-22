@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/main.css">
-    <title>NFT</title>
+    <title>Artist</title>
 </head>
 <body>
 
@@ -54,61 +54,53 @@
     <!-- Header end -->
 
     <main>
-        <!-- Shown while fetching, or if ?id= is missing/invalid/not found -->
-        <p class="nft-detail__status" id="nftDetailStatus">Loading NFT&hellip;</p>
+        <!-- Shown while fetching, or if #id= is missing/invalid/not found -->
+        <p class="artist-header__status" id="artistStatus">Loading artist&hellip;</p>
 
-        <div class="nft-detail" id="nftDetailContent" hidden>
-            <div class="nft-detail__hero">
-                <img class="nft-detail__hero-img" id="nftHeroImg" alt="">
-            </div>
+        <div id="artistContent" hidden>
+            <div class="artist-header__cover"></div>
 
-            <div class="nft-detail__body container-section">
-                <div class="nft-detail__main">
-                    <div>
-                        <h1 class="nft-detail__title" id="nftTitle"></h1>
-                        <p class="nft-detail__minted" id="nftMinted"></p>
+            <div class="artist-header__info container-section">
+                <img class="artist-header__avatar" id="artistAvatar" alt="">
+                <h1 class="artist-header__name" id="artistName"></h1>
+
+                <div class="artist-header__stats">
+                    <div class="artist-header__stat">
+                        <span class="artist-header__stat-value" id="artistCreatedCount"></span>
+                        <span class="artist-header__stat-label">NFTs Created</span>
                     </div>
-
-                    <div>
-                        <p class="nft-detail__label">Created By</p>
-                        <a class="nft-detail__creator" id="nftCreatorLink" href="#">
-                            <img class="nft-detail__creator-avatar" id="nftCreatorAvatar" alt="">
-                            <span class="nft-detail__creator-name" id="nftCreatorName"></span>
-                        </a>
+                    <div class="artist-header__stat">
+                        <span class="artist-header__stat-value" id="artistOwnedCount"></span>
+                        <span class="artist-header__stat-label">NFTs Owned</span>
                     </div>
-
-                    <div id="nftDescriptionSection" hidden>
-                        <p class="nft-detail__label">Description</p>
-                        <p class="nft-detail__description" id="nftDescription"></p>
-                    </div>
-
-                    <div>
-                        <p class="nft-detail__label">Category</p>
-                        <span class="nft-detail__tag" id="nftCategory"></span>
+                    <div class="artist-header__stat">
+                        <span class="artist-header__stat-value" id="artistTotalValue"></span>
+                        <span class="artist-header__stat-label">Listed Value (ETH)</span>
                     </div>
                 </div>
 
-                <aside class="nft-detail__side">
-                    <div class="nft-detail__price-row">
-                        <div>
-                            <p class="nft-detail__price-title">Price</p>
-                            <p class="nft-detail__price" id="nftPrice"></p>
-                        </div>
-                        <div>
-                            <p class="nft-detail__price-title">Highest Bid</p>
-                            <p class="nft-detail__price" id="nftBid"></p>
-                        </div>
-                    </div>
-                    <button type="button" class="nft-detail__bid-btn" disabled title="Bidding isn't live yet — this is a portfolio project, not a real exchange.">
-                        Place Bid
-                    </button>
-                </aside>
+                <div id="artistBioSection" hidden>
+                    <p class="artist-header__label">Bio</p>
+                    <p class="artist-header__bio" id="artistBio"></p>
+                </div>
             </div>
 
-            <section class="nft-detail__more container-section">
-                <h2 class="nft-detail__more-title">More from this artist</h2>
-                <p class="marketplace-grid__status" id="nftMoreStatus" hidden></p>
-                <div class="nft-detail__more-grid" id="nftMoreGrid"></div>
+            <!-- Created / Owned tabs — reuses .marketplace-tabs, same widget as the Marketplace page -->
+            <nav class="marketplace-tabs container-section" aria-label="Artist's NFTs">
+                <button type="button" class="marketplace-tabs__tab is-active" data-tab="created">
+                    Created <span class="marketplace-tabs__count" id="artistCreatedTabCount">&hellip;</span>
+                </button>
+                <button type="button" class="marketplace-tabs__tab" data-tab="owned">
+                    Owned <span class="marketplace-tabs__count" id="artistOwnedTabCount">&hellip;</span>
+                </button>
+            </nav>
+
+            <!-- Reuses .marketplace-section / .marketplace-grid — same card grid as Marketplace -->
+            <section class="marketplace-section">
+                <div class="container-section">
+                    <p class="marketplace-grid__status" id="artistGridStatus" hidden></p>
+                    <div class="marketplace-grid" id="artistGrid"></div>
+                </div>
             </section>
         </div>
     </main>
@@ -194,7 +186,7 @@
     <script src="assets/js/abstracts/functions.js"></script>
     <script src="assets/js/layout/header.js"></script>
     <script src="assets/js/components/nft-card.js"></script>
-    <script src="assets/js/nft-detail.js"></script>
+    <script src="assets/js/artist.js"></script>
 
 </body>
 </html>

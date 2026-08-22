@@ -71,6 +71,16 @@ function renderNft(nft) {
   document.getElementById('nftCreatorAvatar').src = avatarUrl;
   document.getElementById('nftCreatorName').textContent = creatorName;
 
+  const creatorLink = document.getElementById('nftCreatorLink');
+  if (nft.creator?._id) {
+    creatorLink.href = `./artist.html#id=${encodeURIComponent(nft.creator._id)}`;
+  } else {
+    // No creator id to link to (shouldn't normally happen) — leave it as
+    // plain, unclickable text rather than a link that goes nowhere useful.
+    creatorLink.removeAttribute('href');
+    creatorLink.style.cursor = 'default';
+  }
+
   const descriptionSection = document.getElementById('nftDescriptionSection');
   if (nft.description) {
     document.getElementById('nftDescription').textContent = nft.description;

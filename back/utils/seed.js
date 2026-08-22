@@ -24,17 +24,17 @@ const Nft = require('../modules/nft');
 const DEMO_PASSWORD = 'DemoPass123!'; // hashed by the User pre-save hook — not meant for real login
 
 const DEMO_CREATORS = [
-  { username: 'Shroomie', email: 'shroomie@demo.nftmarketplace.local' },
-  { username: 'BeKind2Robots', email: 'bekind2robots@demo.nftmarketplace.local' },
-  { username: 'MrFox', email: 'mrfox@demo.nftmarketplace.local' },
-  { username: 'Keepitreal', email: 'keepitreal@demo.nftmarketplace.local' },
-  { username: 'Robotica', email: 'robotica@demo.nftmarketplace.local' },
-  { username: 'MoonDancer', email: 'moondancer@demo.nftmarketplace.local' },
-  { username: 'NebulaKid', email: 'nebulakid@demo.nftmarketplace.local' },
-  { username: 'Animakid', email: 'animakid@demo.nftmarketplace.local' },
-  { username: 'Catch22', email: 'catch22@demo.nftmarketplace.local' },
-  { username: 'IceApeClub', email: 'iceapeclub@demo.nftmarketplace.local' },
-  { username: 'PuppyPower', email: 'puppypower@demo.nftmarketplace.local' },
+  { username: 'Shroomie', email: 'shroomie@demo.nftmarketplace.local', bio: 'Illustrator obsessed with things that glow in the dark. Magic Mushroom collection creator.' },
+  { username: 'BeKind2Robots', email: 'bekind2robots@demo.nftmarketplace.local', bio: 'Building a world where every discarded appliance gets a second life as a friendly robot.' },
+  { username: 'MrFox', email: 'mrfox@demo.nftmarketplace.local', bio: 'Designer animals with impeccable taste in eyewear. One drop at a time.' },
+  { username: 'Keepitreal', email: 'keepitreal@demo.nftmarketplace.local', bio: 'Generative color-seed art. No two pieces ever look the same.' },
+  { username: 'Robotica', email: 'robotica@demo.nftmarketplace.local', bio: 'Sound-reactive robot art, tuned to frequencies most people can’t hear.' },
+  { username: 'MoonDancer', email: 'moondancer@demo.nftmarketplace.local', bio: 'Photography from the last clear nights before the dust storms.' },
+  { username: 'NebulaKid', email: 'nebulakid@demo.nftmarketplace.local', bio: 'In-engine renders of wanderers drifting between dying stars.' },
+  { username: 'Animakid', email: 'animakid@demo.nftmarketplace.local', bio: 'The internet’s friendliest designer kid. Pocket dimensions where the sun never fully sets.' },
+  { username: 'Catch22', email: 'catch22@demo.nftmarketplace.local', bio: 'Dune seas, two moons, one lone figure. First solo series after years of collabs.' },
+  { username: 'IceApeClub', email: 'iceapeclub@demo.nftmarketplace.local', bio: 'A club of apes that melt slower than they should. Rarity is the whole point.' },
+  { username: 'PuppyPower', email: 'puppypower@demo.nftmarketplace.local', bio: 'Brighter, louder, slightly chaotic takes on the Colorful Dog format.' },
 ];
 
 // imageUrl values are paths as served by the frontend (front/assets/images/…),
@@ -67,14 +67,19 @@ async function seed() {
 
   console.log('Seeding demo creators...');
   const creatorsByUsername = {};
-  for (const { username, email } of DEMO_CREATORS) {
-    // findOneAndUpdate + upsert: creates the user if missing, leaves it
-    // alone (no field changes) if it already exists — running this
-    // script twice never duplicates or resets demo accounts.
+  for (const { username, email, bio } of DEMO_CREATORS) {
+    // Creates the user if missing, leaves it alone if it already exists —
+    // running this script twice never duplicates demo accounts. The one
+    // exception: if bio is empty (e.g. a demo account created before bios
+    // were added here), backfill it — never overwrites a non-empty bio.
     let user = await User.findOne({ email });
     if (!user) {
-      user = await User.create({ username, email, password: DEMO_PASSWORD });
+      user = await User.create({ username, email, bio, password: DEMO_PASSWORD });
       console.log(`  created ${username}`);
+    } else if (!user.bio && bio) {
+      user.bio = bio;
+      await user.save();
+      console.log(`  ${username} already exists, backfilled bio`);
     } else {
       console.log(`  ${username} already exists, skipping`);
     }

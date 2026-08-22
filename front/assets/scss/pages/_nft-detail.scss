@@ -87,6 +87,12 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        width: fit-content;
+        text-decoration: none;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
 
     &__creator-avatar {
