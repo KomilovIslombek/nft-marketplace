@@ -14,27 +14,16 @@
 const Sale = require('../modules/sale');
 const User = require('../modules/user');
 
-// Supported ?period= values, in days. `all` means no date filter at all.
-const PERIODS = {
-  '7d': 7,
-  '30d': 30,
-  '90d': 90,
-  all: null,
-};
+const {
+  parsePeriod,
+  currentWindow: getCurrentWindow,
+  previousWindow: getPreviousWindow,
+  parseLimit,
+  roundEth: round,
+} = require('../utils/periods');
 
-const DEFAULT_PERIOD = '30d';
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 50;
-
-const DAY_MS = 24 * 60 * 60 * 1000;
-
-// Float sums drift (1.63 + 1.63 + 1.63 = 4.890000000000001), which looks
-// like a bug in the API response even though it's just IEEE-754. Round at
-// the boundary; 4dp is far finer than the 2dp the UI ever shows, so no
-// meaningful precision is lost.
-function round(value) {
-  return Math.round(value * 10000) / 10000;
-}
 
 // Percentages get one decimal — "+468.4%" is all a leaderboard cell can
 // usefully show, and 4dp of a percentage reads like a rounding bug.
@@ -75,27 +64,17 @@ async function volumeByCreator(window) {
 //   ?limit=20                how many creators to return (max 50)
 async function getRankings(req, res) {
   try {
-    const period = Object.prototype.hasOwnProperty.call(PERIODS, req.query.period)
-      ? req.query.period
-      : DEFAULT_PERIOD;
-
-    const limit = Math.min(
-      Math.max(parseInt(req.query.limit, 10) || DEFAULT_LIMIT, 1),
-      MAX_LIMIT
-    );
-
-    const days = PERIODS[period];
-    const now = Date.now();
+    const period = parsePeriod(req.query.period);
+    const limit = parseLimit(req.query.limit, DEFAULT_LIMIT, MAX_LIMIT);
 
     // For a bounded period we also aggregate the immediately preceding
     // window of the same length, so "change" compares like with like
     // (last 30 days vs the 30 days before that). For `all` there is no
     // previous window to compare against — that's reported as null rather
     // than invented, and the UI renders it as "—".
-    const currentWindow = days ? { $gte: new Date(now - days * DAY_MS) } : null;
-    const previousWindow = days
-      ? { $gte: new Date(now - 2 * days * DAY_MS), $lt: new Date(now - days * DAY_MS) }
-      : null;
+    const now = Date.now();
+    const currentWindow = getCurrentWindow(period, now);
+    const previousWindow = getPreviousWindow(period, now);
 
     const [current, previous] = await Promise.all([
       volumeByCreator(currentWindow),
