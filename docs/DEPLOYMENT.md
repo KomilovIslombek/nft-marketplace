@@ -129,6 +129,29 @@ Remove-Item Env:MONGODB_URI
      (this proves the cookie survives the proxy) → Log out
    - Rankings → "All time" shows the leaderboard
 
+## 5b. Your own subdomain: `nft.islomkomilov.uz`
+
+The DNS for `islomkomilov.uz` is managed in Cloudflare, so the subdomain is
+one DNS record there plus one setting in Netlify. Nothing in the code changes:
+`config.js` uses a relative `/api` on any non-local hostname.
+
+1. **Netlify → your site → Domain management → Add a domain** →
+   `nft.islomkomilov.uz`. Netlify warns that the DNS lives elsewhere. Confirm.
+2. **Cloudflare → islomkomilov.uz → DNS → Add record**:
+   - Type `CNAME`, Name `nft`, Target `<site>.netlify.app`
+   - **Proxy status: DNS only (grey cloud).** With the orange cloud,
+     Cloudflare sits in front of Netlify, and Netlify can't issue its
+     Let's Encrypt certificate for the subdomain.
+3. Back in Netlify, wait for **HTTPS → certificate provisioned** (minutes to
+   an hour). Then the site answers on `https://nft.islomkomilov.uz`.
+4. **Render → Environment → `FRONTEND_URL`** =
+   `https://nft.islomkomilov.uz,https://<site>.netlify.app` (both, comma-separated).
+5. **Google OAuth → Authorized JavaScript origins** → add
+   `https://nft.islomkomilov.uz` as well.
+
+This only touches the `nft` record. The main site on `islomkomilov.uz` and
+its other records stay as they are.
+
 ## 6. Optional: no cold starts
 
 A free uptime monitor (e.g. <https://uptimerobot.com>, HTTP monitor every 5
