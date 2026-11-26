@@ -24,7 +24,7 @@
 # >>> it a different name (Render dashboard -> your service -> top left).
 [[redirects]]
   from = "/api/*"
-  to = "https://nft-marketplace-api.onrender.com/api/:splat"
+  to = "https://komilov-nft-api.onrender.com/api/:splat"
   status = 200
   force = true
 

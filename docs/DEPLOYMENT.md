@@ -9,8 +9,8 @@ Three free services, each doing one job:
 | Database | **MongoDB Atlas** (free M0 cluster) | Managed MongoDB, which the app already uses in development. |
 
 ```
-Browser ──> https://<your-site>.netlify.app/            static pages (Netlify CDN)
-        └─> https://<your-site>.netlify.app/api/...     ─proxy─> https://nft-marketplace-api.onrender.com/api/...
+Browser ──> https://komilov-nft-marketplace.netlify.app/            static pages (Netlify CDN)
+        └─> https://komilov-nft-marketplace.netlify.app/api/...     ─proxy─> https://komilov-nft-api.onrender.com/api/...
                                                                      └─> MongoDB Atlas
 ```
 
@@ -31,8 +31,9 @@ looking broken, `apiFetch()` retries read-only requests while the server wakes
 up and shows a "Waking up the server…" note. If you want no wait at all, see
 step 6 (optional keep-alive ping).
 
-Everything below that involves creating an account, entering a password or
-pushing code is yours to do. Nothing here has been pushed or created.
+Creating the Render and Atlas accounts and entering the database password
+are yours to do. The Netlify project and the first frontend deploy are
+already done (step 4).
 
 ---
 
@@ -84,7 +85,7 @@ Remove-Item Env:MONGODB_URI
 1. Sign in at <https://render.com> with GitHub.
 2. **New → Blueprint** → pick the `nft-marketplace` repository. Render reads
    [`render.yaml`](../render.yaml) and proposes one free web service,
-   `nft-marketplace-api`.
+   `komilov-nft-api`.
 3. It asks for the values marked `sync: false`:
    - `MONGODB_URI`: the production connection string from step 1
    - `FRONTEND_URL`: leave it as `https://example.netlify.app` for now and fix
@@ -95,29 +96,37 @@ Remove-Item Env:MONGODB_URI
 4. **Apply**. The first build takes a few minutes. When it's live, open
    `https://<service-name>.onrender.com/api/health`. It should return
    `{"status":"ok",...}`.
-5. Note the exact service URL (top left of the service page). If it isn't
-   `https://nft-marketplace-api.onrender.com`, because that name was taken,
+5. Note the exact service URL (top left of the service page). It must be
+   exactly `https://komilov-nft-api.onrender.com`. If Render added a suffix,
    edit the `to = ...` line in [`netlify.toml`](../netlify.toml), commit and
-   push.
+   push. **This matters:** `*.onrender.com` names belong to whoever claims them
+   first. The original name `nft-marketplace-api` was already someone else's
+   service, so a proxy pointing at it would have sent visitors' requests,
+   cookies included, to a stranger's server.
 
-## 4. Netlify: deploy the frontend
+## 4. Netlify: the frontend (already created)
 
-1. Sign in at <https://app.netlify.com> with GitHub.
-2. **Add new site → Import an existing project** → GitHub →
-   `nft-marketplace`.
-3. Build settings come from [`netlify.toml`](../netlify.toml): publish
-   directory `front`, no build command. Leave the form as it is and click
-   **Deploy**.
-4. **Site configuration → Change site name**, e.g. `komilov-nft-marketplace`,
-   so the URL becomes `https://komilov-nft-marketplace.netlify.app`.
-5. Open `https://<site>.netlify.app/api/health`. Getting the API's JSON here
-   (not a 404 page) means the proxy works.
+The Netlify project **`komilov-nft-marketplace`** exists, and the frontend is
+deployed at **<https://komilov-nft-marketplace.netlify.app>**. That address is
+the free subdomain Netlify gives every project; the name was picked on
+creation. Build settings come from [`netlify.toml`](../netlify.toml): publish
+`front/`, no build command.
+
+The first deploy was uploaded directly, not from GitHub. To make every push
+to `main` redeploy automatically, link the repository once:
+**Netlify → komilov-nft-marketplace → Project configuration → Build & deploy →
+Continuous deployment → Link repository** → GitHub → `nft-marketplace`,
+branch `main`. Leave the build settings empty: `netlify.toml` provides them.
+
+Once Render is up (step 3), open
+`https://komilov-nft-marketplace.netlify.app/api/health`. The API's JSON there
+means the proxy works.
 
 ## 5. Connect the two
 
 1. **Render → your service → Environment** → set `FRONTEND_URL` to the real
-   Netlify URL, e.g. `https://komilov-nft-marketplace.netlify.app` (no trailing
-   slash; comma-separate if you later add a custom domain). Save. Render
+   Netlify URL, `https://komilov-nft-marketplace.netlify.app` (no trailing
+   slash; comma-separate if you ever add a custom domain). Save. Render
    redeploys.
 2. **Google sign-in:** <https://console.cloud.google.com/apis/credentials> →
    your OAuth client → **Authorized JavaScript origins** → add the Netlify URL.
@@ -128,29 +137,6 @@ Remove-Item Env:MONGODB_URI
    - Register a test account → you land on Profile → reload → still logged in
      (this proves the cookie survives the proxy) → Log out
    - Rankings → "All time" shows the leaderboard
-
-## 5b. Your own subdomain: `nft.islomkomilov.uz`
-
-The DNS for `islomkomilov.uz` is managed in Cloudflare, so the subdomain is
-one DNS record there plus one setting in Netlify. Nothing in the code changes:
-`config.js` uses a relative `/api` on any non-local hostname.
-
-1. **Netlify → your site → Domain management → Add a domain** →
-   `nft.islomkomilov.uz`. Netlify warns that the DNS lives elsewhere. Confirm.
-2. **Cloudflare → islomkomilov.uz → DNS → Add record**:
-   - Type `CNAME`, Name `nft`, Target `<site>.netlify.app`
-   - **Proxy status: DNS only (grey cloud).** With the orange cloud,
-     Cloudflare sits in front of Netlify, and Netlify can't issue its
-     Let's Encrypt certificate for the subdomain.
-3. Back in Netlify, wait for **HTTPS → certificate provisioned** (minutes to
-   an hour). Then the site answers on `https://nft.islomkomilov.uz`.
-4. **Render → Environment → `FRONTEND_URL`** =
-   `https://nft.islomkomilov.uz,https://<site>.netlify.app` (both, comma-separated).
-5. **Google OAuth → Authorized JavaScript origins** → add
-   `https://nft.islomkomilov.uz` as well.
-
-This only touches the `nft` record. The main site on `islomkomilov.uz` and
-its other records stay as they are.
 
 ## 6. Optional: no cold starts
 

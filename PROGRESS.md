@@ -2,11 +2,13 @@
 
 ## Current step
 
-**Go live.** The code is ready for production and committed locally, but
-not pushed and not deployed. Next: the owner pushes to GitHub, then
-follows [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) (Atlas → seed → Render →
-Netlify → connect them), then replaces the "Live demo" placeholder in
-README.md with the real URL.
+**Go live: the backend is left.** The frontend is deployed at
+https://komilov-nft-marketplace.netlify.app (Netlify project
+`komilov-nft-marketplace`). The API doesn't exist yet, so data sections
+show "couldn't load". Next: the owner follows
+[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) steps 1–3 and 5 (Atlas → seed →
+Render Blueprint → FRONTEND_URL + Google origin), and links the GitHub repo
+in Netlify for auto-deploys.
 
 ## Roadmap
 
@@ -18,7 +20,9 @@ README.md with the real URL.
 | Backend integration tests + CI | ✅ done 2026-11-26 |
 | Production config (netlify.toml, render.yaml, config.js, CORS) + deploy guide | ✅ done 2026-11-26 |
 | Push to GitHub | ✅ done 2026-11-26 |
-| Create accounts and deploy (Atlas, Render, Netlify, Google OAuth origin) | ⬜ owner, per docs/DEPLOYMENT.md |
+| Netlify project + first frontend deploy | ✅ done 2026-11-26 |
+| Atlas + seed + Render API + Google OAuth origin | ⬜ owner, per docs/DEPLOYMENT.md |
+| Link the GitHub repo in Netlify (auto-deploy on push) | ⬜ owner, one click |
 | Put the live link in the README and the portfolio | ⬜ after deploy |
 
 Possible later: a create-listing form, a buy flow that writes `Sale`
@@ -33,10 +37,10 @@ Full reasoning in [docs/DECISIONS.md](docs/DECISIONS.md).
   Collection or Auction model. (2026-11-26)
 - Hosting: Netlify (static + `/api` proxy) + Render free + Atlas M0. The
   proxy keeps the SameSite=Strict cookie first-party. (2026-11-26)
-- Live URL: subdomain `nft.islomkomilov.uz` (DNS on Cloudflare, CNAME to
-  Netlify, DNS only). Frontend stays on Netlify, because its proxy is what
-  keeps the cookie first-party; Cloudflare Pages can't proxy to an external
-  URL without extra Functions code. (2026-11-26)
+- Live URL: the free Netlify subdomain `komilov-nft-marketplace.netlify.app`.
+  The owner's own domain (islomkomilov.uz) is not to be touched for this
+  project. Render service name `komilov-nft-api`, because `nft-marketplace-api`
+  on onrender.com belongs to someone else. (2026-11-26)
 - Tests: node:test + supertest + mongodb-memory-server. (2026-11-26)
 - Seeded demo creators get random passwords, because the repo is public. (2026-11-26)
 - Newsletter forms stay but say they aren't connected; the Marketplace

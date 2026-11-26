@@ -3,7 +3,7 @@
 # (see netlify.toml), and the database is MongoDB Atlas.
 services:
   - type: web
-    name: nft-marketplace-api # becomes https://nft-marketplace-api.onrender.com if the name is free
+    name: komilov-nft-api # becomes https://komilov-nft-api.onrender.com (checked free on 2026-11-26)
     runtime: node
     plan: free
     region: frankfurt # closest Render region to Central Asia / Europe

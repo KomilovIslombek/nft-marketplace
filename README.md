@@ -12,7 +12,7 @@ frontend, a Node.js/Express REST API on the backend, MongoDB for storage, and
 JWT authentication (including Google OAuth). This is a personal portfolio
 project, built and documented the way a production app would be.
 
-**Live demo:** _coming soon (deploy in progress, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md))_
+**Live demo:** <https://komilov-nft-marketplace.netlify.app> (the API goes live with the Render step in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md))
 · **Why it's built this way:** [docs/DECISIONS.md](docs/DECISIONS.md)
 
 > Every number on the site comes from the database. There are no hardcoded
@@ -264,7 +264,8 @@ on resales) is explained in [back/README.md](back/README.md#how-rankings-are-cal
 - [x] Homepage on real data: Top Creators, Discover More, hero stats, Top Categories (instead of "Trending Collection"), Spotlight (instead of "Auction")
 - [x] Backend integration tests + CI
 - [x] Production setup (Netlify + Render + Atlas) and deploy guide
-- [ ] Go live by following [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), then replace the "Live demo" placeholder above
+- [x] Frontend live on Netlify: https://komilov-nft-marketplace.netlify.app
+- [ ] Backend on Render + database on Atlas, following [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 
 Possible next steps:
 - [ ] A "create listing" form for `POST /api/nfts`, with image URL validation or upload
