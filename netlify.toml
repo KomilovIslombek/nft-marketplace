@@ -1,0 +1,37 @@
+# Netlify hosts the static frontend (front/) on its CDN.
+# There is no build step: the HTML/JS is served as-is, and the compiled
+# CSS (front/assets/css/main.css) is committed, because the browser never
+# reads the .scss sources.
+
+[build]
+  publish = "front"
+  command = ""
+
+# Proxy every /api/* request to the Render backend.
+#
+# Why a proxy instead of calling the Render URL directly from the browser:
+# the login cookie is httpOnly + SameSite=Strict. netlify.app and
+# onrender.com are different sites, so a cookie set by onrender.com would
+# be a third-party cookie — never sent with SameSite=Strict, and blocked
+# outright by Safari/Firefox anyway. Through this proxy the browser only
+# ever talks to the Netlify domain, so the cookie is first-party and
+# login works in every browser, with no CORS preflights.
+#
+# `status = 200` makes it a rewrite (proxy), not a redirect.
+# `force = true` applies it even if a file with that path existed.
+#
+# >>> Replace the host below with your Render service URL if Render gave
+# >>> it a different name (Render dashboard -> your service -> top left).
+[[redirects]]
+  from = "/api/*"
+  to = "https://nft-marketplace-api.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# Basic security headers for the static pages.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"

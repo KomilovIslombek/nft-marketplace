@@ -1,0 +1,32 @@
+# Render Blueprint for the backend API (Render dashboard -> New -> Blueprint).
+# Only the Express API runs on Render; the static frontend is on Netlify
+# (see netlify.toml), and the database is MongoDB Atlas.
+services:
+  - type: web
+    name: nft-marketplace-api # becomes https://nft-marketplace-api.onrender.com if the name is free
+    runtime: node
+    plan: free
+    region: frankfurt # closest Render region to Central Asia / Europe
+    rootDir: back
+    # --omit=dev: production doesn't need nodemon or the test tooling
+    # (mongodb-memory-server would otherwise download a ~100 MB mongod).
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true # redeploys on every push to the connected branch
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "24"
+      # Render generates a long random secret once and keeps it.
+      - key: JWT_SECRET
+        generateValue: true
+      # sync: false = Render asks you for these values when you create the
+      # Blueprint. They are never stored in this repository.
+      - key: MONGODB_URI
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false

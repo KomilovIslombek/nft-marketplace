@@ -16,6 +16,7 @@
 // =====================================================
 
 require('dotenv').config();
+const crypto = require('node:crypto');
 const mongoose = require('mongoose');
 const connectDB = require('../config/db');
 const User = require('../modules/user');
@@ -70,7 +71,13 @@ function pickSaleCount(rand) {
   return 4;
 }
 
-const DEMO_PASSWORD = 'DemoPass123!'; // hashed by the User pre-save hook — not meant for real login
+// Demo creators are not meant to be logged into. This repository is
+// public, so a password written here would let anyone sign in as
+// "Shroomie" on the live site and delete the demo NFTs. Each run gives
+// every demo account a fresh random password instead, unless
+// DEMO_PASSWORD is set in .env (handy locally, to look at a seeded
+// profile). Never set DEMO_PASSWORD when seeding the production database.
+const DEMO_PASSWORD = process.env.DEMO_PASSWORD || crypto.randomBytes(24).toString('base64url');
 
 const DEMO_CREATORS = [
   { username: 'Shroomie', email: 'shroomie@demo.nftmarketplace.local', bio: 'Illustrator obsessed with things that glow in the dark. Magic Mushroom collection creator.' },
@@ -117,20 +124,20 @@ async function seed() {
   console.log('Seeding demo creators...');
   const creatorsByUsername = {};
   for (const { username, email, bio } of DEMO_CREATORS) {
-    // Creates the user if missing, leaves it alone if it already exists —
-    // running this script twice never duplicates demo accounts. The one
-    // exception: if bio is empty (e.g. a demo account created before bios
-    // were added here), backfill it — never overwrites a non-empty bio.
+    // Creates the user if missing, updates it if it already exists —
+    // running this script twice never duplicates demo accounts. An empty
+    // bio is backfilled; a non-empty one is never overwritten.
     let user = await User.findOne({ email });
     if (!user) {
       user = await User.create({ username, email, bio, password: DEMO_PASSWORD });
       console.log(`  created ${username}`);
-    } else if (!user.bio && bio) {
-      user.bio = bio;
-      await user.save();
-      console.log(`  ${username} already exists, backfilled bio`);
     } else {
-      console.log(`  ${username} already exists, skipping`);
+      // Existing demo accounts get the new password too — accounts seeded
+      // before this change still had the old, publicly known one.
+      user.password = DEMO_PASSWORD; // re-hashed by the pre-save hook
+      if (!user.bio && bio) user.bio = bio;
+      await user.save();
+      console.log(`  ${username} already exists, password rotated`);
     }
     creatorsByUsername[username] = user;
   }
