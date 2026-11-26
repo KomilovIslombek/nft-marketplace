@@ -1,5 +1,7 @@
 # Working on this project
 
+@PROGRESS.md
+
 ## Always start the full dev environment automatically
 
 Whenever VS Code is opened for this project (`code .` / `code <path>`),
@@ -114,6 +116,52 @@ false` — that was tried first and broke something worse: it also disables
 showing a raw directory listing instead. If a `front/serve.json` ever
 reappears, that's almost certainly why — delete it.
 
+## The API URL lives in one place: front/assets/js/config.js
+
+Never hardcode `http://127.0.0.1:5000/api` in a page script again (nine
+files used to, under different variable names). `config.js` defines the
+globals `API_BASE` and `apiFetch(path, options)`; it must be the first
+`<script>` after `page-loader.js` on every page, including any new one.
+Locally it uses port 5000 on the page's own hostname (127.0.0.1 vs
+localhost matters for the SameSite=Strict cookie); in production it is a
+relative `/api` that Netlify proxies to Render (`netlify.toml`). Don't
+"fix" a production login problem by pointing the frontend at the
+onrender.com URL directly: the cookie would become third-party and login
+would break in Safari/Firefox. See docs/DECISIONS.md #4.
+
+## Tests
+
+`cd back && npm test`: node:test + supertest against an in-memory mongod
+(mongodb-memory-server), ~30 s, no `.env` needed. `app.js` builds the app;
+`server.js` only connects and listens, so keep new middleware/routes in
+`app.js` or the tests won't see them. The first run on a new machine
+downloads a mongod binary (~100 MB).
+
+## Running the backend with NODE_ENV=production locally
+
+`config/db.js` only applies the 1.1.1.1/8.8.8.8 DNS workaround in
+development. This network's resolver fails the `mongodb+srv` SRV lookup, so
+`NODE_ENV=production node server.js` here dies with `querySrv
+ECONNREFUSED` unless you also set `DNS_SERVERS=1.1.1.1,8.8.8.8`. That's a
+local network issue, not a production bug: Render's DNS works.
+
+## Seed data facts
+
+- `npm run seed` gives demo creators a random password on every run (the
+  repo is public). Set `DEMO_PASSWORD` in `back/.env` to log in as one
+  locally. Never set it when seeding production.
+- The sale history is relative to when the seed ran, and the DB was last
+  seeded in Aug 2026, so Rankings' 7d/30d/90d tabs are empty until it is
+  re-seeded. Homepage sections use `period=all` on purpose. Re-seeding
+  changes the demo NFT ids.
+
+## Git Bash `sed -i` rewrites line endings
+
+On this Windows checkout, `sed -i` on a file it doesn't actually change
+still converts CRLF to LF, and the file then shows up as modified. After a
+bulk `sed`, run `git diff --stat` and `git checkout --` any file with no
+real change.
+
 ## Stack quick reference
 
 - **Backend**: Node/Express 5, MongoDB via Mongoose, JWT in an httpOnly
@@ -121,3 +169,5 @@ reappears, that's almost certainly why — delete it.
 - **Frontend**: static HTML + SCSS + vanilla JS, no build tool/framework.
   Full details: [front/README.md](front/README.md)
 - Project overview, tech stack, roadmap: [README.md](README.md)
+- Deploy (Netlify + Render + Atlas): [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
+- Why things are the way they are: [docs/DECISIONS.md](docs/DECISIONS.md)
