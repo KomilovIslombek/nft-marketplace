@@ -25,6 +25,8 @@
     }
 
     .category {
+        display: block; // an <a> now — links to the Marketplace filtered by this category
+        text-decoration: none;
         border-radius: $radius-lg;
         overflow: hidden;
         background: $background-secondary;

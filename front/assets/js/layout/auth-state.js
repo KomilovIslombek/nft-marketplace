@@ -14,8 +14,6 @@
 // </div>
 // =====================================================
 
-const API_BASE = 'http://127.0.0.1:5000/api'; // keep this in sync with auth-form.js
-
 document.addEventListener('DOMContentLoaded', checkAuthState);
 
 async function checkAuthState() {
@@ -26,7 +24,7 @@ async function checkAuthState() {
     // Pages without a nav (or without these specific IDs) just skip this quietly
     if (!guestNav || !userNav) return;
 
-    const response = await fetch(`${API_BASE}/auth/me`, {
+    const response = await apiFetch(`/auth/me`, {
       credentials: 'include', // sends the httpOnly cookie along with the request
     });
 

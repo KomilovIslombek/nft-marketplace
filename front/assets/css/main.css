@@ -431,6 +431,17 @@ i.none {
   flex-shrink: 0;
 }
 
+.subscribe-form__note {
+  margin-top: 12px;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 140%;
+  color: #858584;
+}
+
 .page-loader {
   position: fixed;
   inset: 0;
@@ -619,6 +630,31 @@ i.none {
 }
 .nft-card__price, .nft-card__bid {
   color: #fff;
+}
+
+.wake-notice {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: min(560px, 100% - 32px);
+  padding: 14px 20px;
+  border-radius: 20px;
+  background: rgba(59, 59, 59, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid #a259ff;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+  line-height: 140%;
+  color: #fff;
+  text-align: center;
+}
+.wake-notice[hidden] {
+  display: none;
 }
 
 .header__row {
@@ -926,6 +962,23 @@ i.none {
   text-transform: capitalize;
   color: #fff;
 }
+.hero__image-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 20px;
+  transition: transform 0.25s ease;
+}
+.hero__image-card:hover {
+  transform: translateY(-4px);
+}
+.hero__image-card.is-loading .hero__image {
+  background: #3b3b3b;
+}
+.hero__image-card .hero__image {
+  display: block;
+  object-fit: cover;
+}
 .hero__image-card img {
   border-radius: 20px 20px 0 0;
   width: 100%;
@@ -997,13 +1050,13 @@ i.none {
 }
 
 /* Tablet: single column, image below, order = title → desc → cta → stats → image */
-.trending-collection {
+.top-categories {
   padding-block: 5rem;
 }
-.trending-collection__header {
+.top-categories__header {
   margin-bottom: 2rem;
 }
-.trending-collection__title {
+.top-categories__title {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -1013,81 +1066,116 @@ i.none {
   text-transform: capitalize;
   color: #fff;
 }
-.trending-collection__subtitle {
+.top-categories__subtitle {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   font-size: 1.375rem;
   line-height: 160%;
-  text-transform: capitalize;
   color: #fff;
 }
-.trending-collection__grid {
+.top-categories__status {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.125rem;
+  line-height: 160%;
+  color: #858584;
+}
+.top-categories__status--error {
+  color: #ff7262;
+}
+.top-categories__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
 @media (max-width: 1050px) {
-  .trending-collection__grid {
+  .top-categories__grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .trending-collection__grid .nft-card:last-child {
+  .top-categories__grid .category-card:nth-child(3) {
     display: none;
   }
 }
 @media (max-width: 490px) {
-  .trending-collection__grid .nft-card:nth-child(2) {
-    display: none;
-  }
-  .trending-collection__grid {
+  .top-categories__grid {
     grid-template-columns: 1fr;
   }
+  .top-categories__grid .category-card:nth-child(2) {
+    display: none;
+  }
 }
-.trending-collection {
-  /* Articles start */
+
+.category-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 20px;
+  transition: transform 0.25s ease;
 }
-.trending-collection .nft-card__image {
+.category-card:hover {
+  transform: translateY(-4px);
+}
+.category-card:focus-visible {
+  outline: 2px solid #a259ff;
+  outline-offset: 4px;
+}
+.category-card__image {
+  display: block;
   width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
+  border-radius: 20px;
+  background: #3b3b3b;
 }
-.trending-collection .nft-card__meta-row {
+.category-card__meta-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(1, 100px);
-  justify-content: space-between;
+  grid-template-rows: 100px;
   gap: 15px;
   margin-block: 15px;
 }
-.trending-collection .nft-card__meta-row img, .trending-collection .nft-card__meta-row span {
+@media screen and (max-width: 390px) {
+  .category-card__meta-row {
+    grid-template-rows: 80px;
+  }
+}
+.category-card__thumb {
   width: 100%;
   height: 100%;
   border-radius: 20px;
   object-fit: cover;
+  background: #3b3b3b;
 }
-@media screen and (max-width: 390px) {
-  .trending-collection .nft-card__meta-row img, .trending-collection .nft-card__meta-row span {
-    width: 80px;
-    height: 80px;
-  }
-}
-.trending-collection .nft-card__badge {
+.category-card__badge {
+  grid-column: 3;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
   background: #a259ff;
+  color: #fff;
+  text-align: center;
+}
+.category-card__badge-number {
   font-family: "Space Mono", monospace;
   font-weight: 700;
   font-style: normal;
   font-size: 1.375rem;
-  line-height: 160%;
-  text-transform: capitalize;
-  text-align: center;
-  color: #fff;
+  line-height: 120%;
 }
-.trending-collection .nft-card__title {
+.category-card__badge-label {
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.75rem;
+  line-height: 120%;
+}
+.category-card__title {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -1097,17 +1185,14 @@ i.none {
   text-transform: capitalize;
   color: #fff;
 }
-.trending-collection .nft-card__creator {
-  display: flex;
-  gap: 12px;
+.category-card__stats {
   margin-top: 10px;
-  font-family: "Work Sans", sans-serif;
-  font-optical-sizing: auto;
+  font-family: "Space Mono", monospace;
   font-weight: 400;
   font-style: normal;
   font-size: 1rem;
   line-height: 140%;
-  color: #fff;
+  color: #858584;
 }
 
 .top-creators__header {
@@ -1276,6 +1361,8 @@ i.none {
   }
 }
 .browse-categories .category {
+  display: block;
+  text-decoration: none;
   border-radius: 20px;
   overflow: hidden;
   background: #3b3b3b;
@@ -1432,24 +1519,26 @@ i.none {
   }
 }
 
-.auction {
+.spotlight {
   width: 100%;
-  height: 630px;
   min-height: 630px;
 }
 @media screen and (max-width: 490px) {
-  .auction {
+  .spotlight {
     min-height: 590px;
   }
 }
-.auction {
+.spotlight {
   background: linear-gradient(180deg, rgba(162, 89, 255, 0) 0%, #a259ff 100%);
   position: relative;
   margin-bottom: 100px;
 }
-.auction__container {
+.spotlight[hidden] {
+  display: none;
+}
+.spotlight__container {
   padding-block: 60px;
-  height: 100%;
+  min-height: inherit;
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -1457,48 +1546,36 @@ i.none {
   gap: 40px;
 }
 @media screen and (max-width: 800px) {
-  .auction__container {
+  .spotlight__container {
     flex-direction: column;
     justify-content: end;
     align-items: start;
-    gap: 40px;
   }
 }
 @media screen and (max-width: 490px) {
-  .auction__container {
+  .spotlight__container {
     gap: 24px;
   }
 }
-.auction__back-image {
+.spotlight__back-image {
   position: absolute;
   inset: 0;
   z-index: -1;
-  width: 100%;
-  height: 100%;
-  display: block;
 }
-.auction__back-image img {
+.spotlight__back-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  aspect-ratio: 1/2;
   display: block;
 }
-.auction__creator {
+.spotlight__creator {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   border-radius: 20px;
   padding: 10px 20px;
-  width: 151px;
-  height: 44px;
   background: #3b3b3b;
-  display: flex;
-  gap: 12px;
-}
-.auction__creator-image {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-}
-.auction__creator-name {
+  text-decoration: none;
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -1507,7 +1584,15 @@ i.none {
   line-height: 140%;
   color: #fff;
 }
-.auction__title {
+.spotlight__creator:hover {
+  background: rgb(29.137254902%, 29.137254902%, 29.137254902%);
+}
+.spotlight__creator-image {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+.spotlight__title {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -1516,7 +1601,7 @@ i.none {
   line-height: 110%;
 }
 @media screen and (max-width: 1050px) {
-  .auction__title {
+  .spotlight__title {
     font-family: "Work Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 600;
@@ -1525,39 +1610,39 @@ i.none {
     line-height: 120%;
   }
 }
-.auction__title {
+.spotlight__title {
   text-transform: capitalize;
   color: #fff;
   margin-block: 30px;
 }
-.auction__btn {
+.spotlight__btn {
   background: #fff;
   padding: 22px 50px;
   border-color: transparent;
   color: #2b2b2b;
 }
-.auction__btn:hover {
+.spotlight__btn:hover {
   border-color: #a259ff;
   background: transparent;
   color: #fff;
 }
-.auction {
-  /* Timer starts from here */
-}
-.auction__timer {
+.spotlight__stats {
   border-radius: 20px;
   padding: 30px;
-  min-width: min(295px, 100%);
-  min-height: 147px;
+  min-width: min(340px, 100%);
+  max-width: 100%;
   backdrop-filter: blur(10px);
+}
+@media screen and (max-width: 490px) {
+  .spotlight__stats {
+    width: 100%;
+    padding: 20px;
+  }
+}
+.spotlight__stats {
   background: rgba(59, 59, 59, 0.5);
 }
-.auction__timer.is-ended {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.auction__timer-title {
+.spotlight__stats-title {
   font-family: "Space Mono", monospace;
   font-weight: 400;
   font-style: normal;
@@ -1566,38 +1651,22 @@ i.none {
   color: #fff;
   margin-bottom: 10px;
 }
-.auction__timer-numbers {
+.spotlight__stats-numbers {
   display: flex;
   justify-content: space-between;
+  gap: 24px;
+  margin: 0;
 }
 @media screen and (max-width: 490px) {
-  .auction__timer-numbers {
-    flex-wrap: wrap;
+  .spotlight__stats-numbers {
+    gap: 12px;
   }
 }
-.auction__timer-hours, .auction__timer-minutes, .auction__timer-seconds {
-  font-family: "Space Mono", monospace;
-  font-weight: 700;
-  font-style: normal;
-  font-size: 38px;
-  line-height: 120%;
+.spotlight__stat {
+  display: flex;
+  flex-direction: column-reverse;
 }
-@media screen and (max-width: 490px) {
-  .auction__timer-hours, .auction__timer-minutes, .auction__timer-seconds {
-    font-family: "Space Mono", monospace;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 28px;
-    line-height: 120%;
-  }
-}
-.auction__timer-hours, .auction__timer-minutes, .auction__timer-seconds {
-  text-transform: capitalize;
-  color: #fff;
-}
-.auction__timer-hours::after, .auction__timer-minutes::after, .auction__timer-seconds::after {
-  content: attr(data-label);
-  display: block;
+.spotlight__stat dt {
   font-family: "Space Mono", monospace;
   font-weight: 400;
   font-style: normal;
@@ -1606,19 +1675,26 @@ i.none {
   color: #fff;
   margin-top: 5px;
 }
-.auction__timer-label {
-  margin-inline: 10px;
-  transform: translateY(-3px);
-}
-
-.timer-ended-message {
+.spotlight__stat dd {
+  margin: 0;
   font-family: "Space Mono", monospace;
   font-weight: 700;
   font-style: normal;
-  font-size: 20px;
+  font-size: 28px;
   line-height: 120%;
+}
+@media screen and (max-width: 490px) {
+  .spotlight__stat dd {
+    font-family: "Space Mono", monospace;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 22px;
+    line-height: 120%;
+  }
+}
+.spotlight__stat dd {
   color: #fff;
-  text-align: center;
+  white-space: nowrap;
 }
 
 .how-it-works {
@@ -2566,6 +2642,10 @@ body.is-authenticated .profile-grid:not([hidden]) {
 .marketplace-tabs__tab.is-active {
   color: #fff;
   border-bottom-color: #858584;
+}
+.marketplace-tabs__tab:is(h2) {
+  cursor: default;
+  margin: 0;
 }
 .marketplace-tabs__count {
   font-family: "Space Mono", monospace;

@@ -73,15 +73,14 @@
             </div>
         </section>
 
-        <!-- NFTs / Collections tabs -->
-        <nav class="marketplace-tabs container-section" aria-label="Marketplace listing type">
-            <button type="button" class="marketplace-tabs__tab is-active" data-tab="nfts">
+        <!-- Listing-type header. The Figma frame also has a "Collections" tab
+             (with a hardcoded "67"); the app has no collections, so that tab
+             was a control that did nothing and has been removed. -->
+        <div class="marketplace-tabs container-section">
+            <h2 class="marketplace-tabs__tab is-active">
                 NFTs <span class="marketplace-tabs__count" id="marketplaceNftCount">&hellip;</span>
-            </button>
-            <button type="button" class="marketplace-tabs__tab" data-tab="collections">
-                Collections <span class="marketplace-tabs__count">67</span>
-            </button>
-        </nav>
+            </h2>
+        </div>
 
         <!-- Category filter chips — not part of the original Figma frame,
              added because "Browse Marketplace" needs a way to actually
@@ -183,6 +182,10 @@
     <!-- Footer end -->
 
     <script src="assets/js/components/page-loader.js"></script>
+
+    <!-- Where the API lives + apiFetch(); every script below relies on it -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/components/subscribe-form.js"></script>
 
     <!-- This helper checks user whether logged in or not -->
     <script type="module" src="assets/js/layout/auth-state.js"></script>

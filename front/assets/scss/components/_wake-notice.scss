@@ -1,0 +1,26 @@
+// =====================================================
+// _WAKE-NOTICE.SCSS
+// Small status bar shown by assets/js/config.js while apiFetch() is
+// retrying against a free-tier server that is still waking up.
+// =====================================================
+
+.wake-notice {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: min(560px, calc(100% - 32px));
+    padding: 14px 20px;
+    border-radius: $radius-lg;
+    background: rgba(59, 59, 59, 0.92);
+    backdrop-filter: blur(10px);
+    border: 1px solid $call-to-action;
+    @include work-sans(400, 15px, 140%);
+    color: $text-color-white;
+    text-align: center;
+
+    &[hidden] {
+        display: none;
+    }
+}

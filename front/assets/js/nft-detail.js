@@ -6,8 +6,6 @@
 // components/nft-card.js.
 // =====================================================
 
-const API_BASE = 'http://127.0.0.1:5000/api'; // keep in sync with marketplace.js / auth-form.js
-
 document.addEventListener('DOMContentLoaded', loadNftDetail);
 
 async function loadNftDetail() {
@@ -24,7 +22,7 @@ async function loadNftDetail() {
   }
 
   try {
-    const response = await fetch(`${API_BASE}/nfts/${encodeURIComponent(id)}`);
+    const response = await apiFetch(`/nfts/${encodeURIComponent(id)}`);
 
     if (!response.ok) {
       // Covers both a genuinely missing NFT and a malformed id — the API
@@ -42,7 +40,7 @@ async function loadNftDetail() {
     loadMoreFromArtist(nft);
   } catch (err) {
     console.error('Could not load NFT:', err);
-    showError(status, "Couldn't load this NFT — is the backend running?");
+    showError(status, "Couldn't load this NFT right now — please try again in a moment.");
   }
 }
 
@@ -101,7 +99,7 @@ async function loadMoreFromArtist(nft) {
   if (!creatorId) return;
 
   try {
-    const response = await fetch(`${API_BASE}/nfts?creator=${encodeURIComponent(creatorId)}&limit=9`);
+    const response = await apiFetch(`/nfts?creator=${encodeURIComponent(creatorId)}&limit=9`);
     if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
 
     const data = await response.json();

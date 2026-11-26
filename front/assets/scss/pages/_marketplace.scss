@@ -109,6 +109,12 @@
             color: $text-color-white;
             border-bottom-color: $caption-label-text;
         }
+
+        // A heading, not a button, now that there's only one listing type.
+        &:is(h2) {
+            cursor: default;
+            margin: 0;
+        }
     }
 
     &__count {

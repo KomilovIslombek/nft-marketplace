@@ -11,8 +11,6 @@
 // immediately before this one.
 // =====================================================
 
-const DISCOVER_MORE_API_BASE = 'http://127.0.0.1:5000/api'; // keep in sync with marketplace.js / rankings.js
-
 // Three fills the grid at desktop; the section is a teaser for the
 // Marketplace, not a second listing page.
 const DISCOVER_MORE_LIMIT = 3;
@@ -28,7 +26,7 @@ async function loadDiscoverMore() {
     // No sort param: the API already returns newest-first by default,
     // which is what "Explore new trending NFTs" claims to show.
     const params = new URLSearchParams({ page: 1, limit: DISCOVER_MORE_LIMIT });
-    const response = await fetch(`${DISCOVER_MORE_API_BASE}/nfts?${params.toString()}`);
+    const response = await apiFetch(`/nfts?${params.toString()}`);
 
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
@@ -46,7 +44,7 @@ async function loadDiscoverMore() {
   } catch (err) {
     // Most likely cause during local dev: the backend isn't running.
     console.error('Could not load NFTs:', err);
-    status.textContent = "Couldn't load NFTs — is the backend running?";
+    status.textContent = "Couldn't load NFTs right now — please try again in a moment.";
     status.classList.add('discover-more__status--error');
   }
 }

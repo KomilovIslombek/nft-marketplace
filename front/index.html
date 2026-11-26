@@ -70,9 +70,9 @@
 
                 <h1 class="hero__title">Discover Digital Art & Collect NFTs</h1>
                 <p class="hero__desc">
-                    NFT marketplace UI created with Anima for Figma. Collect, buy and sell art from more than 20k NFT artists.
+                    Browse digital art from independent creators, see what's selling, and follow the artists behind it.
                 </p>
-                <button class="get-started hero__cta" id="get-started">
+                <a href="./register.html" class="get-started hero__cta" id="get-started">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M6.17053 12.4494C6.28055 12.7766 6.10451 13.131 5.77734 13.241C4.71792 13.5973 4.15489 14.4866 3.85373 15.391C3.73414 15.7501 3.66189 16.0958 3.61848 16.3817C3.90434 16.3383 4.25006 16.266 4.60917 16.1464C5.51355 15.8453 6.4029 15.2823 6.75916 14.2228C6.86918 13.8957 7.2236 13.7196 7.55078 13.8296C7.87795 13.9397 8.05399 14.2941 7.94396 14.6213C7.4096 16.2103 6.08801 16.9715 5.00411 17.3324C4.45655 17.5148 3.94395 17.6048 3.5698 17.6497C3.38182 17.6722 3.22641 17.6836 3.116 17.6894C3.06074 17.6924 3.01658 17.6939 2.98505 17.6946C2.96928 17.695 2.95666 17.6952 2.94737 17.6954L2.93596 17.6955L2.93217 17.6955L2.93077 17.6955L2.93019 17.6955C2.92993 17.6955 2.92969 17.6955 2.92969 17.0705C2.30469 17.0705 2.30469 17.0702 2.30469 17.07L2.30469 17.0694L2.30469 17.068L2.30471 17.0642L2.30481 17.0528C2.30493 17.0435 2.30514 17.0309 2.30553 17.0151C2.30631 16.9836 2.30782 16.9394 2.31072 16.8842C2.31653 16.7738 2.32797 16.6184 2.35052 16.4304C2.3954 16.0562 2.48542 15.5436 2.66776 14.9961C3.0287 13.9122 3.78989 12.5906 5.37891 12.0562C5.70608 11.9462 6.0605 12.1222 6.17053 12.4494ZM2.92969 17.0705H2.30469C2.30469 17.4157 2.58451 17.6955 2.92969 17.6955V17.0705Z" fill="white" />
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5462 3.45406C15.8208 3.34943 14.0351 3.31002 12.2076 5.13753L7.34482 10.0003L10 12.6555L14.8627 7.79271C16.6903 5.9652 16.6508 4.17951 16.5462 3.45406ZM16.7275 2.21727C15.7298 2.07282 13.5058 2.07157 11.3237 4.25365L6.019 9.55834C5.90179 9.67555 5.83594 9.83452 5.83594 10.0003C5.83594 10.166 5.90179 10.325 6.019 10.4422L9.55806 13.9813C9.80214 14.2254 10.1979 14.2254 10.4419 13.9813L15.7466 8.67659C17.9287 6.49452 17.9275 4.27052 17.783 3.27282C17.7465 3.0058 17.6235 2.75803 17.4329 2.5674C17.2422 2.37678 16.9945 2.25382 16.7275 2.21727Z" fill="white" />
@@ -80,112 +80,57 @@
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M5.82722 4.95319L5.83612 4.95312H10.883C11.2282 4.95312 11.508 5.23295 11.508 5.57812C11.508 5.9233 11.2282 6.20312 10.883 6.20312H5.84496L5.83991 6.20828L5.83988 6.20825L3.30957 8.73075L3.31054 8.73094L6.58398 9.38719C6.92242 9.45504 7.14178 9.78441 7.07393 10.1229C7.00608 10.4613 6.67671 10.6807 6.33827 10.6128L3.0658 9.95675C3.06562 9.95671 3.06543 9.95668 3.06524 9.95664C2.84349 9.91244 2.63788 9.80892 2.47031 9.65711C2.3026 9.50516 2.17928 9.31054 2.11351 9.094C2.04775 8.87746 2.042 8.64712 2.09689 8.42757C2.15178 8.20802 2.26525 8.00749 2.42518 7.84738L2.42612 7.84644L2.42612 7.84644L4.95522 5.32514C5.18573 5.09151 5.49894 4.95786 5.82722 4.95319Z" fill="white" />
                     </svg>
                     Get started
-                </button>
+                </a>
 
-                <div class="hero__stats">
+                <!-- Real totals from GET /api/stats, filled in by
+                     assets/js/layout/hero.js. They used to read "240k+ / 100k+ /
+                     240k+" — numbers from the Figma template, not this app. -->
+                <div class="hero__stats" id="heroStats">
                     <div class="stat">
-                        <span class="stat__number js-counter" data-target="240" data-suffix="k+" data-duration="1200">0k+</span>
-
-                        <!-- <span class="stat__number">240k+</span> -->
-                        <span class="stat__label">Total Sale</span>
+                        <span class="stat__number" data-stat="sales">&mdash;</span>
+                        <span class="stat__label">Sales</span>
                     </div>
                     <div class="stat">
-                        <span class="stat__number js-counter" data-target="100" data-suffix="k+" data-duration="1200" >100k+</span>
-                        <span class="stat__label">Auctions</span>
+                        <span class="stat__number" data-stat="nfts">&mdash;</span>
+                        <span class="stat__label">NFTs</span>
                     </div>
                     <div class="stat">
-                        <span class="stat__number js-counter" data-target="240" data-suffix="k+" data-duration="1200">240k+</span>
+                        <span class="stat__number" data-stat="creators">&mdash;</span>
                         <span class="stat__label">Artists</span>
                     </div>
                 </div>
 
-                <!-- Image-Card  -->
-                 <div class="hero__image-card">
-                    <img src="./assets/images/space-walking.png" alt="Space Walking" class="hero__image" width="510" height="401">
+                <!-- A real NFT, filled in by assets/js/layout/hero.js (the
+                     runner-up from GET /api/trending/nfts — the #1 is already
+                     the spotlight banner further down the page). -->
+                <a class="hero__image-card is-loading" id="heroFeatured" href="./marketplace.html">
+                    <img alt="" class="hero__image" width="510" height="401">
                     <div class="hero__image-caption">
-                        <p class="hero__image-title">Space Walking</p>
+                        <p class="hero__image-title">&nbsp;</p>
                         <p class="hero__image-author">
-                            <img src="./assets/icons/hero-avatar.svg" alt="Avatar" width="24" height="24">  
-                            Animakid
+                            <img alt="" width="24" height="24" hidden>
+                            <span class="hero__image-author-name">&nbsp;</span>
                         </p>
                     </div>
-                </div>
-                
+                </a>
+
             </div>
         </section>
 
-        <section class="trending-collection">
+        <!-- Was "Trending Collection": three made-up collections with a fake
+             "1025+" badge. There is no Collection model, so this ranks the
+             grouping the data really has — an NFT's category — by real sales
+             volume (GET /api/trending/categories). Filled in by
+             assets/js/layout/top-categories.js. -->
+        <section class="top-categories">
             <div class="container-section">
-                <div class="trending-collection__header">
-                    <h2 class="trending-collection__title">Trending Collection</h2>
-                    <p class="trending-collection__subtitle">Checkout our weekly updated trending collection.</p>
+                <div class="top-categories__header">
+                    <h2 class="top-categories__title">Top Categories</h2>
+                    <p class="top-categories__subtitle">Ranked by total sales volume across the marketplace.</p>
                 </div>
 
-                <div class="trending-collection__grid">
-
-                    <article class="nft-card">
-                        <div class="nft-card__image-wrapper">
-                            <img src="./assets/images/nft-dog.png" alt="DSGN Animals" class="nft-card__image">
-                            <div class="nft-card__meta-row">
-                                <img src="./assets/images/nft-cat.png" alt="" class="nft-card__avatar">
-                                <img src="./assets/images/nft-bear.png" alt="" class="nft-card__avatar">
-                                <span class="nft-card__badge js-counter" data-target="1025" data-suffix="+" data-duration="1200">0+</span>
-                                <!-- <span class="nft-card__badge">1025+</span> -->
-                            </div>
-                        </div>
-
-                        <div class="nft-card__body">
-                            <h3 class="nft-card__title">DSGN Animals</h3>
-                            <p class="nft-card__creator">
-                                <img src="./assets/images/fox-icon.png" alt="Fox-image" class="nft-card__creator-icon">
-                                MrFox
-                            </p>
-                        </div>
-
-                    </article>
-
-                    <article class="nft-card">
-                        <div class="nft-card__image-wrapper">
-                            <img src="./assets/images/mushroom.png" alt="DSGN Animals" class="nft-card__image">
-                            <div class="nft-card__meta-row">
-                                <img src="./assets/images/mushroom.png" alt="" class="nft-card__avatar">
-                                <img src="./assets/images/mushroom.png" alt="" class="nft-card__avatar">
-                                <span class="nft-card__badge js-counter" data-target="1025" data-suffix="+" data-duration="1200">0+</span>
-                            </div>
-                        </div>
-
-                        <div class="nft-card__body">
-                            <h3 class="nft-card__title">Magic Mushrooms</h3>
-                            <p class="nft-card__creator">
-                                <img src="./assets/images/avatar-ank.png" alt="Fox-image" class="nft-card__creator-icon">
-                                Shroomie
-                            </p>
-                        </div>
-
-                    </article>
-
-                    <article class="nft-card">
-                        <div class="nft-card__image-wrapper">
-                            <img src="./assets/images/robot.png" alt="DSGN Animals" class="nft-card__image">
-                            <div class="nft-card__meta-row">
-                                <img src="./assets/images/robot.png" alt="" class="nft-card__avatar">
-                                <img src="./assets/images/robot.png" alt="" class="nft-card__avatar">
-                                <span class="nft-card__badge js-counter" data-target="1025" data-suffix="+" data-duration="1200">0+</span>
-                            </div>
-                        </div>
-
-                        <div class="nft-card__body">
-                            <h3 class="nft-card__title">Disco Machines</h3>
-                            <p class="nft-card__creator">
-                                <img src="./assets/images/avatar-ank.png" alt="Fox-image" class="nft-card__creator-icon">
-                                BeKind2Robots
-                            </p>
-                        </div>
-
-                    </article>
-
-                    <!-- repeat .nft-card for Magic Mushrooms, Disco Machines -->
-                </div>
+                <p class="top-categories__status" id="topCategoriesStatus">Loading categories&hellip;</p>
+                <div class="top-categories__grid" id="topCategoriesGrid"></div>
             </div>
         </section>
 
@@ -220,7 +165,7 @@
 
                 <div class="browse-categories__flex">
 
-                    <article class="category">
+                    <a class="category" href="./marketplace.html#category=Art">
                         <div class="category__head">
                             <img src="./assets/images/category-1.png" alt="Category 1" class="category__image">
                             <svg class="category__icon" width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -233,9 +178,9 @@
                         <div class="category__body">
                             <h4 class="category__title">Art</h4>
                         </div>
-                    </article>
+                    </a>
 
-                    <article class="category">
+                    <a class="category" href="./marketplace.html#category=Collectibles">
                         <div class="category__head">
                             <img src="./assets/images/category-2.png" alt="Category 1" class="category__image">
 
@@ -249,9 +194,9 @@
                         <div class="category__body">
                             <h4 class="category__title">Collectibles</h4>
                         </div>
-                    </article>
+                    </a>
 
-                    <article class="category">
+                    <a class="category" href="./marketplace.html#category=Music">
                         <div class="category__head">
                             <img src="./assets/images/category-3.png" alt="Category 3" class="category__image">
 
@@ -266,9 +211,9 @@
                         <div class="category__body">
                             <h4 class="category__title">Music</h4>
                         </div>
-                    </article>
+                    </a>
 
-                    <article class="category">
+                    <a class="category" href="./marketplace.html#category=Photography">
                         <div class="category__head">
                             <img src="./assets/images/category-4.png" alt="Category 4" class="category__image">
 
@@ -281,9 +226,9 @@
                         <div class="category__body">
                             <h4 class="category__title">Photography</h4>
                         </div>
-                    </article>
+                    </a>
 
-                    <article class="category">
+                    <a class="category" href="./marketplace.html#category=Video">
                         <div class="category__head">
                             <img src="./assets/images/category-5.png" alt="Category 5" class="category__image">
 
@@ -296,9 +241,9 @@
                         <div class="category__body">
                             <h4 class="category__title">Video</h4>
                         </div>
-                    </article>
+                    </a>
 
-                    <article class="category">
+                    <a class="category" href="./marketplace.html#category=Utility">
                         <div class="category__head">
                             <img src="./assets/images/category-6.png" alt="Category 6" class="category__image">
 
@@ -317,9 +262,9 @@
                         <div class="category__body">
                             <h4 class="category__title">Utility</h4>
                         </div>
-                    </article>
+                    </a>
 
-                    <article class="category">
+                    <a class="category" href="./marketplace.html#category=Sport">
                         <div class="category__head">
                             <img src="./assets/images/category-7.png" alt="Category 7" class="category__image">
 
@@ -335,10 +280,10 @@
                         <div class="category__body">
                             <h4 class="category__title">Sport</h4>
                         </div>
-                    </article>
+                    </a>
 
                     <!-- This is the last 8th category -->
-                    <article class="category">
+                    <a class="category" href="./marketplace.html#category=Virtual%20Worlds">
                         <div class="category__head">
                             <img src="./assets/images/category-8.png" alt="Category 8" class="category__image">
 
@@ -350,7 +295,7 @@
                         <div class="category__body">
                             <h4 class="category__title">Virtual Worlds</h4>
                         </div>
-                    </article>
+                    </a>
 
                 </div>
             </div>
@@ -383,22 +328,26 @@
         </section>
 
 
-        <section class="auction">
-            <div class="auction__container container-section">
-                <picture class="auction__back-image">
-                    <source srcset="./assets/images/mushroom.png" media="(max-width: 900px)">
-                    <img src="./assets/images/auction-mushroom.png" alt="Mushroom">
-                </picture>
+        <!-- Was "Auction": a countdown to a date that had already passed, for
+             an auction that never existed (there is no auction model). Now it
+             spotlights the most traded NFT, with its real sale count and
+             volume — GET /api/trending/nfts, filled in by
+             assets/js/layout/hero.js. Hidden until that data arrives. -->
+        <section class="spotlight" id="spotlight" hidden>
+            <div class="spotlight__container container-section">
+                <div class="spotlight__back-image">
+                    <img alt="" id="spotlightImage">
+                </div>
 
-                <div class="auction__information">
-                    <div class="auction__creator">
-                        <img src="./assets/images/creator-7.png" class="auction__creator-image" width="24px" height="24px" alt="Auction creator">
-                        <h5 class="auction__creator-name">Shroomie</h5>
-                    </div>
+                <div class="spotlight__information">
+                    <a class="spotlight__creator" id="spotlightCreator" href="./rankings.html">
+                        <img class="spotlight__creator-image" width="24" height="24" alt="">
+                        <span class="spotlight__creator-name"></span>
+                    </a>
 
-                    <h2 class="auction__title">Magic Mushrooms</h2>
+                    <h2 class="spotlight__title" id="spotlightTitle"></h2>
 
-                    <a href="./marketplace.html" class="btn btn-primary auction__btn" data-parent-header="auction__information" data-parent-container="auction__container">
+                    <a href="./marketplace.html" class="btn btn-primary spotlight__btn" id="spotlightLink" data-parent-header="spotlight__information" data-parent-container="spotlight__container">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M2.83931 6.74556C4.3292 5.25567 6.66714 3.75 10 3.75C13.3329 3.75 15.6708 5.25567 17.1607 6.74556C17.9038 7.4887 18.4397 8.23076 18.7906 8.78809C18.9664 9.06724 19.0966 9.30146 19.184 9.4683C19.2277 9.55176 19.2608 9.61849 19.2835 9.66569C19.2949 9.6893 19.3037 9.70804 19.3099 9.72157L19.3174 9.7379L19.3197 9.74306L19.3206 9.74487L19.3209 9.74558C19.321 9.74588 19.3211 9.74616 18.75 10C19.3211 10.2538 19.321 10.2541 19.3209 10.2544L19.3206 10.2551L19.3197 10.2569L19.3174 10.2621L19.3099 10.2784C19.3037 10.292 19.2949 10.3107 19.2835 10.3343C19.2608 10.3815 19.2277 10.4482 19.184 10.5317C19.0966 10.6985 18.9664 10.9328 18.7906 11.2119C18.4397 11.7692 17.9038 12.5113 17.1607 13.2544C15.6708 14.7443 13.3329 16.25 10 16.25C6.66714 16.25 4.3292 14.7443 2.83931 13.2544C2.09617 12.5113 1.5603 11.7692 1.20939 11.2119C1.03362 10.9328 0.903373 10.6985 0.815984 10.5317C0.772267 10.4482 0.739205 10.3815 0.716476 10.3343C0.705109 10.3107 0.696319 10.292 0.690066 10.2784L0.682582 10.2621L0.680256 10.2569L0.679445 10.2551L0.679127 10.2544C0.678993 10.2541 0.678868 10.2538 1.25 10C0.678868 9.74616 0.678993 9.74588 0.679127 9.74558L0.679445 9.74487L0.680256 9.74306L0.682582 9.7379L0.690066 9.72157C0.696319 9.70804 0.705109 9.6893 0.716476 9.66569C0.739205 9.61849 0.772267 9.55176 0.815984 9.4683C0.903373 9.30146 1.03362 9.06724 1.20939 8.78809C1.5603 8.23076 2.09617 7.4887 2.83931 6.74556ZM1.25 10L0.678868 9.74616C0.607044 9.90777 0.607044 10.0922 0.678868 10.2538L1.25 10ZM1.94882 10C2.02235 10.1377 2.12794 10.3248 2.26718 10.5459C2.58033 11.0433 3.06008 11.7074 3.72319 12.3706C5.0458 13.6932 7.08286 15 10 15C12.9171 15 14.9542 13.6932 16.2768 12.3706C16.9399 11.7074 17.4197 11.0433 17.7328 10.5459C17.8721 10.3248 17.9777 10.1377 18.0512 10C17.9777 9.86227 17.8721 9.67524 17.7328 9.4541C17.4197 8.95674 16.9399 8.29255 16.2768 7.62944C14.9542 6.30683 12.9171 5 10 5C7.08286 5 5.0458 6.30683 3.72319 7.62944C3.06008 8.29255 2.58033 8.95674 2.26718 9.4541C2.12794 9.67524 2.02235 9.86227 1.94882 10ZM18.75 10L19.3211 10.2538C19.393 10.0922 19.393 9.90777 19.3211 9.74616L18.75 10Z" fill="#A259FF" />
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5ZM6.25 10C6.25 7.92893 7.92893 6.25 10 6.25C12.0711 6.25 13.75 7.92893 13.75 10C13.75 12.0711 12.0711 13.75 10 13.75C7.92893 13.75 6.25 12.0711 6.25 10Z" fill="#A259FF" />
@@ -407,24 +356,23 @@
                     </a>
                 </div>
 
-                <!-- Auction Timer -->
-                <aside class="auction__timer" 
-                    data-countdown data-target="2026-07-28T20:20:00" 
-                    data-storage-key="magic-mushroom-auction-4"
-                    data-sound="./assets/sounds/celebration.mp3">
-                    <h6 class="auction__timer-title">Auction ends in:</h6>
+                <aside class="spotlight__stats" aria-labelledby="spotlightStatsTitle">
+                    <h3 class="spotlight__stats-title" id="spotlightStatsTitle">Most traded NFT &middot; all time</h3>
 
-                    <div class="auction__timer-numbers">
-                        <h5 class="auction__timer-hours" data-label="hours">
-                        <span data-unit="hours">59</span><span class="auction__timer-label">:</span>
-                        </h5>
-                        <h5 class="auction__timer-minutes" data-label="minutes">
-                        <span data-unit="minutes">59</span><span class="auction__timer-label">:</span>
-                        </h5>
-                        <h5 class="auction__timer-seconds" data-label="seconds">
-                        <span data-unit="seconds">59</span>
-                        </h5>
-                    </div>
+                    <dl class="spotlight__stats-numbers">
+                        <div class="spotlight__stat">
+                            <dt>Sales</dt>
+                            <dd data-spotlight="sales"></dd>
+                        </div>
+                        <div class="spotlight__stat">
+                            <dt>Volume</dt>
+                            <dd data-spotlight="volume"></dd>
+                        </div>
+                        <div class="spotlight__stat">
+                            <dt>Price</dt>
+                            <dd data-spotlight="price"></dd>
+                        </div>
+                    </dl>
                 </aside>
             </div>
         </section>
@@ -618,19 +566,22 @@
     
     <!-- Loader script should go first then let other go through -->
     <script src="assets/js/components/page-loader.js"></script>
+
+    <!-- Where the API lives + apiFetch(); every script below relies on it -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/components/subscribe-form.js"></script>
     
     <!-- This helper checks user whether logged in or not -->
     <script type="module" src="assets/js/layout/auth-state.js"></script>
 
     <script src="assets/js/abstracts/functions.js"></script>
     <script src="assets/js/abstracts/counter.js"></script>
-    <script type="module" src="assets/js/abstracts/confetti.js"></script>
-    <script type="module" src="assets/js/abstracts/countdown.js"></script>
-    <!-- <script src="assets/js/abstracts/timer.js"></script> -->
     
     <script src="assets/js/layout/header.js"></script>
     <script src="assets/js/layout/nfts.js"></script>
     <script src="assets/js/components/nft-card.js"></script>
+    <script src="assets/js/layout/hero.js"></script>
+    <script src="assets/js/layout/top-categories.js"></script>
     <script src="assets/js/layout/top-creators.js"></script>
     <script src="assets/js/layout/discover-more.js"></script>
 

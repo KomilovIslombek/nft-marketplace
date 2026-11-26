@@ -5,8 +5,6 @@
 // to decide which fields are required and which API endpoint to call.
 // =====================================================
 
-const API_BASE = 'http://127.0.0.1:5000/api'; // must match your frontend's hostname exactly — see note below
-
 document.addEventListener('DOMContentLoaded', async () => {
   const form = document.querySelector('.auth-form');
   if (!form) return; // this script may load on pages without a form — bail quietly
@@ -45,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           ? { username: values.username, email: values.email, password: values.password }
           : { email: values.email, password: values.password };
 
-      const response = await fetch(`${API_BASE}${endpoint}`, {
+      const response = await apiFetch(`${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include', // required so the browser stores/sends the httpOnly auth cookie
@@ -80,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // login/register entirely instead of showing the form.
 async function redirectIfAuthenticated() {
   try {
-    const response = await fetch(`${API_BASE}/auth/me`, {
+    const response = await apiFetch(`/auth/me`, {
       credentials: 'include',
     });
 

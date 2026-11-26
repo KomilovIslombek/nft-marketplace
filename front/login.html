@@ -187,6 +187,10 @@
     <!-- Loader script should go first then let other go through -->
     <script src="assets/js/components/page-loader.js"></script>
 
+    <!-- Where the API lives + apiFetch(); every script below relies on it -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/components/subscribe-form.js"></script>
+
 
     <!-- This helper checks user whether logged in or not -->
     <!-- <script type="module" src="assets/js/layout/auth-state.js"></script> -->
@@ -201,12 +205,11 @@
     
     <script>
         document.getElementById('google-client-script').addEventListener('load', () => {
-            const API_BASE = 'http://127.0.0.1:5000/api'; // keep this in sync with auth-form.js
             
             google.accounts.id.initialize({
             client_id: '61205976503-dnj1t9kpr5ta6o8chdoc72doe09a8u42.apps.googleusercontent.com', // safe to expose publicly — this is the frontend-facing ID
             callback: async (response) => {
-                const res = await fetch(`${API_BASE}/auth/google`, {
+                const res = await apiFetch(`/auth/google`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include', // same as above — required to receive the httpOnly cookie

@@ -4,8 +4,6 @@
 // tab switching (Created / Owned / Collection) and logout.
 // =====================================================
 
-const API_BASE = 'http://127.0.0.1:5000/api';
-
 document.addEventListener('DOMContentLoaded', async () => {
   const isLoggedIn = await guardProfilePage();
   if (!isLoggedIn) return; // redirect already happened — don't wire up the rest of the page
@@ -59,7 +57,7 @@ function setupChangePassword() {
     submitBtn.textContent = 'Saving...';
 
     try {
-      const response = await fetch(`${API_BASE}/auth/change-password`, {
+      const response = await apiFetch(`/auth/change-password`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -105,7 +103,7 @@ function clearFormErrors(form) {
 // blank/broken profile page visible to a logged-out visitor.
 async function guardProfilePage() {
   try {
-    const response = await fetch(`${API_BASE}/auth/me`, {
+    const response = await apiFetch(`/auth/me`, {
       credentials: 'include',
     });
 
@@ -160,7 +158,7 @@ function setupLogout() {
 
   logoutBtn.addEventListener('click', async () => {
     try {
-      await fetch(`${API_BASE}/auth/logout`, {
+      await apiFetch(`/auth/logout`, {
         method: 'POST',
         credentials: 'include', // required so the browser actually clears the cookie
       });

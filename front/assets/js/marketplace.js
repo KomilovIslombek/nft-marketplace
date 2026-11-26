@@ -6,8 +6,6 @@
 // piece of state, rather than being three separate code paths.
 // =====================================================
 
-const API_BASE = 'http://127.0.0.1:5000/api'; // keep in sync with auth-form.js / auth-state.js
-
 // Single source of truth for "what should the grid currently show."
 // Every control (search, category chips, load more) mutates this and
 // then calls loadNfts() — nothing reads from the DOM to decide what
@@ -23,8 +21,8 @@ const state = {
 const LIMIT = 12;
 
 document.addEventListener('DOMContentLoaded', () => {
+  applyCategoryFromHash(); // before the first load, so it fetches the right page
   loadNfts({ reset: true });
-  setupTabs();
   setupSearch();
   setupCategoryFilters();
   setupLoadMore();
@@ -52,7 +50,7 @@ async function loadNfts({ reset }) {
     if (state.search) params.set('search', state.search);
     if (state.category) params.set('category', state.category);
 
-    const response = await fetch(`${API_BASE}/nfts?${params.toString()}`);
+    const response = await apiFetch(`/nfts?${params.toString()}`);
 
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
@@ -81,7 +79,7 @@ async function loadNfts({ reset }) {
     // Most likely cause during local dev: the backend isn't running.
     console.error('Could not load NFTs:', err);
     status.hidden = false;
-    status.textContent = "Couldn't load NFTs — is the backend running?";
+    status.textContent = "Couldn't load NFTs right now — please try again in a moment.";
     status.classList.add('marketplace-grid__status--error');
     loadMoreBtn.hidden = true;
   }
@@ -91,16 +89,21 @@ async function loadNfts({ reset }) {
 // nft-detail.js's "More from this artist" grid — load order in
 // marketplace.html puts that script before this one.
 
-// NFTs / Collections tab toggle. "Collections" has no backend data yet
-// (see README roadmap) — this just switches the active tab visually
-// until a real collections endpoint/grid exists.
-function setupTabs() {
-  document.querySelectorAll('.marketplace-tabs__tab').forEach((tab) => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.marketplace-tabs__tab').forEach((t) => t.classList.remove('is-active'));
-      tab.classList.add('is-active');
-    });
-  });
+// Links from the homepage (Browse Categories tiles, Top Categories cards)
+// arrive as marketplace.html#category=Art. A #fragment rather than
+// ?category= for the same reason as NFT links: the static server's
+// clean-URL redirect drops query strings (see components/nft-card.js).
+function applyCategoryFromHash() {
+  const category = new URLSearchParams(window.location.hash.slice(1)).get('category');
+  if (!category) return;
+
+  const chips = document.querySelectorAll('.marketplace-filters__chip');
+  const match = [...chips].find((chip) => chip.dataset.category === category);
+  if (!match) return; // unknown category in the link — just show everything
+
+  chips.forEach((chip) => chip.classList.remove('is-active'));
+  match.classList.add('is-active');
+  state.category = category;
 }
 
 // Search — fires on submit (Enter / clicking the icon) immediately, and

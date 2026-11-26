@@ -1,7 +1,13 @@
-.auction {
+// =====================================================
+// _SPOTLIGHT.SCSS
+// Full-width banner for the most traded NFT. Same layout as the Figma
+// "Auction" banner; the glass panel that held a fake countdown now holds
+// the NFT's real sale count, volume and price (assets/js/layout/hero.js).
+// =====================================================
+
+.spotlight {
     width: 100%;
-    height: 630px; // was: height — fixed height risked clipping stacked content
-    min-height: 630px; // was: height — fixed height risked clipping stacked content
+    min-height: 630px; // a min, not a fixed height — stacked content must never clip
     @include media-max($bp-mobile) {
         min-height: 590px;
     }
@@ -11,65 +17,63 @@
 
     margin-bottom: 100px;
 
+    &[hidden] {
+        display: none;
+    }
+
     &__container {
         padding-block: 60px;
-        height: 100%;
+        min-height: inherit;
         display: flex;
         align-items: end;
         justify-content: space-between;
-        flex-wrap: wrap; // was: wrap-reverse — that flipped stacking order on tablet
-        gap: 40px; // ensures spacing when info + timer wrap or stack
+        flex-wrap: wrap;
+        gap: 40px;
 
         @include media-max(800px) {
             flex-direction: column;
             justify-content: end;
             align-items: start;
-            gap: 40px;
         }
 
         @include media-max($bp-mobile) {
             gap: 24px;
         }
-        
     }
 
     &__back-image {
         position: absolute;
         inset: 0;
         z-index: -1;
-        width: 100%;
-        height: 100%;
-        display: block;
 
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            aspect-ratio: 1/2;
             display: block;
         }
     }
 
     &__creator {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
         border-radius: 20px;
         padding: 10px 20px;
-        width: 151px;
-        height: 44px;
-
         background: $background-secondary;
-        display: flex;
-        gap: 12px;
+        text-decoration: none;
+        @include work-sans(400, 16px, 140%);
+        color: $text-color-white;
+
+        &:hover {
+            background: lighten($background-secondary, 6%);
+        }
     }
 
     &__creator-image {
         width: 24px;
         height: 24px;
         border-radius: 50%;
-    }
-
-    &__creator-name {
-        @include work-sans(400, 16px, 140%);
-        color: $text-color-white;
     }
 
     &__title {
@@ -95,62 +99,56 @@
         }
     }
 
-    /* Timer starts from here */
-    &__timer {
+    // Glass stats panel
+    &__stats {
         border-radius: $radius-lg;
         padding: 30px;
-        min-width: min(295px, 100%);
-        min-height: 147px; // simplified — min(147px, 100%) didn't resolve to anything meaningful here
+        min-width: min(340px, 100%);
+        max-width: 100%;
         backdrop-filter: blur(10px);
-        background: rgba(59, 59, 59, 0.5);
 
-        // Ended state — reuses the same glass panel, just centers a message
-        &.is-ended {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        @include media-max($bp-mobile) {
+            width: 100%;
+            padding: 20px;
         }
+        background: rgba(59, 59, 59, 0.5);
     }
-    &__timer-title {
+
+    &__stats-title {
         @include space-mono(400, 12px, 110%);
         color: $text-color-white;
         margin-bottom: 10px;
     }
-    &__timer-numbers {
+
+    &__stats-numbers {
         display: flex;
         justify-content: space-between;
+        gap: 24px;
+        margin: 0;
+
         @include media-max($bp-mobile) {
-            flex-wrap: wrap;
+            gap: 12px;
         }
     }
-    &__timer-hours, &__timer-minutes, &__timer-seconds {
-        @include space-mono(700, 38px, 120%);
-        @include media-max($bp-mobile) {
-            @include space-mono(700, 28px, 120%);
-        }
-        text-transform: capitalize;
-        color: $text-color-white;
 
-        &::after {
-            content: attr(data-label);
-            display: block;
+    &__stat {
+        display: flex;
+        flex-direction: column-reverse; // value on top, label under it, as in the design
 
+        dt {
             @include space-mono(400, 12px, 110%);
             color: $text-color-white;
             margin-top: 5px;
         }
-    }
 
-    &__timer-label {
-        margin-inline: 10px;
-        transform: translateY(-3px);
+        dd {
+            margin: 0;
+            @include space-mono(700, 28px, 120%);
+            @include media-max($bp-mobile) {
+                @include space-mono(700, 22px, 120%);
+            }
+            color: $text-color-white;
+            white-space: nowrap;
+        }
     }
-}
-
-// Generic ended-message text, injected by countdown.js — not scoped to
-// .auction specifically, so it works wherever the module is reused
-.timer-ended-message {
-    @include space-mono(700, 20px, 120%);
-    color: $text-color-white;
-    text-align: center;
 }

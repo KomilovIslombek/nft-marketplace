@@ -15,8 +15,6 @@
 // and must never reach innerHTML.
 // =====================================================
 
-const TOP_CREATORS_API_BASE = 'http://127.0.0.1:5000/api'; // keep in sync with marketplace.js / rankings.js
-
 // Matches the eight cards the Figma section was designed around.
 const TOP_CREATORS_LIMIT = 8;
 
@@ -29,7 +27,7 @@ async function loadTopCreators() {
 
   try {
     const params = new URLSearchParams({ period: 'all', limit: TOP_CREATORS_LIMIT });
-    const response = await fetch(`${TOP_CREATORS_API_BASE}/rankings?${params.toString()}`);
+    const response = await apiFetch(`/rankings?${params.toString()}`);
 
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
@@ -47,7 +45,7 @@ async function loadTopCreators() {
   } catch (err) {
     // Most likely cause during local dev: the backend isn't running.
     console.error('Could not load top creators:', err);
-    status.textContent = "Couldn't load top creators — is the backend running?";
+    status.textContent = "Couldn't load top creators right now — please try again in a moment.";
     status.classList.add('top-creators__status--error');
   }
 }

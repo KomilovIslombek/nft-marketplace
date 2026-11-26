@@ -10,8 +10,6 @@
 // so nothing from the API is ever interpolated into innerHTML.
 // =====================================================
 
-const API_BASE = 'http://127.0.0.1:5000/api'; // keep in sync with marketplace.js / artist.js
-
 const DEFAULT_PERIOD = '30d';
 
 // Wording for the footnote under the table. The period label doubles as
@@ -45,7 +43,7 @@ async function loadRankings() {
 
   try {
     const params = new URLSearchParams({ period: state.period, limit: 50 });
-    const response = await fetch(`${API_BASE}/rankings?${params.toString()}`);
+    const response = await apiFetch(`/rankings?${params.toString()}`);
 
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
@@ -69,7 +67,7 @@ async function loadRankings() {
   } catch (err) {
     // Most likely cause during local dev: the backend isn't running.
     console.error('Could not load rankings:', err);
-    status.textContent = "Couldn't load rankings — is the backend running?";
+    status.textContent = "Couldn't load rankings right now — please try again in a moment.";
     status.classList.add('rankings__status--error');
   }
 }

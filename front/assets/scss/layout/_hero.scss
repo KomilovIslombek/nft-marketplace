@@ -141,7 +141,27 @@
 
     // Image card
     &__image-card {
-        // background: $background-secondary;
+        // An <a> now (it links to the real NFT), so reset link styling.
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        border-radius: 20px;
+        transition: transform $transition-base;
+
+        &:hover {
+            transform: translateY(-4px);
+        }
+
+        // Before hero.js fills it in: an empty card shape, not a picture
+        // credited to nobody.
+        &.is-loading .hero__image {
+            background: $background-secondary;
+        }
+
+        .hero__image {
+            display: block;
+            object-fit: cover;
+        }
 
         img {
             border-radius: 20px 20px 0 0;

@@ -107,3 +107,10 @@
         flex-shrink: 0;
     }
 }
+// Shown under the form after submit by components/subscribe-form.js —
+// there is no newsletter backend, and the note says so.
+.subscribe-form__note {
+    margin-top: 12px;
+    @include work-sans(400, 14px, 140%);
+    color: $caption-label-text;
+}

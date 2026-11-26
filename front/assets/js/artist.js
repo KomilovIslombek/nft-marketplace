@@ -7,8 +7,6 @@
 // scale) so switching tabs is instant, no re-fetch.
 // =====================================================
 
-const API_BASE = 'http://127.0.0.1:5000/api'; // keep in sync with marketplace.js / nft-detail.js
-
 document.addEventListener('DOMContentLoaded', loadArtist);
 
 async function loadArtist() {
@@ -23,9 +21,9 @@ async function loadArtist() {
 
   try {
     const [userRes, createdRes, ownedRes] = await Promise.all([
-      fetch(`${API_BASE}/users/${encodeURIComponent(artistId)}`),
-      fetch(`${API_BASE}/nfts?creator=${encodeURIComponent(artistId)}&limit=50`),
-      fetch(`${API_BASE}/nfts?owner=${encodeURIComponent(artistId)}&limit=50`),
+      apiFetch(`/users/${encodeURIComponent(artistId)}`),
+      apiFetch(`/nfts?creator=${encodeURIComponent(artistId)}&limit=50`),
+      apiFetch(`/nfts?owner=${encodeURIComponent(artistId)}&limit=50`),
     ]);
 
     if (!userRes.ok) {
@@ -45,7 +43,7 @@ async function loadArtist() {
     content.hidden = false;
   } catch (err) {
     console.error('Could not load artist:', err);
-    showError(status, "Couldn't load this artist — is the backend running?");
+    showError(status, "Couldn't load this artist right now — please try again in a moment.");
   }
 }
 
