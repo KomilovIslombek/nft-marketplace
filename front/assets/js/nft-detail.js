@@ -57,7 +57,7 @@ function renderNft(nft) {
 
   document.getElementById('nftTitle').textContent = nft.title;
 
-  const mintedDate = new Date(nft.createdAt).toLocaleDateString(undefined, {
+  const mintedDate = new Date(nft.createdAt).toLocaleDateString('en-US', { // the UI is English; don't mix in the visitor's locale
     year: 'numeric',
     month: 'long',
     day: 'numeric',

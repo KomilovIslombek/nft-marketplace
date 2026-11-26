@@ -107,3 +107,12 @@
 
     
 }
+.footer__source-link {
+    color: $text-color-white;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover {
+        color: $call-to-action;
+    }
+}

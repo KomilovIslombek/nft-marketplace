@@ -130,6 +130,13 @@
         padding: 20px 12px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         vertical-align: middle;
+
+        // Change / NFTs Sold / Volume line up under their right-aligned
+        // headers. text-align on the inner <span> alone did nothing — an
+        // inline element has no width to align within.
+        &:nth-child(n + 3) {
+            text-align: right;
+        }
     }
 
     tbody tr:last-child td {

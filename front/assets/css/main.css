@@ -3399,6 +3399,9 @@ body.is-authenticated .profile-grid:not([hidden]) {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   vertical-align: middle;
 }
+.rankings-table tbody td:nth-child(n+3) {
+  text-align: right;
+}
 .rankings-table tbody tr:last-child td {
   border-bottom: none;
 }
@@ -3654,4 +3657,13 @@ body.is-authenticated .profile-grid:not([hidden]) {
   font-size: 12px;
   line-height: 110%;
   color: #ccc;
+}
+
+.footer__source-link {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.footer__source-link:hover {
+  color: #a259ff;
 }

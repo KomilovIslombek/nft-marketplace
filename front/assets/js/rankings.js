@@ -169,6 +169,16 @@ function setupPeriodTabs() {
   const tabs = document.getElementById('rankingsPeriods');
   if (!tabs) return;
 
+  // rankings.html#period=all opens a specific tab (a #fragment, not
+  // ?period=, for the clean-URL reason explained in components/nft-card.js).
+  const fromHash = new URLSearchParams(window.location.hash.slice(1)).get('period');
+  const initialTab = fromHash && tabs.querySelector(`[data-period="${CSS.escape(fromHash)}"]`);
+  if (initialTab) {
+    tabs.querySelectorAll('.rankings-tabs__tab').forEach((t) => t.classList.remove('is-active'));
+    initialTab.classList.add('is-active');
+    state.period = fromHash;
+  }
+
   tabs.addEventListener('click', (e) => {
     const tab = e.target.closest('.rankings-tabs__tab');
     if (!tab || tab.dataset.period === state.period) return;
@@ -177,6 +187,7 @@ function setupPeriodTabs() {
     tab.classList.add('is-active');
 
     state.period = tab.dataset.period;
+    history.replaceState(null, '', `#period=${state.period}`); // shareable link to this tab
     loadRankings();
   });
 }
