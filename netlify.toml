@@ -20,11 +20,13 @@
 # `status = 200` makes it a rewrite (proxy), not a redirect.
 # `force = true` applies it even if a file with that path existed.
 #
-# >>> Replace the host below with your Render service URL if Render gave
-# >>> it a different name (Render dashboard -> your service -> top left).
+# The host is the Render service's real URL. Render Blueprints add a random
+# suffix to the service name (komilov-nft-api -> komilov-nft-api-6bjd), and
+# onrender.com names are first-come, first-served: never point this at a
+# name you haven't confirmed is your own service.
 [[redirects]]
   from = "/api/*"
-  to = "https://komilov-nft-api.onrender.com/api/:splat"
+  to = "https://komilov-nft-api-6bjd.onrender.com/api/:splat"
   status = 200
   force = true
 

@@ -10,7 +10,7 @@ Three free services, each doing one job:
 
 ```
 Browser ──> https://komilov-nft-marketplace.netlify.app/            static pages (Netlify CDN)
-        └─> https://komilov-nft-marketplace.netlify.app/api/...     ─proxy─> https://komilov-nft-api.onrender.com/api/...
+        └─> https://komilov-nft-marketplace.netlify.app/api/...     ─proxy─> https://komilov-nft-api-6bjd.onrender.com/api/...
                                                                      └─> MongoDB Atlas
 ```
 
@@ -96,8 +96,9 @@ Remove-Item Env:MONGODB_URI
 4. **Apply**. The first build takes a few minutes. When it's live, open
    `https://<service-name>.onrender.com/api/health`. It should return
    `{"status":"ok",...}`.
-5. Note the exact service URL (top left of the service page). It must be
-   exactly `https://komilov-nft-api.onrender.com`. If Render added a suffix,
+5. Note the exact service URL (top left of the service page). For this
+   deployment it is `https://komilov-nft-api-6bjd.onrender.com`, and
+   `netlify.toml` points there. On a fresh Blueprint the suffix differs:
    edit the `to = ...` line in [`netlify.toml`](../netlify.toml), commit and
    push. **This matters:** `*.onrender.com` names belong to whoever claims them
    first. The original name `nft-marketplace-api` was already someone else's
