@@ -31,9 +31,10 @@ looking broken, `apiFetch()` retries read-only requests while the server wakes
 up and shows a "Waking up the server…" note. If you want no wait at all, see
 step 6 (optional keep-alive ping).
 
-Creating the Render and Atlas accounts and entering the database password
-are yours to do. The Netlify project and the first frontend deploy are
-already done (step 4).
+**Status (2026-11-27): deployed.** Frontend:
+<https://komilov-nft-marketplace.netlify.app>. API: Render service
+`komilov-nft-api-6bjd`. Database: `nft-marketplace-prod` on the Atlas
+cluster. The steps below document how it was set up, and how to redo it.
 
 ---
 
@@ -113,11 +114,11 @@ the free subdomain Netlify gives every project; the name was picked on
 creation. Build settings come from [`netlify.toml`](../netlify.toml): publish
 `front/`, no build command.
 
-The first deploy was uploaded directly, not from GitHub. To make every push
-to `main` redeploy automatically, link the repository once:
-**Netlify → komilov-nft-marketplace → Project configuration → Build & deploy →
-Continuous deployment → Link repository** → GitHub → `nft-marketplace`,
-branch `main`. Leave the build settings empty: `netlify.toml` provides them.
+The project is linked to the GitHub repository (branch `main`), so every
+push redeploys the frontend. To link a fresh project the same way:
+**Project configuration → Build & deploy → Continuous deployment → Link
+repository** → GitHub → `nft-marketplace`, branch `main`. Leave the build
+settings empty: `netlify.toml` provides them.
 
 Once Render is up (step 3), open
 `https://komilov-nft-marketplace.netlify.app/api/health`. The API's JSON there

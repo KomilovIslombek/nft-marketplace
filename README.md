@@ -1,6 +1,6 @@
 # NFT Marketplace
 
-![Status](https://img.shields.io/badge/status-feature%20complete-brightgreen)
+![Status](https://img.shields.io/badge/status-live-brightgreen)
 [![Backend tests](https://github.com/KomilovIslombek/nft-marketplace/actions/workflows/test.yml/badge.svg)](https://github.com/KomilovIslombek/nft-marketplace/actions/workflows/test.yml)
 ![Node](https://img.shields.io/badge/node-%3E%3D20.19-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/express-5-000000?logo=express&logoColor=white)
@@ -12,7 +12,7 @@ frontend, a Node.js/Express REST API on the backend, MongoDB for storage, and
 JWT authentication (including Google OAuth). This is a personal portfolio
 project, built and documented the way a production app would be.
 
-**Live demo:** <https://komilov-nft-marketplace.netlify.app> (the API goes live with the Render step in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md))
+**Live demo:** **<https://komilov-nft-marketplace.netlify.app>** (frontend on Netlify, API on Render's free tier: the first load after ~15 idle minutes can take up to a minute while the server wakes up)
 · **Why it's built this way:** [docs/DECISIONS.md](docs/DECISIONS.md)
 
 > Every number on the site comes from the database. There are no hardcoded
@@ -264,8 +264,7 @@ on resales) is explained in [back/README.md](back/README.md#how-rankings-are-cal
 - [x] Homepage on real data: Top Creators, Discover More, hero stats, Top Categories (instead of "Trending Collection"), Spotlight (instead of "Auction")
 - [x] Backend integration tests + CI
 - [x] Production setup (Netlify + Render + Atlas) and deploy guide
-- [x] Frontend live on Netlify: https://komilov-nft-marketplace.netlify.app
-- [ ] Backend on Render + database on Atlas, following [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
+- [x] Live: https://komilov-nft-marketplace.netlify.app (Netlify + Render + Atlas). Every push to `main` redeploys both.
 
 Possible next steps:
 - [ ] A "create listing" form for `POST /api/nfts`, with image URL validation or upload

@@ -2,13 +2,11 @@
 
 ## Current step
 
-**Go live: the backend is left.** The frontend is deployed at
-https://komilov-nft-marketplace.netlify.app (Netlify project
-`komilov-nft-marketplace`). The API doesn't exist yet, so data sections
-show "couldn't load". Next: the owner follows
-[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) steps 1–3 and 5 (Atlas → seed →
-Render Blueprint → FRONTEND_URL + Google origin), and links the GitHub repo
-in Netlify for auto-deploys.
+**Live.** https://komilov-nft-marketplace.netlify.app runs end to end:
+Netlify (frontend, linked to GitHub `main`) → `/api` proxy → Render
+service `komilov-nft-api-6bjd` (Blueprint `nft-marketplace`, auto-deploys
+on push) → Atlas database `nft-marketplace-prod`. Nothing is blocked.
+Optional next: the possible-later items below, or an uptime ping.
 
 ## Roadmap
 
@@ -21,9 +19,10 @@ in Netlify for auto-deploys.
 | Production config (netlify.toml, render.yaml, config.js, CORS) + deploy guide | ✅ done 2026-11-26 |
 | Push to GitHub | ✅ done 2026-11-26 |
 | Netlify project + first frontend deploy | ✅ done 2026-11-26 |
-| Atlas + seed + Render API + Google OAuth origin | ⬜ owner, per docs/DEPLOYMENT.md |
-| Link the GitHub repo in Netlify (auto-deploy on push) | ⬜ owner, one click |
-| Put the live link in the README and the portfolio | ⬜ after deploy |
+| Atlas prod DB + seed, Render API, Google OAuth origin | ✅ done 2026-11-27 |
+| Netlify linked to GitHub (auto-deploy on push) | ✅ done 2026-11-27 |
+| Live link in the README | ✅ done 2026-11-27 |
+| Live link in the owner's portfolio / freelance profiles | ⬜ owner |
 
 Possible later: a create-listing form, a buy flow that writes `Sale`
 documents, rate limiting on auth.
@@ -39,8 +38,13 @@ Full reasoning in [docs/DECISIONS.md](docs/DECISIONS.md).
   proxy keeps the SameSite=Strict cookie first-party. (2026-11-26)
 - Live URL: the free Netlify subdomain `komilov-nft-marketplace.netlify.app`.
   The owner's own domain (islomkomilov.uz) is not to be touched for this
-  project. Render service name `komilov-nft-api`, because `nft-marketplace-api`
-  on onrender.com belongs to someone else. (2026-11-26)
+  project. Render service name `komilov-nft-api` (Render made it
+  `komilov-nft-api-6bjd`), because `nft-marketplace-api` on onrender.com
+  belongs to someone else. (2026-11-26)
+- Production DB `nft-marketplace-prod` on the existing Atlas cluster, using
+  the same database user as development (fine for a portfolio demo; a
+  separate prod-only user is a possible hardening step). The prod URI lives
+  locally in the gitignored `back/.env.production.local`. (2026-11-27)
 - Tests: node:test + supertest + mongodb-memory-server. (2026-11-26)
 - Seeded demo creators get random passwords, because the repo is public. (2026-11-26)
 - Newsletter forms stay but say they aren't connected; the Marketplace
@@ -52,6 +56,12 @@ Full reasoning in [docs/DECISIONS.md](docs/DECISIONS.md).
   750 free hours), or accept a ~1 min cold start?
 
 ## Done
+
+- 2026-11-27: live. Render Blueprint created (komilov-nft-api-6bjd), prod DB
+  seeded, Netlify proxy pointed at it, Google OAuth origin added, Netlify
+  linked to GitHub. Checked live: all pages 200, /api/health, stats,
+  trending, rankings (7d/30d populated), search, category filter,
+  /auth/me 401 for guests, CORS rejects foreign origins.
 
 - 2026-11-26: homepage fake sections replaced with real data; one API config
   (`config.js`) with cold-start retries; 35 backend integration tests + GitHub
